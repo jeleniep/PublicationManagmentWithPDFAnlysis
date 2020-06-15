@@ -1,0 +1,8 @@
+\BOOKMARK [1][-]{section.1}{Wstep}{}% 1
+\BOOKMARK [1][-]{section.2}{Opis dzia\233ania}{}% 2
+\BOOKMARK [1][-]{section.3}{Analiza funkcjonalna}{}% 3
+\BOOKMARK [1][-]{section.4}{Architektura techniczna}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Diagram komponent\363w}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Opis aplikacji serwerowej}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Metody analizy plik\363w PDF}{subsection.4.2}% 7
+\BOOKMARK [2][-]{subsection.4.3}{Opis aplikacji klienckiej\(mobilnej\)}{section.4}% 8
