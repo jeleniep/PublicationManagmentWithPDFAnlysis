@@ -1,0 +1,41 @@
+version: '3.7'
+
+secrets:
+  secrets:
+    file: ./secrets.json
+
+services:
+  server:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    command: npm run serve
+    environment: 
+      - ENV=dev
+    volumes:
+      - ./node:/usr/src/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+      - redis
+    secrets:
+      - secrets
+
+  mongo:
+    image: mongo
+    environment: 
+      - MONGO_INITDB_DATABASE=db
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo/mongo-volume:/data/db
+    expose:
+      - 27017
+
+  redis:
+    image: redis
+    expose:
+        - 6379
+

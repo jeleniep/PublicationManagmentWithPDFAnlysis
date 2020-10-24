@@ -1,5 +1,5 @@
-import PdfController from './pdf.controller'
+import PublicationsController from './publications/publications.controller'
 
 export {
-    PdfController
+    PublicationsController
 }

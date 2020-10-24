@@ -1,8 +1,8 @@
 import App from './app';
-import { PdfController } from './controllers'
+import { PublicationsController } from './controllers'
 
 const app = new App([
-    new PdfController() 
+    new PublicationsController() 
 ]);
 
 app.listen();

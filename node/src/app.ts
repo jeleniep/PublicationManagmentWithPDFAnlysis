@@ -4,7 +4,7 @@ import compression from 'compression';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
-import { createConnection } from "typeorm";
+import { initializeDb } from "./initializers";
 
 
 import Controller from './interfaces/controller.interface';
@@ -24,7 +24,7 @@ class App {
 
     constructor(controllers: Controller[]) {
         this.app = express();
-
+        initializeDb();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
         this.initializeErrorHandling();
