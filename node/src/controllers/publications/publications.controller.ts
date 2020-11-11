@@ -1,10 +1,10 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
 import Controller from '../../interfaces/controller.interface';
-import { wrapAsync } from '../../middleware';
-import { createQueryBuilder } from 'typeorm'
+import { wrapAsync, authMiddlewareUser, authMiddlewareOwner, validationMiddleware } from '../../middleware';
 import { promises as fs } from 'fs';
 import pdf from 'pdf-parse'
+import multer from 'multer'
 import {
     getPublications,
     getPublication,
@@ -12,6 +12,8 @@ import {
     deletePublication,
     editPublication
 } from './endpoints';
+import Publication from './publication.model';
+import { AddPublicationDto, EditPublicationDto } from './dto';
 
 class PublicationsController implements Controller {
     public readonly path = '/publications';
@@ -23,11 +25,12 @@ class PublicationsController implements Controller {
     private initializeRoutes() {
         const router = Router();
         router
+            // .get('/', authMiddlewareUser, wrapAsync(getPublications))
             .get('/', wrapAsync(getPublications))
-            .post('/', wrapAsync(addPublication))
-            .get('/:id', wrapAsync(getPublication))
-            .put('/:id', wrapAsync(editPublication))
-            .delete('/:id', wrapAsync(deletePublication))
+            .post('/', authMiddlewareUser, validationMiddleware(AddPublicationDto), wrapAsync(addPublication))
+            .get('/:id', authMiddlewareUser, wrapAsync(getPublication))
+            .put('/:id', authMiddlewareOwner(Publication), validationMiddleware(EditPublicationDto), wrapAsync(editPublication))
+            .delete('/:id', authMiddlewareOwner(Publication), wrapAsync(deletePublication))
 
 
         this.router.use(

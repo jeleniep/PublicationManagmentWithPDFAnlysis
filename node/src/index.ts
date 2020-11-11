@@ -1,8 +1,10 @@
 import App from './app';
-import { PublicationsController } from './controllers'
+import { PublicationsController, UsersController, CommentsController } from './controllers'
 
 const app = new App([
-    new PublicationsController() 
+    new PublicationsController(),
+    new UsersController(),
+    new CommentsController()
 ]);
 
 app.listen();

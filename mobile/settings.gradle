@@ -1,0 +1,2 @@
+rootProject.name='Publication Manager'
+include ':app'
