@@ -3,4 +3,24 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="publication_list">List of publications</string>
+    <string name="publication_details">Publication details</string>
+    <string name="add_publication">Add publication</string>
+    <string name="add_new_publication">Add new publication</string>
+    <string name="edit_publication">Edit publication</string>
+    <string name="name">name</string>
+    <string name="authors">authors</string>
+    <string name="description">description</string>
+    <string name="tags">tags</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="logout">Log out</string>
+    <string name="register">register</string>
+    <string name="login_to_publication_manager">Login to Publication Manager:</string>
+    <string name="user_details">User details</string>
+    <string name="user">user</string>
+    <string name="username">username</string>
+    <string name="save">save</string>
+
 </resources>

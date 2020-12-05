@@ -3,7 +3,7 @@ package com.jeleniep.publicationManager.model.users
 import com.google.gson.annotations.SerializedName
 
 
-class UserDTO {
+class UserResponse {
     @SerializedName("email")
     var email: String? = null
 

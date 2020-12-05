@@ -1,4 +1,3 @@
 package com.jeleniep.publicationManager.ui.publicationsList
 
-class PublicationListItem {
-}
+data class PublicationListItem (var _id: String, var name: String, var authors: String)

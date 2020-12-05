@@ -17,7 +17,14 @@ class EditPublicationDto {
     @ArrayMinSize(0)
     @Type(() => String)        
     public readonly authors: string;
-
+   
+    @IsOptional()
+    @IsArray()
+    @ValidateNested({ each: true })
+    @ArrayMinSize(0)
+    @Type(() => String)        
+    public readonly tags: string[];
+    
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })

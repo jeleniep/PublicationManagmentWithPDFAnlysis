@@ -1,4 +1,4 @@
-package com.jeleniep.publicationManager.ui.notifications
+package com.jeleniep.publicationManager.ui.publicationNew
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jeleniep.publicationManager.R
 
-class PublicationDetailsFragment : Fragment() {
+class PublicationNewFragment : Fragment() {
 
-    private lateinit var publicationDetailsViewModel: PublicationDetailsViewModel
+    private lateinit var publicationDetailsViewModel: PublicationNewViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class PublicationDetailsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         publicationDetailsViewModel =
-                ViewModelProviders.of(this).get(PublicationDetailsViewModel::class.java)
+                ViewModelProviders.of(this).get(PublicationNewViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_new_publication, container, false)
         val textView: TextView = root.findViewById(R.id.text_test)
         publicationDetailsViewModel.text.observe(viewLifecycleOwner, Observer {

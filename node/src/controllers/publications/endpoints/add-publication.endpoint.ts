@@ -5,7 +5,7 @@ import { UserAccountNotExist } from '../../../exceptions';
 
 
 const addPublication = async (req: Request, res: Response, next: NextFunction) => {
-    const { name, description, authors } = req.body;
+    const { name, description, authors, tags } = req.body;
     const { _id, email } = (<any>req).user;
     let user: UserType;
     try {
@@ -16,6 +16,7 @@ const addPublication = async (req: Request, res: Response, next: NextFunction) =
     const publication = new Publication();
     publication.name = name;
     publication.description = description;
+    publication.tags = tags;
     publication.authors = authors;
     publication.owners = [user]
     await publication.save();

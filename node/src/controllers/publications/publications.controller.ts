@@ -25,10 +25,11 @@ class PublicationsController implements Controller {
     private initializeRoutes() {
         const router = Router();
         router
-            // .get('/', authMiddlewareUser, wrapAsync(getPublications))
-            .get('/', wrapAsync(getPublications))
+            .get('/', authMiddlewareUser, wrapAsync(getPublications))
+            // .get('/', wrapAsync(getPublications))
             .post('/', authMiddlewareUser, validationMiddleware(AddPublicationDto), wrapAsync(addPublication))
-            .get('/:id', authMiddlewareUser, wrapAsync(getPublication))
+            // .get('/:id', authMiddlewareUser, wrapAsync(getPublication))
+            .get('/:id', wrapAsync(getPublication))
             .put('/:id', authMiddlewareOwner(Publication), validationMiddleware(EditPublicationDto), wrapAsync(editPublication))
             .delete('/:id', authMiddlewareOwner(Publication), wrapAsync(deletePublication))
 

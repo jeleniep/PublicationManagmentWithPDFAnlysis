@@ -1,12 +1,28 @@
 package com.jeleniep.publicationManager.model.publications
 
-import PublicationResponse
+import com.jeleniep.publicationManager.utils.BaseService
 import retrofit2.Call
-import retrofit2.http.GET
+import retrofit2.http.*
 
 
 interface PublicationService {
-    @GET("publications?")
-    fun getCurrentWeatherData(): Call<List<PublicationResponse>>
-//    fun getCurrentWeatherData(@Query("lat") lat: String, @Query("lon") lon: String, @Query("APPID") app_id: String): Call<WeatherResponse>
+    @GET("publications")
+    fun getPublications(@Header("Authorization") authToken: String): Call<List<PublicationDTO>>
+
+    @POST("publications")
+    fun addPublication(@Header("Authorization") authToken: String, @Body publication: PublicationDTO): Call<PublicationDTO>
+
+    @GET("publications/{id}")
+    fun getPublicationDetails(@Path("id") id: String): Call<PublicationDTO>
+
+    @PUT("publications/{id}")
+    fun editPublication(@Header("Authorization") authToken: String, @Path("id") id: String, @Body publication: PublicationDTO): Call<PublicationDTO>
+
+    companion object {
+        fun create(): PublicationService {
+            return BaseService.service.create(PublicationService::class.java)
+        }
+
+    }
+
 }

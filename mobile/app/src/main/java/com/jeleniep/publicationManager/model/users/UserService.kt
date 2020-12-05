@@ -1,29 +1,25 @@
-package com.jeleniep.publicationManager.model.publications
+package com.jeleniep.publicationManager.model.users
 
+import com.jeleniep.publicationManager.utils.BaseService
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
-interface PublicationService {
-    @GET("publications")
-    fun getPublications(): Call<List<PublicationResponse>>
+interface UserService {
 
-    @GET("publications/{id}")
-    fun getPublicationDetails(@Path("id") id: String): Call<PublicationResponse>
+    @POST("users/auth")
+    fun login(@Body loginBody: LoginBody): Call<UserDTO>
+
+    @GET("users/me")
+    fun checkUser(@Header("Authorization") authToken: String): Call<UserDTO>
+
+    @GET("users/{id}")
+    fun getUserDetails(@Header("Authorization") authToken: String, @Path("id") id: String): Call<UserDTO>
 
     companion object {
-        fun create(): PublicationService {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.21:3000/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            return retrofit.create(PublicationService::class.java)
+        fun create(): UserService {
+            return BaseService.service.create(UserService::class.java)
         }
-
     }
 
 }

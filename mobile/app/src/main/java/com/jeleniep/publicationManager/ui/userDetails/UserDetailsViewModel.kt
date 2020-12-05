@@ -1,13 +1,22 @@
-package com.jeleniep.publicationManager.ui.notifications
+package com.jeleniep.publicationManager.ui.userDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.jeleniep.PublicationManagerApplication
+import com.jeleniep.publicationManager.model.publications.PublicationDTO
+import com.jeleniep.publicationManager.model.publications.PublicationRepository
+import com.jeleniep.publicationManager.model.users.UserDTO
+import com.jeleniep.publicationManager.model.users.UserRepository
+import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 
-class NotificationsViewModel : ViewModel() {
+class UserDetailsViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    private val _user: MutableLiveData<UserDTO> by lazy {
+        val sharedPreferencesHelper =
+            SharedPreferencesHelper(PublicationManagerApplication.appContext!!)
+        val user =  UserRepository.getUserDetails(sharedPreferencesHelper.getAuthToken(), "me")
+        user
     }
-    val text: LiveData<String> = _text
+    val user: LiveData<UserDTO> = _user
 }

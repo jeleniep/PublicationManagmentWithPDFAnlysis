@@ -1,4 +1,12 @@
 package com.jeleniep.publicationManager.interfaces
 
-interface Observer {
+import com.jeleniep.publicationManager.model.errors.ErrorResponse
+
+interface RequestObserver<T> {
+
+    fun onSuccess(response: T)
+
+
+    fun onFail(errorResponse: ErrorResponse?, type: String)
+
 }

@@ -1,51 +1,83 @@
-package com.jeleniep.publicationManager.model.publications
+package com.jeleniep.publicationManager.model.users
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.jeleniep.publicationManager.interfaces.LoginObserver
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object PublicationRepository {
-    private val publicationService: PublicationService = PublicationService.create()
+object UserRepository {
+    private val userService: UserService = UserService.create()
 
-    fun getPublication(id: String): MutableLiveData<PublicationResponse> {
-        val publicationData: MutableLiveData<PublicationResponse> = MutableLiveData()
-        publicationService.getPublicationDetails(id).enqueue(object : Callback<PublicationResponse> {
+    fun loginUser(login: String, password: String, loginObserver: LoginObserver): UserDTO {
+        var userData = UserDTO()
+        val loginBody = LoginBody(login, password)
+        userService.login(loginBody).enqueue(object : Callback<UserDTO> {
             override fun onResponse(
-                call: Call<PublicationResponse>,
-                response: Response<PublicationResponse>
+                call: Call<UserDTO>,
+                response: Response<UserDTO>
             ) {
                 if (response.code() == 200) {
-                    val publicationResponse = response.body()!!
-                    Log.d("debug123a", publicationResponse!!.name)
-                    publicationData.value = publicationResponse!!
+                    val userResponse = response.body()!!
+                    Log.d("debug123a", userResponse!!.authToken)
+                    userData = userResponse!!
+                    loginObserver.onUserLoginSuccessful(userData)
                 }
             }
 
-            override fun onFailure(call: Call<PublicationResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UserDTO>, t: Throwable) {
                 Log.d("debug", t.message);
-                publicationData.value = null
             }
 
         })
-
-        return publicationData
-
-//        .enqueue(object : Callback<PublicationResponse>() {
-//            override fun onResponse(
-//                call: Call<NewsResponse?>?,
-//                response: Response<NewsResponse?>
-//            ) {
-//                if (response.isSuccessful()) {
-//                    newsData.setValue(response.body())
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<NewsResponse?>?, t: Throwable?) {
-//                newsData.setValue(null)
-//            }
-//        })
+        return userData
     }
+
+    fun checkUser(authToken: String, loginObserver: LoginObserver): UserDTO {
+        var userData = UserDTO()
+
+        userService.checkUser("Bearer $authToken").enqueue(object : Callback<UserDTO> {
+            override fun onResponse(
+                call: Call<UserDTO>,
+                response: Response<UserDTO>
+            ) {
+                if (response.code() == 200) {
+                    val userResponse = response.body()!!
+                    userData = userResponse!!
+                    loginObserver.onUserLoginSuccessful(userData)
+                }
+            }
+
+            override fun onFailure(call: Call<UserDTO>, t: Throwable) {
+                Log.d("debug", t.message);
+            }
+
+        })
+        return userData
+    }
+
+    fun getUserDetails(authToken: String, id: String): MutableLiveData<UserDTO> {
+        val userData: MutableLiveData<UserDTO> = MutableLiveData()
+        userService.getUserDetails("Bearer $authToken", id)
+            .enqueue(object : Callback<UserDTO> {
+                override fun onResponse(
+                    call: Call<UserDTO>,
+                    response: Response<UserDTO>
+                ) {
+                    if (response.code() == 200) {
+                        val userResponse = response.body()!!
+                        userData.value = userResponse!!
+                    }
+                }
+
+                override fun onFailure(call: Call<UserDTO>, t: Throwable) {
+                    userData.value = null
+                }
+
+            })
+        return userData
+    }
+
 
 }

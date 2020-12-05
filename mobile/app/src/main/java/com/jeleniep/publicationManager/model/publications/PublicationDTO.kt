@@ -3,7 +3,7 @@ package com.jeleniep.publicationManager.model.publications
 import com.google.gson.annotations.SerializedName
 
 
-class PublicationResponse {
+class PublicationDTO {
     @SerializedName("name")
     var name: String? = null
 
@@ -16,6 +16,11 @@ class PublicationResponse {
     @SerializedName("_id")
     var _id: String? = null
 
+    @SerializedName("message")
+    var message: String? = null
+
+    @SerializedName("code")
+    var code: String? = null
 
 
 }
