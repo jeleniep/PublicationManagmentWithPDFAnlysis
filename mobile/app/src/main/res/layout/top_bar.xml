@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/blue">
+
+    <ImageButton
+        android:id="@+id/iv_left"
+        style="@style/ToolbarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/toolbar_icon_margin"
+        android:layout_marginStart="@dimen/toolbar_icon_margin"
+        android:src="@drawable/ic_drawer"
+        />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/ToolbarText"
+        android:layout_toEndOf="@id/iv_left"
+        android:layout_toRightOf="@id/iv_left"
+        android:layout_toLeftOf="@id/iv_right"
+        android:layout_toStartOf="@id/iv_right"
+        android:textColor="@color/white"
+        tools:text="[TITLE]"/>
+
+    <ImageButton
+        android:id="@+id/iv_right"
+        style="@style/ToolbarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/toolbar_icon_margin"
+        android:layout_marginEnd="@dimen/toolbar_icon_margin"
+        tools:src="@android:drawable/ic_delete"
+        tools:visibility="visible"
+        />
+</RelativeLayout>
