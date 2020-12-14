@@ -23,5 +23,6 @@ export const CONTROLLERS_PREFIX = 'v1';
 
 export const {
     ADMIN_EMAIL,
-    ADMIN_PASSWORD
+    ADMIN_PASSWORD,
+    PATH_TO_PDF
 } = secretsJson;

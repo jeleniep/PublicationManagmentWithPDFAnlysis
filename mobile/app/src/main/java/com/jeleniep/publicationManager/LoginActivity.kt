@@ -1,5 +1,6 @@
 package com.jeleniep.publicationManager
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.jeleniep.publicationManager.model.users.UserDTO
 import com.jeleniep.publicationManager.model.users.UserRepository
 import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_login.*
+import pub.devrel.easypermissions.EasyPermissions
 
 class LoginActivity : AppCompatActivity(), LoginObserver {
 
@@ -31,12 +33,17 @@ class LoginActivity : AppCompatActivity(), LoginObserver {
         val loginButton: Button = button_login
         loginButton.setOnClickListener(LoginButtonOnClickListener(this))
         val registerButton: Button = button_register
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            EasyPermissions.requestPermissions(this, "Can read memory?", 0, Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
         val authToken = sharedPreferencesHelper.getAuthToken()
         if (authToken != null) {
             Log.d("debug", authToken)
             val loginResponse = UserRepository.checkUser(authToken, this)
 //            val intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
+
+
         }
 
     }

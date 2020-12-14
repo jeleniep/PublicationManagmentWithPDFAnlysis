@@ -24,9 +24,35 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
+            <ImageView
+                android:id="@+id/pdf_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_pdf_document_black_24dp"
+                android:visibility="visible"
+                android:layout_alignParentLeft="true"                />
 
-            <ImageButton
-                android:id="@+id/unlock_edition_button"
+            <Button
+                android:id="@+id/select_pdf_button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:padding="5dp"
+                android:text="@string/select_pdf"
+                android:scaleType="fitCenter"
+                android:visibility="visible"
+                android:enabled="true"
+                android:layout_toRightOf="@id/pdf_icon"/>
+
+
+            <ImageView
+                android:id="@+id/unlock_edition_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
@@ -35,7 +61,17 @@
                 android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_lock_outline_closed_black_24dp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:layout_toLeftOf="@+id/unlock_edition_switch"
+                />
+
+            <Switch
+                android:id="@+id/unlock_edition_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                />
 
         </RelativeLayout>
 

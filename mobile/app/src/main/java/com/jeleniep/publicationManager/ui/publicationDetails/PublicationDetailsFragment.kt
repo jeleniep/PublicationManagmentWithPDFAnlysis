@@ -1,31 +1,41 @@
 package com.jeleniep.publicationManager.ui.publicationDetails
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
-import com.jeleniep.PublicationManagerApplication
+import com.jeleniep.publicationManager.PublicationDetailsActivity
 import com.jeleniep.publicationManager.R
 import com.jeleniep.publicationManager.interfaces.PublicationListObserver
+import com.jeleniep.publicationManager.interfaces.RequestObserver
 import com.jeleniep.publicationManager.model.errors.ErrorResponse
 import com.jeleniep.publicationManager.model.publications.PublicationDTO
 import com.jeleniep.publicationManager.model.publications.PublicationRepository
 import com.jeleniep.publicationManager.utils.Helpers
-import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.InputStream
 
 
-class PublicationDetailsFragment(private var _id: String?, private var isEditionActive: Boolean) :
-    Fragment(), PublicationListObserver {
+open class PublicationDetailsFragment(
+    private var _id: String?,
+    private var isEditionActive: Boolean
+) :
+    Fragment(), RequestObserver<PublicationDTO> {
 
     private lateinit var publicationDetailsViewModel: PublicationDetailsViewModel
     private lateinit var viewModelFactory: PublicationDetailsViewModelFactory
@@ -33,11 +43,17 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
     private lateinit var publicationAuthorsTextView: TextInputEditText
     private lateinit var publicationDescriptionTextView: TextInputEditText
     private lateinit var publicationTagsTextView: TextInputEditText
-    private lateinit var unlockEditionButton: ImageButton
+    private lateinit var unlockEditionSwitch: Switch
+    private lateinit var unlockEditionImageView: ImageView
     private lateinit var saveButton: Button
+    private lateinit var selectPdfButton: Button
     private lateinit var root: View
     private lateinit var outAnimation: Animation
     private lateinit var inAnimation: Animation
+    private val PICK_PDF_FILE = 2
+    private lateinit var filePart: MultipartBody.Part
+    private lateinit var filePath: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,9 +66,11 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
         root = inflater.inflate(R.layout.fragment_publication_details, container, false)
         outAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
         inAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-        unlockEditionButton = root.findViewById(R.id.unlock_edition_button)
+        unlockEditionSwitch = root.findViewById(R.id.unlock_edition_switch)
+        unlockEditionImageView = root.findViewById(R.id.unlock_edition_icon)
         saveButton = root.findViewById(R.id.save_button)
-        initiateUnlockEditionButton(isEditionActive)
+        selectPdfButton = root.findViewById(R.id.select_pdf_button)
+        initiateUnlockEditionSwitch(isEditionActive)
 
         publicationNameTextView =
             root.findViewById(R.id.publication_name_text_input_edit_text)
@@ -65,17 +83,19 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
 
         changeEditionState(isEditionActive)
         if (isEditionActive) {
-            unlockEditionButton.setImageResource(R.drawable.ic_lock_outline_open_black_24dp);
+            unlockEditionSwitch.isChecked = isEditionActive;
         }
-
+        filePath = ""
         publicationDetailsViewModel.publication.observe(viewLifecycleOwner, Observer {
             publicationNameTextView.text = Helpers.stringToEditable(it.name)
             publicationAuthorsTextView.text = Helpers.listOfStringsToEditable(it.authors)
             publicationDescriptionTextView.text = Helpers.stringToEditable(it.description);
+            if (it.file != null)
+                filePath = it.file!!
 //            publicationTagsTextView.text = Editable.Factory.getInstance().newEditable(it.name);
         })
         saveButton.setOnClickListener(SaveButtonOnClickListener(this))
-
+        selectPdfButton.setOnClickListener(SelectPdfButtonOnClickListener())
         return root
 
     }
@@ -85,34 +105,44 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
             val layout: RelativeLayout = root.findViewById(R.id.main_layout)
             layout.requestFocus()
             changeEditionState(!isEditionActive)
-            unlockEditionButton.startAnimation(outAnimation);
         }
     }
 
-    inner class SaveButtonOnClickListener(private val publicationListObserver: PublicationListObserver) :
+    inner class SaveButtonOnClickListener(private val requestObserver: RequestObserver<PublicationDTO>) :
         View.OnClickListener {
         override fun onClick(v: View?) {
             val layout: RelativeLayout = root.findViewById(R.id.main_layout)
             layout.requestFocus()
             changeEditionState(!isEditionActive)
 
-            unlockEditionButton.startAnimation(outAnimation);
-            val sharedPreferencesHelper =
-                SharedPreferencesHelper(PublicationManagerApplication.appContext!!)
-
-            val token = sharedPreferencesHelper.getAuthToken()
+//            unlockEditionButton.startAnimation(outAnimation);
             val publicationDTO = PublicationDTO().apply {
                 name = publicationNameTextView.text.toString()
                 description = publicationDescriptionTextView.text.toString()
                 authors = publicationAuthorsTextView.text.toString().split(", ")
+                file = filePath
             }
             if (_id != null) {
-                PublicationRepository.editPublication(token, _id!!,  publicationDTO, publicationListObserver)
-
+                PublicationRepository.editPublication(
+                    _id!!,
+                    publicationDTO,
+                    requestObserver
+                )
             } else {
-                PublicationRepository.addPublication(token, publicationDTO, publicationListObserver)
+                PublicationRepository.addPublication(publicationDTO, requestObserver)
 
             }
+        }
+    }
+
+    inner class OnRemoveClickListener(private val requestObserver: RequestObserver<PublicationDTO>) :
+        Toolbar.OnMenuItemClickListener {
+        override fun onMenuItemClick(item: MenuItem?): Boolean {
+            Log.d("debug", "remove")
+            if (_id != null) {
+                PublicationRepository.deletePublication(_id!!, requestObserver)
+            }
+            return true
         }
     }
 
@@ -120,6 +150,23 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
         super.onResume()
         val layout: RelativeLayout = root.findViewById(R.id.main_layout)
         layout.requestFocus()
+        if (_id != null) {
+            (activity as PublicationDetailsActivity).toolbarTitle.text =
+                (activity as PublicationDetailsActivity).getString(R.string.app_name)
+            if (!(activity as PublicationDetailsActivity).topToolbar.menu.hasVisibleItems()) {
+                (activity as PublicationDetailsActivity).topToolbar.inflateMenu(R.menu.publication_details_menu_items)
+                (activity as PublicationDetailsActivity).topToolbar.setOnMenuItemClickListener(
+                    OnRemoveClickListener(this)
+                )
+            }
+            selectPdfButton.text = getString(R.string.open_pdf)
+
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as PublicationDetailsActivity).topToolbar.menu.clear()
     }
 
     private fun changeEditionState(state: Boolean) {
@@ -128,13 +175,16 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
         publicationAuthorsTextView.isEnabled = state
         publicationDescriptionTextView.isEnabled = state
         saveButton.isEnabled = state
+//        selectPdfButton.isEnabled = state
         publicationTagsTextView.isEnabled = state
-
+        unlockEditionImageView.startAnimation(outAnimation);
+//        unlockEditionSwitch.isChecked = state
     }
 
-    private fun initiateUnlockEditionButton(state: Boolean) {
+    private fun initiateUnlockEditionSwitch(state: Boolean) {
 
-        unlockEditionButton.setOnClickListener(UnlockEditionOnClickListener())
+        unlockEditionSwitch.isChecked = state;
+        unlockEditionSwitch.setOnClickListener(UnlockEditionOnClickListener())
         outAnimation.setAnimationListener(object : Animation.AnimationListener {
 
             override fun onAnimationStart(animation: Animation?) {
@@ -149,28 +199,35 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
                 // Modify the resource of the ImageButton
                 val resId: Int =
                     if (isEditionActive) R.drawable.ic_lock_outline_open_black_24dp else R.drawable.ic_lock_outline_closed_black_24dp
-                unlockEditionButton.setImageResource(resId);
+                unlockEditionImageView.setImageResource(resId);
 
                 // Create the new Animation to apply to the ImageButton.
-                unlockEditionButton.startAnimation(inAnimation);
+                unlockEditionImageView.startAnimation(inAnimation);
             }
         })
     }
 
-    override fun onPublicationUpdateSuccess(publicationDTO: PublicationDTO, type: String) {
-        val actionName = if (type == "create") "added" else "updated"
+    override fun onSuccess(publicationDTO: PublicationDTO, type: String) {
+
+        var actionName = ""
+        if (type == "create") else "updated"
+        when (type) {
+            "create" -> actionName = "added"
+            "update" -> actionName = "updated"
+            "delete" -> actionName = "deleted"
+        }
         var toast: Toast =
             Toast.makeText(
-            context,
-            "Publication ${publicationDTO.name} successfully $actionName",
-            Toast.LENGTH_LONG
-        )
+                context,
+                "Publication ${publicationDTO.name} successfully $actionName",
+                Toast.LENGTH_LONG
+            )
 
         toast.show()
         activity?.onBackPressed()
     }
 
-    override fun onPublicationUpdateFail(errorResponse: ErrorResponse?, type: String) {
+    override fun onFail(errorResponse: ErrorResponse?, type: String) {
         if (errorResponse != null) {
             val toast = Toast.makeText(
                 context,
@@ -182,5 +239,50 @@ class PublicationDetailsFragment(private var _id: String?, private var isEdition
         changeEditionState(!isEditionActive)
 
     }
+
+    inner class SelectPdfButtonOnClickListener() :
+        View.OnClickListener {
+        override fun onClick(v: View?) {
+            if (_id != null) {
+                PublicationRepository.getPublicationPdf(_id!!);
+            } else {
+                openFile(Uri.EMPTY)
+            }
+        }
+    }
+
+
+    fun openFile(pickerInitialUri: Uri) {
+        var intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            type = "application/pdf"
+        }
+        intent = Intent.createChooser(intent, "Choose a file");
+        startActivityForResult(intent, PICK_PDF_FILE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == PICK_PDF_FILE) {
+            if (resultCode == RESULT_OK) {
+                resultData?.data?.also { uri ->
+
+                    val inputStream: InputStream = activity?.contentResolver?.openInputStream(uri)!!
+                    filePart = MultipartBody.Part.createFormData(
+                        "file", "${uri.path}", RequestBody.create(
+                            MediaType.parse("application/pdf"),
+                            inputStream.readBytes()
+                        )
+                    )
+                    PublicationRepository.addPublicationFromPdf(
+                        filePart,
+                        publicationDetailsViewModel
+                    )
+                    Toast.makeText(context, "Path: ${inputStream.available()}", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
 
 }

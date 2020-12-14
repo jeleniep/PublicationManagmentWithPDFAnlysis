@@ -22,5 +22,8 @@ class PublicationDTO {
     @SerializedName("code")
     var code: String? = null
 
+    @SerializedName("file")
+    var file: String? = null
+
 
 }

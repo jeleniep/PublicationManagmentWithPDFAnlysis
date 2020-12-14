@@ -47,33 +47,28 @@ class PublicationsListFragment : Fragment(), PublicationAdapter.OnItemClickListe
         (activity as MainActivity).topToolbar.collapseIcon =
             activity.getDrawable(R.drawable.ic_arrow_back_black_24dp)
         isStopped = false
-        //        topToolbar.setNavigationOnClickListener { onBackPressed() }
         return root
     }
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).toolbarTitle.text = (activity as MainActivity).getString(R.string.app_name)
-
-        (activity as MainActivity).topToolbar.inflateMenu(R.menu.menu_items)
-        (activity as MainActivity).topToolbar.setOnMenuItemClickListener(OnAddClickListener())
-        if (isStopped) {
-            publicationsListModel.refreshList()
-            isStopped = false
-            Log.d("debug", "refresh")
-
+        (activity as MainActivity).toolbarTitle.text =
+            (activity as MainActivity).getString(R.string.app_name)
+        if (!(activity as MainActivity).topToolbar.menu.hasVisibleItems()) {
+            (activity as MainActivity).topToolbar.inflateMenu(R.menu.menu_items)
+            (activity as MainActivity).topToolbar.setOnMenuItemClickListener(OnAddClickListener())
+            if (isStopped) {
+                publicationsListModel.refreshList()
+                isStopped = false
+            }
         }
     }
-
-
 
 
     override fun onStop() {
         isStopped = true
         super.onStop()
         (activity as MainActivity).topToolbar.menu.clear()
-        Log.d("debug", "stop")
-
     }
 
     inner class OnAddClickListener : Toolbar.OnMenuItemClickListener {

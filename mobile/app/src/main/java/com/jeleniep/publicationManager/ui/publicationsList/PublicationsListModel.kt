@@ -14,20 +14,17 @@ import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 class PublicationsListModel : ViewModel(), RequestObserver<ArrayList<PublicationListItem>> {
 
     private val _publications: MutableLiveData<List<PublicationListItem>> by lazy {
-        val sharedPreferencesHelper =
-            SharedPreferencesHelper(PublicationManagerApplication.appContext!!)
-        val list = PublicationRepository.getPublications(sharedPreferencesHelper.getAuthToken())
+
+        val list = PublicationRepository.getPublications()
         list
     }
     var publications: LiveData<List<PublicationListItem>> = _publications
 
     fun refreshList() {
-        val sharedPreferencesHelper =
-            SharedPreferencesHelper(PublicationManagerApplication.appContext!!)
-        PublicationRepository.getPublications(sharedPreferencesHelper.getAuthToken(), this)
+        PublicationRepository.getPublications(this)
     }
 
-    override fun onSuccess(response: ArrayList<PublicationListItem>) {
+    override fun onSuccess(response: ArrayList<PublicationListItem>, type: String) {
         _publications.postValue(response)
     }
 

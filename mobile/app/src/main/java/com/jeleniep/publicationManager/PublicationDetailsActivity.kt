@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jeleniep.publicationManager.ui.publicationDetails.PublicationDetailsFragment
-import com.jeleniep.publicationManager.ui.publicationNew.PublicationNewFragment
 
 import com.jeleniep.publicationManager.ui.utils.Constants.Companion.MESSAGE_FROM_LIST_FRAGMENT
 import kotlinx.android.synthetic.main.activity_publication_details.*
