@@ -9,6 +9,7 @@ export interface IPublication {
     authors: string[],
     file?: string,
     description: string,
+    doi?: string,
     tags: string[],
 
 }
@@ -19,6 +20,7 @@ export const PublicationSchema = new Schema({
     file: { type: String, required: false },
     owners: [{  type: mongoose.Types.ObjectId, ref: 'User', required: true }],
     description: { type: String, required: false },
+    doi: { type: String, required: false },
     tags: [{ type: String, required: false }]
 }, {
     timestamps: true

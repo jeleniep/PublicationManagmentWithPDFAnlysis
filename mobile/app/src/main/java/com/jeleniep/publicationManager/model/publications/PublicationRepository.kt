@@ -1,10 +1,12 @@
 package com.jeleniep.publicationManager.model.publications
 
+import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jeleniep.PublicationManagerApplication
+import com.jeleniep.publicationManager.interfaces.OpenPdfCallback
 import com.jeleniep.publicationManager.interfaces.RequestObserver
 import com.jeleniep.publicationManager.model.errors.ErrorResponse
 import com.jeleniep.publicationManager.ui.publicationsList.PublicationListItem
@@ -54,7 +56,7 @@ object PublicationRepository {
         File(path).outputStream().use { this.copyTo(it) }
     }
 
-    fun getPublicationPdf(id: String) {
+    fun getPublicationPdf(id: String, callback: OpenPdfCallback) {
         val authToken = sharedPreferencesHelper.getAuthToken()
 
         publicationService.getPublicationPdf(authToken, id)
@@ -65,13 +67,16 @@ object PublicationRepository {
                 ) {
                     if (response.code() == 200) {
                         val inputStream: InputStream = response.body()!!.byteStream()
-                        inputStream.toFile(PublicationManagerApplication.appContext!!.filesDir.absolutePath + "/" + id + ".pdf")
+                        val path =
+                            PublicationManagerApplication.appContext!!.getExternalFilesDir(null)!!.absolutePath + "/" + id + ".pdf"
+//                        inputStream.toFile(PublicationManagerApplication.appContext!!.filesDir.absolutePath + "/" + id + ".pdf")
+                        inputStream.toFile(path)
                         Log.d(
                             "debug",
-                            PublicationManagerApplication.appContext!!.filesDir.absolutePath
-                        );
-                        File(PublicationManagerApplication.appContext!!.filesDir.absolutePath).listFiles().forEach { println(it) }
-
+                            PublicationManagerApplication.appContext!!.getExternalFilesDir(null)!!.path
+                        )
+                        File(PublicationManagerApplication.appContext!!.getExternalFilesDir(null)!!.absolutePath).listFiles().forEach { Log.d("debug", it.absolutePath); }
+                        callback.onPdfDownloaded(path);
 
                     }
                 }
@@ -155,7 +160,7 @@ object PublicationRepository {
         observer: RequestObserver<PublicationDTO>
     ) {
         val authToken = sharedPreferencesHelper.getAuthToken()
-
+        Log.d("debug123a", publication!!.doi + "doi")
         publicationService.addPublication("Bearer $authToken", publication)
             .enqueue(object : Callback<PublicationDTO> {
                 override fun onResponse(

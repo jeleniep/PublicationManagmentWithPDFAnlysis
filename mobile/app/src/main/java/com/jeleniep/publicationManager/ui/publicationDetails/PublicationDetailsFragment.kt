@@ -13,13 +13,14 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.jeleniep.publicationManager.PublicationDetailsActivity
 import com.jeleniep.publicationManager.R
-import com.jeleniep.publicationManager.interfaces.PublicationListObserver
+import com.jeleniep.publicationManager.interfaces.OpenPdfCallback
 import com.jeleniep.publicationManager.interfaces.RequestObserver
 import com.jeleniep.publicationManager.model.errors.ErrorResponse
 import com.jeleniep.publicationManager.model.publications.PublicationDTO
@@ -28,6 +29,7 @@ import com.jeleniep.publicationManager.utils.Helpers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.File
 import java.io.InputStream
 
 
@@ -35,7 +37,7 @@ open class PublicationDetailsFragment(
     private var _id: String?,
     private var isEditionActive: Boolean
 ) :
-    Fragment(), RequestObserver<PublicationDTO> {
+    Fragment(), RequestObserver<PublicationDTO>, OpenPdfCallback {
 
     private lateinit var publicationDetailsViewModel: PublicationDetailsViewModel
     private lateinit var viewModelFactory: PublicationDetailsViewModelFactory
@@ -53,6 +55,7 @@ open class PublicationDetailsFragment(
     private val PICK_PDF_FILE = 2
     private lateinit var filePart: MultipartBody.Part
     private lateinit var filePath: String
+    private lateinit var pdfDoi: String
 
 
     override fun onCreateView(
@@ -92,10 +95,12 @@ open class PublicationDetailsFragment(
             publicationDescriptionTextView.text = Helpers.stringToEditable(it.description);
             if (it.file != null)
                 filePath = it.file!!
+            if (it.doi != null)
+                pdfDoi = it.doi!!
 //            publicationTagsTextView.text = Editable.Factory.getInstance().newEditable(it.name);
         })
         saveButton.setOnClickListener(SaveButtonOnClickListener(this))
-        selectPdfButton.setOnClickListener(SelectPdfButtonOnClickListener())
+        selectPdfButton.setOnClickListener(SelectPdfButtonOnClickListener(this))
         return root
 
     }
@@ -121,6 +126,7 @@ open class PublicationDetailsFragment(
                 description = publicationDescriptionTextView.text.toString()
                 authors = publicationAuthorsTextView.text.toString().split(", ")
                 file = filePath
+                doi = pdfDoi
             }
             if (_id != null) {
                 PublicationRepository.editPublication(
@@ -240,11 +246,12 @@ open class PublicationDetailsFragment(
 
     }
 
-    inner class SelectPdfButtonOnClickListener() :
+
+    inner class SelectPdfButtonOnClickListener(private val callback: OpenPdfCallback) :
         View.OnClickListener {
         override fun onClick(v: View?) {
             if (_id != null) {
-                PublicationRepository.getPublicationPdf(_id!!);
+                PublicationRepository.getPublicationPdf(_id!!, callback);
             } else {
                 openFile(Uri.EMPTY)
             }
@@ -282,6 +289,21 @@ open class PublicationDetailsFragment(
                 }
             }
         }
+    }
+
+    override fun onPdfDownloaded(path: String) {
+        val file = File(path)
+
+        val apkURI: Uri = FileProvider.getUriForFile(
+            requireContext(), requireContext().applicationContext
+                .packageName.toString() + ".provider", file
+        )
+        val intent = Intent(Intent.ACTION_VIEW)
+        Log.d("debug", apkURI.path)
+        intent.setDataAndType(apkURI, "application/pdf")
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent)
     }
 
 

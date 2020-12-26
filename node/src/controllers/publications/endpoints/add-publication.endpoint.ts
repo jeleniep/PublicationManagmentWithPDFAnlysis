@@ -7,7 +7,7 @@ import { PATH_TO_PDF } from '../../../config';
 
 
 const addPublication = async (req: Request, res: Response, next: NextFunction) => {
-    const { name, description, authors, tags, file } = req.body;
+    const { name, description, authors, tags, file, doi } = req.body;
     const { _id, email } = (<any>req).user;
     let user: UserType;
     try {
@@ -20,6 +20,8 @@ const addPublication = async (req: Request, res: Response, next: NextFunction) =
     publication.description = description;
     publication.tags = tags;
     publication.authors = authors;
+    publication.doi = doi;
+    console.log(doi, "Asdasdasd")
     publication.owners = [user]
     const splittedOldFilePath = file.split('/');
     const fileName = splittedOldFilePath[splittedOldFilePath.length - 1];

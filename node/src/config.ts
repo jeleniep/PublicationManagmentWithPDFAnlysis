@@ -6,7 +6,7 @@ const appPath = path.join(__dirname, '..');
 let secretsFile = fs.readFileSync('/run/secrets/secrets');
 let secretsJson = JSON.parse(secretsFile.toString());
 export const SALT_ROUNDS = 10;
-export const sessionTime = 3600 * 1000;
+export const sessionTime = 10* 3600 * 1000;
 
 // Application setup
 export const ENV = secretsJson.NODE_ENV || 'development';
