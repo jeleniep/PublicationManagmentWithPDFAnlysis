@@ -19,7 +19,7 @@ export const MONGODB_URI = mongodbURI;
 
 
 export const CONTROLLERS_PREFIX = 'v1';
-
+export const DOI_DETAILS_API = "https://api.crossref.org/works/"
 
 export const {
     ADMIN_EMAIL,

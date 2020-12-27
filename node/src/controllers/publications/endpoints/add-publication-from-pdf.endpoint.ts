@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Publication from '../publication.model';
 import User, { UserType } from '../../users/user.model';
 import { UserAccountNotExist } from '../../../exceptions';
-import { extractDoi } from '../../../helpers';
+import { extractDoi, getDetailsFromDoi } from '../../../helpers';
 import pdfParser from 'pdf-parse';
 import { promises as fs } from 'fs';
 import { PATH_TO_PDF } from "../../../config"
@@ -24,8 +24,13 @@ const addPublicationFromPdf = async (req: Request, res: Response, next: NextFunc
     publication.owners = [user]
     publication.file = `./${req.file.path}`;
     publication.doi = extractDoi(pdfData);
-    
-    // console.log(pdfData)
+    const detailsFromDoi = await getDetailsFromDoi(publication.doi)
+    if (detailsFromDoi) {
+        publication.name = detailsFromDoi.name;
+
+        console.log(detailsFromDoi)
+
+    }
     return res.json(publication);
 }
 
