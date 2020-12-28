@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity(), LoginObserver {
         val authToken = sharedPreferencesHelper.getAuthToken()
         if (authToken != null) {
             Log.d("debug", authToken)
-            val loginResponse = UserRepository.checkUser(authToken, this)
+            val loginResponse = UserRepository.checkUser(this)
 //            val intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
 

@@ -13,9 +13,7 @@ import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 class UserDetailsViewModel : ViewModel() {
 
     private val _user: MutableLiveData<UserDTO> by lazy {
-        val sharedPreferencesHelper =
-            SharedPreferencesHelper(PublicationManagerApplication.appContext!!)
-        val user =  UserRepository.getUserDetails(sharedPreferencesHelper.getAuthToken(), "me")
+        val user =  UserRepository.getUserDetails("me")
         user
     }
     val user: LiveData<UserDTO> = _user

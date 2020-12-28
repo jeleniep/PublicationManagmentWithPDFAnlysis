@@ -10,6 +10,9 @@ interface UserService {
     @POST("users/auth")
     fun login(@Body loginBody: LoginBody): Call<UserDTO>
 
+    @POST("users/logout")
+    fun logout(@Header("Authorization") authToken: String): Call<UserDTO>
+
     @GET("users/me")
     fun checkUser(@Header("Authorization") authToken: String): Call<UserDTO>
 

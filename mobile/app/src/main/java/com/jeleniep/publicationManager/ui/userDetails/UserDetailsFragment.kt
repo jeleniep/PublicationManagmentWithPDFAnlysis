@@ -1,5 +1,6 @@
 package com.jeleniep.publicationManager.ui.userDetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
+import com.jeleniep.publicationManager.LoginActivity
 import com.jeleniep.publicationManager.MainActivity
 import com.jeleniep.publicationManager.R
+import com.jeleniep.publicationManager.model.users.UserRepository
 import com.jeleniep.publicationManager.utils.Helpers
 
 class UserDetailsFragment : Fragment() {
@@ -24,9 +27,9 @@ class UserDetailsFragment : Fragment() {
     private lateinit var logoutButton: Button
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         publicationDetailsViewModel =
                 ViewModelProviders.of(this).get(UserDetailsViewModel::class.java)
@@ -42,7 +45,19 @@ class UserDetailsFragment : Fragment() {
             userIcon.text = it.username!!.first().toString()
         })
         (activity as MainActivity).toolbarTitle.text = (activity as MainActivity).getString(R.string.user_details)
-
+        logoutButton.setOnClickListener(LogoutButtonOnClickListener())
         return root
+    }
+
+    inner class LogoutButtonOnClickListener() :
+        View.OnClickListener {
+        override fun onClick(v: View?) {
+            UserRepository.logoutUser()
+            val intent = Intent(activity, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // Adds the FLAG_ACTIVITY_NO_HISTORY flag
+            startActivity(intent)
+            activity!!.finish()
+
+        }
     }
 }
