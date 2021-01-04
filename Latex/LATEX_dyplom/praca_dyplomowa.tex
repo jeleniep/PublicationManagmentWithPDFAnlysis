@@ -1,0 +1,157 @@
+\documentclass[a4paper,12pt,twoside,openany]{report}
+%
+% Wzorzec pracy dyplomowej
+% J. Starzynski (jstar@iem.pw.edu.pl) na podstawie pracy dyplomowej
+% mgr. inż. Błażeja Wincenciaka
+% Wersja 0.1 - 8 października 2016
+%
+\usepackage{polski}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage{anyfontsize}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[polish]{babel}
+\usepackage{subfigure}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\usepackage{indentfirst}
+\usepackage[pdftex]{hyperref}
+
+
+% rozmaite polecenia pomocnicze
+% gdzie rysunki?
+\newcommand{\ImgPath}{.}
+
+% oznaczenie rzeczy do zrobienia/poprawienia
+\newcommand{\TODO}{\textbf{TODO}}
+
+
+% wyroznienie slow kluczowych
+\newcommand{\tech}{\texttt}
+
+% na oprawe (1.0cm - 0.7cm)*2 = 0.6cm
+% na oprawe (1.1cm - 0.7cm)*2 = 0.8cm
+%  oddsidemargin lewy margines na nieparzystych stronach
+% evensidemargin lewy margines na parzystych stronach
+\def\oprawa{1.05cm}
+\addtolength{\oddsidemargin}{\oprawa}
+\addtolength{\evensidemargin}{-\oprawa}
+
+% table span multirows
+\usepackage{multirow}
+\usepackage{enumitem}	% enumitem.pdf
+\setlist{listparindent=\parindent, parsep=\parskip} % potrzebuje enumitem
+
+%%%%%%%%%%%%%%% Dodatkowe Pakiety %%%%%%%%%%%%%%%%%
+\usepackage{prmag2017}   % definiuje komendy opieku,nrindeksu, rodzaj pracy, ...
+
+
+%%%%%%%%%%%%%%% Strona Tytułowa %%%%%%%%%%%%%%%%%
+% To trzeba wypelnic swoimi danymi
+\title{Aplikacja do zarządzania publikacjami naukowymi z automatyczną analizą PDF}
+
+% autor
+\author{Piotr Jeleniewicz}
+\nrindeksu{291072}
+
+
+
+\opiekun{dr inż. Bartosz Chaber}
+%\konsultant{prof. Dzielny Konsultant}  % opcjonalnie
+\terminwykonania{1 lutego 2021} % data na oświadczeniu o samodzielności
+\rok{2021}
+
+
+% Podziekowanie - opcjonalne
+\podziekowania{\input{podziekowania.tex}}
+
+% To sa domyslne wartosci
+% - mozna je zmienic, jesli praca jest pisana gdzie indziej niz w ZETiIS
+% - mozna je wyrzucic jesli praca jest pisana w ZETiIS
+%\miasto{Warszawa}
+%\uczelnia{POLITECHNIKA WARSZAWSKA}
+%\wydzial{WYDZIAŁ ELEKTRYCZNY}
+%\instytut{INSTYTUT ELEKTROTECHNIKI TEORETYCZNEJ\linebreak[1] I~SYSTEMÓW INFORMACYJNO-POMIAROWYCH}
+% \zaklad{ZAKŁAD ELEKTROTECHNIKI TEORETYCZNEJ\linebreak[1] I~INFORMATYKI STOSOWANEJ}
+%\kierunekstudiow{INFORMATYKA}
+
+% domyslnie praca jest inzynierska, ale po odkomentowaniu ponizszej linii zrobi sie magisterska
+%\pracamagisterska
+%%% koniec od P.W
+
+\opinie{%
+  \input{opiniaopiekuna.tex}
+  \newpage
+  \input{recenzja.tex}
+}
+
+\streszczenia{
+  \input{streszczenia.tex}
+}
+
+\begin{document}
+\maketitle
+
+%-----------------
+% Wstęp
+%-----------------
+\chapter{Wstęp}
+Przy pisaniu artykułów naukowych często sięga się po efekty prac przedstawione w innych publikacjach naukowych. Wraz z pisaniem coraz większej liczby tego typu dokumentów, ilość wykorzystywanych w nich pozycji bibliograficznych może zacząć znacznie wzrastać co może utrudnić odnajdowanie potrzebnych publikacji w stale rozszerzającym się ich zbiorze. 
+
+Dlatego też ta praca będzie przedstawiała efekty prac nad aplikacją do zarządzania publikacjami naukowymi z automatyczną analizą plików PDF, której głównym celem jest ułatwienie procesu zarządzania publikacjami naukowymi, które przechowywane są w formie plików PDF. System będzie składał się aplikacji klienckiej przygotowanej dla systemu Android oraz aplikacji serwerowej działającej w kontenerze Dockera.
+\section{Założenia projektowe}
+
+\hspace{10pt} 	System powstający w ramach pracy inżynierskiej będzie opierał się o następujące założenia: 	
+\begin{enumerate}
+	\item Aplikacja serwerowa będzie napisana przy użyciu Node.js oraz języka TypeScript.
+	\item W celu ułatwienia konfiguracji środowiska deweloperskiego jaki produkcyjnego, baza danych wraz z aplikacją serwerową będą uruchamiane w sposób skonteneryzowany przy wykorzystaniu technologii Docker. 
+	\item Aplikacja kliencka będzie przeznaczona na system Android oraz do jej napisania wykorzystany zostanie język Kotlin.
+	\item W celu korzystania z aplikacji użytkownik będzie musiał utworzyć konto w systemie.
+	\item Do uzyskania informacji z pliku PDF dotyczących publikacji wykorzystane zostanie API dostępne pod adresem: \newline \url{https://api.crossref.org/} 
+	\item Aplikacje będą tworzone w sposób modułowy, umożliwiając stosunkowo łatwą możliwość rozbudowywania funkcjonalności.W
+	\item Podczas implementacji obu aplikacji w miarę możliwości stosowane będą najlepsze praktyki programistyczne.
+\end{enumerate}
+
+W systemie będą dostępne następujące funkcjonalności:		
+\begin{enumerate}
+	\item Wyświetlanie listy publikacji.
+	\item Wyświetlanie opisu publikacji naukowych.
+	\item Tworzenie nowej publikacji w oparciu o metadane oraz numer DOI, jeśli są dostępne w dodawanym pliku PDF.
+	\item Edycja publikacji.
+	\item Pobranie pliku PDF powiązanego z daną publikacją.
+\end{enumerate}
+%-----------------
+% \
+%-----------------
+\chapter{Przedstawienie wybranych technologii}
+Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa analiza dostępnych technologii zarówno w kontekście aplikacji serwerowej jak również klienckiej. W trakcie jej trwania pod uwagę brane były przede wszystkim aspekty dotyczące specyfik danych technologii takich jak wydajność czy też sugerowane przeznaczenie poszczególnych rozwiązań, ale także kwestie dotyczące osobistych preferencji odnoszących się do danych technologii. 
+  %-----------------
+  % Historia
+  %-----------------
+\section{Aplikacja serwerowa}
+Pomimo, że pierwsze wzmianki o steganografii, a dokładnie o ukrytych kanałach w 
+odniesieniu do systemów informatycznych notuje się na lata siedemdziesiąte XX 
+wieku \cite{FirstCC}, to przykłady użycia steganografii sięgają starożytności. W 
+literaturze powtarzają się opisy przekazywania tajnej informacji poprzez 
+wytatuowanie jej na ogolonej głowie posłańca, który po odrośnięciu włosów był 
+wysyłany z mało znaczącą wiadomością do armii swojego dowódcy. Każdy kto natknął 
+się na posłańca miał wgląd do nieważnej wiadomości, niepodejrzewając nawet 
+istnienia sekretnej informacji w postaci tatuażu.
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Bibliografia}
+\bibitem{LOKI2}{daemon9, ,,LOKI2'', Phrack Magazine, Issue 51. 
+\url{http://phrack.org}}
+\bibitem{RWWWS}{van Hauser, Reverse WWW Shell,  THC, The Hacker's 
+Choice.\newline \url{www.thc.org}}
+
+
+\end{thebibliography}
+
+\zakonczenie  % wklejenie recenzji i opinii
+
+\end{document}
+%+++ END +++
