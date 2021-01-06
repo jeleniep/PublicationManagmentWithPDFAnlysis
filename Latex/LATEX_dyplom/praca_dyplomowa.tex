@@ -126,20 +126,35 @@ W systemie będą dostępne następujące funkcjonalności:
 %-----------------
 % \
 %-----------------
-\chapter{Przedstawienie wybranych technologii}
+\chapter{Przedstawienie wykorzystywanych technologii}
 Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa analiza dostępnych technologii zarówno w kontekście aplikacji serwerowej jak również klienckiej. W trakcie jej trwania pod uwagę brane były przede wszystkim aspekty dotyczące specyfik danych technologii takich jak wydajność czy też sugerowane przeznaczenie poszczególnych rozwiązań, ale także kwestie dotyczące osobistych preferencji odnoszących się do danych technologii. 
   %-----------------
   % Historia
   %-----------------
 \section{Aplikacja serwerowa}
-Pomimo, że pierwsze wzmianki o steganografii, a dokładnie o ukrytych kanałach w 
-odniesieniu do systemów informatycznych notuje się na lata siedemdziesiąte XX 
-wieku \cite{FirstCC}, to przykłady użycia steganografii sięgają starożytności. W 
-literaturze powtarzają się opisy przekazywania tajnej informacji poprzez 
-wytatuowanie jej na ogolonej głowie posłańca, który po odrośnięciu włosów był 
-wysyłany z mało znaczącą wiadomością do armii swojego dowódcy. Każdy kto natknął 
-się na posłańca miał wgląd do nieważnej wiadomości, niepodejrzewając nawet 
-istnienia sekretnej informacji w postaci tatuażu.
+W obecnych czasach ilość technologii pozwalających na pisanie aplikacji serwerowych jest ogromna. Podjęcie jednoznacznego wyboru dotyczącego, której z nich należy użyć do danego zadania jest niemalże niemożliwe, jednakże każda z nich cechuje się swoimi indywidualnymi cechami, które pozwalają w pewnym stopniu ocenić, które z dostępnych narzędzi będzie odpowiednie do rozwiązania wybranego problemu. W przypadku aplikacji serwerowej, tworzonej w ramach tej pracy, głównymi cechami branymi pod uwagę była wydajność danej technologii oraz ilość kodu wymagana do poprawnego i bezpiecznego działania aplikacji. Po przeanalizowaniu dostępnych rozwiązań, aplikacja zostanie napisana w środowisku Node.js, przy użyciu języka TypeScript. Do przechowywania danych wykorzystana zostanie baz danych MongoDB.
+
+\subsection{Node.js}
+Node.js jest środowiskiem uruchomieniowym bazującym na koncepcie \textit{,,JavaScript~everywhere''}, który unifikuje język używany podczas procesu tworzenia aplikacji webowej, wykorzystując JavaScript zarówno po stronie klienta jaki i serwera. W związku z tym, że w ramach projektu aplikacja kliencka będzie stworzona w formie aplikacji mobilnej na system Android, koncept ten nie zostanie spełniony. jednakże przy tworzeniu hipotetycznej aplikacji klienckiej działającej w przeglądarkach internetowych wykorzystywanie jednego języka, jest  sytuacją ułatwiającej rozwój i utrzymania takiej aplikacji.
+
+Do niewątpliwych zalet środowiska Node.js należy ogromna ilość bibliotek dostępnych do wykorzystania w aplikacji. Dzięki temu wiele problemów może zostać rozwiązanych przy użyciu gotowych komponentów, co znacznie wpływa na zmniejszenie ilości kodu, który jest wymagany do rozwiązania konkretnego problemu. Z punktu widzenia aplikacji serwerowej tworzonej w ramach tego projektu, niezwykle istotna okazała się dostępność biblioteki umożliwiającej przetwarzanie i odczyt danych z plików \textit{pdf}. 
+
+Inną ważną cechą środowiska Node.js, w odróżnieniu od środowisk wykorzystujących  język Python, jest bardzo dobra obsługa standardu JSON, która pozwala na używanie obiektów zgodnych ze standardem JSON niemal jako standardowych obiektów języka JavaScript, co znacznie wpływa na ułatwienie komunikacji pomiędzy aplikacją serwerową a kliencką. 
+
+\subsection{TypeScript}
+Językiem który zostanie wykorzystany do napisania aplikacji serwerowej będzie TypeScipt. Jest on nadzbiorem języka JavaScript, utworzonym i utrzymywanym przez firmę Microsoft. Zasadniczą różnicą pomiędzy tymi języki jest typowanie.
+
+Typowanie można podzielić między innymi na następujące dwa rodzaje:
+\begin{itemize}
+	\item Typowanie statyczne - zmienne mają ustalany typ w momencie deklaracji. Wykorzystywane w języku TypeScript
+	\item Typowanie dynamiczne -  typ zmiennej wynika wynika z wartości jaka jest w niej przechowywana. Wykorzystywane w języku JavaScript.
+\end{itemize}
+
+Pomimo że typowanie dynamiczne pozwala na większą elastyczność przy wykorzystaniu zmiennych, typowanie statyczne pozwala na wykrycie części błędów w momencie kompilacji, bądź też transpilacji kodu.
+
+W celu uruchomienia kodu napisanego w języku TypeScript, musi najpierw zostać dokonana jego transpilacja do języka JavaScript. Dopiero ten kod jest realnie wykonywany w środowisku uruchomieniowym.
+
+\subsection{MongoDB}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
