@@ -144,7 +144,6 @@ open class PublicationDetailsFragment(
     inner class OnRemoveClickListener(private val requestObserver: RequestObserver<PublicationDTO>) :
         Toolbar.OnMenuItemClickListener {
         override fun onMenuItemClick(item: MenuItem?): Boolean {
-            Log.d("debug", "remove")
             if (_id != null) {
                 PublicationRepository.deletePublication(_id!!, requestObserver)
             }
@@ -284,7 +283,7 @@ open class PublicationDetailsFragment(
                         filePart,
                         publicationDetailsViewModel
                     )
-                    Toast.makeText(context, "Path: ${inputStream.available()}", Toast.LENGTH_LONG)
+                    Toast.makeText(context, "Processing file.", Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -299,7 +298,6 @@ open class PublicationDetailsFragment(
                 .packageName.toString() + ".provider", file
         )
         val intent = Intent(Intent.ACTION_VIEW)
-        Log.d("debug", apkURI.path)
         intent.setDataAndType(apkURI, "application/pdf")
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

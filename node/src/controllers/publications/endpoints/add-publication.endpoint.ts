@@ -21,7 +21,6 @@ const addPublication = async (req: Request, res: Response, next: NextFunction) =
     publication.tags = tags;
     publication.authors = authors;
     publication.doi = doi;
-    console.log(doi, "Asdasdasd")
     publication.owners = [user]
     const splittedOldFilePath = file.split('/');
     const fileName = splittedOldFilePath[splittedOldFilePath.length - 1];

@@ -9,4 +9,10 @@
 \BOOKMARK [1][-]{section.2.2}{Aplikacja kliencka}{chapter.2}% 9
 \BOOKMARK [2][-]{subsection.2.2.1}{Android}{section.2.2}% 10
 \BOOKMARK [2][-]{subsection.2.2.2}{Kotlin}{section.2.2}% 11
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 12
+\BOOKMARK [0][-]{chapter.3}{Architektura}{}% 12
+\BOOKMARK [1][-]{section.3.1}{Architektura og\363lna}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.2}{Architektura aplikacji serwerowej}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.2.1}{Struktura}{section.3.2}% 15
+\BOOKMARK [2][-]{subsection.3.2.2}{Srodowisko}{section.3.2}% 16
+\BOOKMARK [1][-]{section.3.3}{Architektura aplikacji klienckiej}{chapter.3}% 17
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 18
