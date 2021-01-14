@@ -1,4 +1,4 @@
-package com.jeleniep.publicationManager.model.errors
+package com.jeleniep.publicationManager.network.errors
 
 import com.google.gson.annotations.SerializedName
 

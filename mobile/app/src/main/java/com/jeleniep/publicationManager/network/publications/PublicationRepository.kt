@@ -1,6 +1,5 @@
-package com.jeleniep.publicationManager.model.publications
+package com.jeleniep.publicationManager.network.publications
 
-import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
@@ -8,7 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.jeleniep.PublicationManagerApplication
 import com.jeleniep.publicationManager.interfaces.OpenPdfCallback
 import com.jeleniep.publicationManager.interfaces.RequestObserver
-import com.jeleniep.publicationManager.model.errors.ErrorResponse
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
 import com.jeleniep.publicationManager.ui.publicationsList.PublicationListItem
 import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 import okhttp3.MultipartBody

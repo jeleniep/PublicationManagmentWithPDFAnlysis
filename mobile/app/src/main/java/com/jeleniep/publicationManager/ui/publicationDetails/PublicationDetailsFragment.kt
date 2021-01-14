@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -22,9 +21,9 @@ import com.jeleniep.publicationManager.PublicationDetailsActivity
 import com.jeleniep.publicationManager.R
 import com.jeleniep.publicationManager.interfaces.OpenPdfCallback
 import com.jeleniep.publicationManager.interfaces.RequestObserver
-import com.jeleniep.publicationManager.model.errors.ErrorResponse
-import com.jeleniep.publicationManager.model.publications.PublicationDTO
-import com.jeleniep.publicationManager.model.publications.PublicationRepository
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
+import com.jeleniep.publicationManager.network.publications.PublicationDTO
+import com.jeleniep.publicationManager.network.publications.PublicationRepository
 import com.jeleniep.publicationManager.utils.Helpers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -55,7 +54,7 @@ open class PublicationDetailsFragment(
     private val PICK_PDF_FILE = 2
     private lateinit var filePart: MultipartBody.Part
     private lateinit var filePath: String
-    private lateinit var pdfDoi: String
+    private var pdfDoi: String = ""
 
 
     override fun onCreateView(

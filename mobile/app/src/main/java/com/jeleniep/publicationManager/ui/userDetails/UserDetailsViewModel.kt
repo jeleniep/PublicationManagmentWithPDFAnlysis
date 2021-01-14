@@ -3,12 +3,8 @@ package com.jeleniep.publicationManager.ui.userDetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jeleniep.PublicationManagerApplication
-import com.jeleniep.publicationManager.model.publications.PublicationDTO
-import com.jeleniep.publicationManager.model.publications.PublicationRepository
-import com.jeleniep.publicationManager.model.users.UserDTO
-import com.jeleniep.publicationManager.model.users.UserRepository
-import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
+import com.jeleniep.publicationManager.network.users.UserDTO
+import com.jeleniep.publicationManager.network.users.UserRepository
 
 class UserDetailsViewModel : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.jeleniep.publicationManager.model.users
+package com.jeleniep.publicationManager.network.users
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

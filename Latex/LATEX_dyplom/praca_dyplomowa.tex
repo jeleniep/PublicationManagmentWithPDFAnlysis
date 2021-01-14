@@ -218,7 +218,7 @@ Aplikacja serwerowa zbudowana będzie w oparciu o środowisko Node.js. Składać
 		\item zapisywanie i odczyt plików PDF przypisanych do publikacji
 	\end{itemize}
 	 
-	\item Moduł przetwarzania plików pdf - jako jedyny nie będzie odpowiadał za obsługę żądań, a za przetwarzania plików pdf. Będzie dostarczał następujące funkcjonalności:
+	\item Moduł przetwarzania plików pdf - jako jedyny nie będzie odpowiadał za obsługę żądań, a za przetwarzania plików pdf. Do przetwarzania plików pdf zostanie wykorzystana biblioteka \textit{pdf-parse}. Będzie dostarczał następujące funkcjonalności:
 	\begin{itemize}
 		\item odczyt informacji takich jak tytuł lub autor publikacji z metadanych plików PDF
 		\item wyszukiwanie DOI w metadanych pliku PDF, bądź w jego treści
@@ -238,8 +238,90 @@ Dodatkowo żądania HTTP będą przetwarzane wstępnie, także przez następują
 Aplikacja serwerowa będzie przygotowana do pracy jako kontener Dockera. Dzięki temu przy wdrażaniu aplikacji konfiguracja środowiska produkcyjnego, nie będzie wymagała pełnego przygotowania środowiska Node.js, potrzebując do pracy jednie aplikacji Docker oraz docker-compose, która pozwala na zarządzanie i konfigurację wielu kontenerów, mogących współpracować między sobą. Dzięki temu, że baza danych MongoDB może również działać w formie kontenera Dockerowego, przy wykorzystaniu aplikacji docker-compose, uruchomienie całej aplikacji serwerowej wraz bazą danych będzie ograniczać się do pobrania kontenerów oraz ich uruchomienia za pomocą jednego polecenia, a dodatkowo pozwala na wdrożenie aplikacji zarówno przy użyciu systemu Linux i Windows jaki i MacOs.
 
 \section{Architektura aplikacji klienckiej}
+Aplikacja kliencka będzie przeznaczona na urządzenia mobilne z systemem Android. Zostanie wykonana w sposób natywny dla tej platformy przy wykorzystaniu środowiska Android Studio oraz języka Kotlin. Zgodnie z zaleceniami występującymi w dokumentacji Android, wykorzystany zostanie uproszczony wzorzec Model–view–viewmodel(MVVM). 
 
+\subsection{Wzorzec Model–view–viewmodel(MVVM)}
+Wzorzec MVVM bazuje na popularnym wzorcu Model-view-controller. Jest często wykorzystywany podczas tworzenia aplikacji z interfejsem graficznym, do których możemy zaliczyć programy przeznaczone na system Android. 
+Zgodnie z tą architekturą aplikacja składa się z głównych elementów:
+\begin{enumerate}
+	\item model - przechowuje dane, pobrane przez viewmodel, później prezentowane w warstwie view, nie powinien zawierać logiki biznesowej
+	\item view - jest to reprezentacja graficznego widoku, widzianego przez użytkownika aplikacji
+	\item viewmodel - element spajający model i view, pod pewnym względem odpowiadający dla wartswy controller z wzorca MVC. Jest odpowiedzialny za wypełnianie widoku danymi, pobranymi z modelu oraz za obsługę interakcji w użytkownikiem. 
+\end{enumerate}
 
+Jedną z podstawowych cech tego wzorca jest tak zwany databinding. Polega on automatycznym odświeżaniu danych pochodzących z modelu w widoku, w momencie gdy dojdzie do ich modyfikacji w viewmodelu. Dzięki temu, programista jest zwolniony z ciągłego dbania o uaktualnianie danych prezentowanych w widoku.
+
+\newpage
+\subsection{Struktura}
+Natywne aplikacje działające pod kontrolą systemu Android zbudowaną są z komponentów zwanych aktywnościami(Activity). Zgodnie z definicją dostępną w dokumentacji, jest to  pojedyncza konkretna czynność, która może zostać wykonana przez użytkownika. Dodatkowo aktywności mogą składać się z mniejszych części zwanych fragmentami. Aplikacja kliencka przygotowywana w ramach tej pracy, będzie składała się z trzech aktywności:
+\begin{enumerate}
+	\item LoginActivity - aktywność odpowiedzialna za proces logowania użytkownika.
+	
+	\item MainActivity - główna aktywność służąca do prezentacji listy publikacji danego użytkownika. 
+
+	\item PublicationDetailsActivity - aktywność w której dodaje się nowe publikacje oraz odczytuje i edytuje istniejące.
+
+\end{enumerate}
+
+Do komunikacji z aplikacja serwerową za pomocą protokołu HTTP wykorzystana zostanie biblioteka Retrofit. Wykorzystywana będzie w klasach należących do paczki \textit{network}, która odpowiadać za obsługę żądań HTTP wykorzystywanych do logowania użytkowników oraz do odczytywania, dodawania i edycji publikacji naukowych. 
+
+Do obsługi asynchroniczności zapytań, wszystkie klasy korzystające z paczki \textit{network}, będą wymagały zaimplementowania interfejsu \textit{RequestObserver}, który będzie zawierał dwie metody:
+\begin{enumerate}
+	\item onSuccess - metoda wywoływana, w przypadku gdy żądanie zakończyło się pomyślnie.
+	
+	\item onFail - metoda wywoływana, w przypadku gdy żądanie zakończyło się błędem.
+\end{enumerate}
+\chapter{Szczegóły implementacyjne aplikacji}
+\section{Aplikacja serwerowa}
+Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerowej została ona podzielona na trzy moduły. W tym rozdziale zostaną przedstawione ich szczegóły implementacyjne oraz sposób komunikacji pomiędzy sobą. Organizacja kodu aplikacji serwerwoej została przedstawiona, na poniższym diagramie klas:
+
+ \begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.91]{\ImgPath/rys/diag_klas_serwer.pdf}
+	\end{center}
+	\caption{Diagram klas}
+	\label{diagramKlas}
+\end{figure}
+\subsection{Opis podstawowych klas}
+Przedstawione na powyższym diagramie klasy pełnią następujące funkcje:
+\begin{enumerate}
+	\item App - główna klasa aplikacji, która inicjalizuje wszystkie klasy rozszerzające klasę Controller, a także odpowiedzialna za skonfigurowanie oprogramowania pośredniczącego(middleware) .
+	
+	\item Controller - klasa rozszerzana przez inne klasy, odpowiedzialne za obsługę żądań  HTTP.
+	
+	\item UsersController - klasa obsługująca żądania dotyczące rejestracji, logowania, oraz wylogowywania użytkowników.
+	
+	\item PublicationsController - klasa obsługująca żądania dotyczące dodawania, odczytywania, usuwania oraz edycji publikacji.
+	
+\end{enumerate}
+
+\section{Obsługa użytkowników}
+Cała obsługa użytkowników w systemie została napisana od podstaw. Odpowiedzialna jest za to klasa \textit{UsersController}, odpowiadająca za proces rejestracji i logowania użytkowników oraz oprogramowanie pośredniczące \textit{authMiddleware}, którego zadaniem jest sprawdzanie czy dane żądanie jest wykonywane przez zalogowanego użytkownika, który posiada wystarczające uprawnienia. Do zapewnienia bezpiecznego przechowywania hasła wykorzystana została biblioteka \textit{bcrypt}, za pomocą której uzyskiwana jest sól, wykorzystywana podczas obliczania funkcji skrótu dla hasła. 
+
+Dla celów autoryzacji, dokumenty reprezentujące użytkowników, które przechowywane są w bazie danych, posiadają w swojej strukturze dwa pola:
+\begin{itemize}
+	\item email - służący do identyfikacji, użytkownika, który próbuje zalogować się do systemu
+	
+	\item hash - pole zawierające sól oraz wynik funkcji skrótu dla hasła danego użytkownika
+	
+\end{itemize}
+Dzięki przechowywaniu wyniku funkcji skrótu dla hasła, zamiast jawnego jego przechowywania, podnoszony jest poziom bezpieczeństwa. Nawet w przypadku, gdy dane z bazy danych zostaną wykradzione, hasła użytkowników systemu nie będą mogły zostać odczytane. Wynika to z własności funkcji skrótu, które nie pozwala w łatwy sposób odczytać wartości wejściowej, nawet przy posiadania soli, która została wykorzystana podczas obliczania wyniku funkcji.
+
+\newpage
+\subsection{Proces rejestracji użytkownika}
+
+Proces rejestracji użytkownika posiada następujący przebieg:
+ \begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_rejestr.pdf}
+	\end{center}
+	\caption{Diagram aktywności dla procesu rejestracji}
+	\label{diagramAktywnosciRejstracja}
+\end{figure}
+
+\subsection{Proces logowania użytkownika}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}

@@ -14,7 +14,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.jeleniep.publicationManager.LoginActivity
 import com.jeleniep.publicationManager.MainActivity
 import com.jeleniep.publicationManager.R
-import com.jeleniep.publicationManager.model.users.UserRepository
+import com.jeleniep.publicationManager.network.users.UserRepository
 import com.jeleniep.publicationManager.utils.Helpers
 
 class UserDetailsFragment : Fragment() {

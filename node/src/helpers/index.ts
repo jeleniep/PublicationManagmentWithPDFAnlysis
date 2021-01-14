@@ -1,7 +1,7 @@
 import { moveFile } from './files.helper'
-import { extractDoi, getDetailsFromDoi } from './doi.helper'
+import PdfParserHelper from './pdf-parser.helper'
+
 export {
     moveFile,
-    extractDoi,
-    getDetailsFromDoi
+    PdfParserHelper
 }

@@ -1,7 +1,7 @@
 package com.jeleniep.publicationManager.interfaces
 
-import com.jeleniep.publicationManager.model.errors.ErrorResponse
-import com.jeleniep.publicationManager.model.publications.PublicationDTO
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
+import com.jeleniep.publicationManager.network.publications.PublicationDTO
 
 interface PublicationListObserver {
     fun onPublicationUpdateSuccess(publicationDTO: PublicationDTO, type: String)

@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jeleniep.publicationManager.interfaces.RequestObserver
-import com.jeleniep.publicationManager.model.errors.ErrorResponse
-import com.jeleniep.publicationManager.model.publications.PublicationRepository
-import com.jeleniep.publicationManager.model.publications.PublicationDTO
-import com.jeleniep.publicationManager.ui.publicationsList.PublicationListItem
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
+import com.jeleniep.publicationManager.network.publications.PublicationRepository
+import com.jeleniep.publicationManager.network.publications.PublicationDTO
 
 
 class PublicationDetailsViewModel(private val _id : String?) : ViewModel(), RequestObserver<PublicationDTO> {

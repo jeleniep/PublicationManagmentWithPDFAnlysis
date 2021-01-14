@@ -1,4 +1,4 @@
-package com.jeleniep.publicationManager.model.users
+package com.jeleniep.publicationManager.network.users
 
 import com.jeleniep.publicationManager.utils.BaseService
 import retrofit2.Call

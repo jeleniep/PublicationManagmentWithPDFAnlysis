@@ -16,4 +16,12 @@
 \contentsline {subsection}{\numberline {3.2.1}Struktura}{10}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}\IeC {\'S}rodowisko}{10}{subsection.3.2.2}
 \contentsline {section}{\numberline {3.3}Architektura aplikacji klienckiej}{11}{section.3.3}
-\contentsline {chapter}{Bibliografia}{12}{chapter*.4}
+\contentsline {subsection}{\numberline {3.3.1}Wzorzec Model\IeC {\textendash }view\IeC {\textendash }viewmodel(MVVM)}{11}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Struktura}{12}{subsection.3.3.2}
+\contentsline {chapter}{\numberline {4}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji}{13}{chapter.4}
+\contentsline {section}{\numberline {4.1}Aplikacja serwerowa}{13}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Opis podstawowych klas}{14}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Obs\IeC {\l }uga u\IeC {\.z}ytkownik\IeC {\'o}w}{14}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Proces rejestracji u\IeC {\.z}ytkownika}{15}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Proces logowania u\IeC {\.z}ytkownika}{16}{subsection.4.2.2}
+\contentsline {chapter}{Bibliografia}{17}{chapter*.4}

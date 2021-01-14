@@ -2,10 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import Publication from '../publication.model';
 import User, { UserType } from '../../users/user.model';
 import { UserAccountNotExist } from '../../../exceptions';
-import { extractDoi, getDetailsFromDoi } from '../../../helpers';
-import pdfParser from 'pdf-parse';
+import { PdfParserHelper } from '../../../helpers';
 import { promises as fs } from 'fs';
-import { PATH_TO_PDF } from "../../../config"
 
 const addPublicationFromPdf = async (req: Request, res: Response, next: NextFunction) => {
     const { name, description, authors, tags } = req.body;
@@ -18,19 +16,12 @@ const addPublicationFromPdf = async (req: Request, res: Response, next: NextFunc
     }
     const publication = new Publication();
     const file = await fs.readFile(req.file.path);
-    const pdfData = await pdfParser(file);
-    publication.name = pdfData.info.Title;
-    publication.authors = pdfData.info.Author ? [pdfData.info.Author] : [];
+    const pdfData = await PdfParserHelper.getPdfData(req.file.path);
+    publication.name = pdfData.name;
+    publication.authors = pdfData.authors;
     publication.owners = [user]
     publication.file = `./${req.file.path}`;
-    publication.doi = extractDoi(pdfData);
-    const detailsFromDoi = await getDetailsFromDoi(publication.doi)
-    if (detailsFromDoi) {
-        publication.name = detailsFromDoi.name;
-
-        console.log(detailsFromDoi)
-
-    }
+    publication.doi = pdfData.doi    
     return res.json(publication);
 }
 

@@ -1,6 +1,6 @@
 package com.jeleniep.publicationManager.interfaces
 
-import com.jeleniep.publicationManager.model.errors.ErrorResponse
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
 
 interface RequestObserver<T> {
 

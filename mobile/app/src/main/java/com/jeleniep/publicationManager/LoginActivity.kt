@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.jeleniep.PublicationManagerApplication
 import com.jeleniep.publicationManager.interfaces.LoginObserver
-import com.jeleniep.publicationManager.model.users.UserDTO
-import com.jeleniep.publicationManager.model.users.UserRepository
+import com.jeleniep.publicationManager.network.users.UserDTO
+import com.jeleniep.publicationManager.network.users.UserRepository
 import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_login.*
 import pub.devrel.easypermissions.EasyPermissions

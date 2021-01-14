@@ -1,4 +1,4 @@
-package com.jeleniep.publicationManager.model.publications
+package com.jeleniep.publicationManager.network.publications
 
 import com.google.gson.annotations.SerializedName
 
