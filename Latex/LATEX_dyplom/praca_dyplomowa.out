@@ -5,22 +5,26 @@
 \BOOKMARK [2][-]{subsection.2.1.1}{Node.js}{section.2.1}% 5
 \BOOKMARK [2][-]{subsection.2.1.2}{TypeScript}{section.2.1}% 6
 \BOOKMARK [2][-]{subsection.2.1.3}{MongoDB}{section.2.1}% 7
-\BOOKMARK [2][-]{subsection.2.1.4}{Docker}{section.2.1}% 8
-\BOOKMARK [1][-]{section.2.2}{Aplikacja kliencka}{chapter.2}% 9
-\BOOKMARK [2][-]{subsection.2.2.1}{Android}{section.2.2}% 10
-\BOOKMARK [2][-]{subsection.2.2.2}{Kotlin}{section.2.2}% 11
-\BOOKMARK [0][-]{chapter.3}{Architektura}{}% 12
-\BOOKMARK [1][-]{section.3.1}{Architektura og\363lna}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.2}{Architektura aplikacji serwerowej}{chapter.3}% 14
-\BOOKMARK [2][-]{subsection.3.2.1}{Struktura}{section.3.2}% 15
-\BOOKMARK [2][-]{subsection.3.2.2}{Srodowisko}{section.3.2}% 16
-\BOOKMARK [1][-]{section.3.3}{Architektura aplikacji klienckiej}{chapter.3}% 17
-\BOOKMARK [2][-]{subsection.3.3.1}{Wzorzec Model\205view\205viewmodel\(MVVM\)}{section.3.3}% 18
-\BOOKMARK [2][-]{subsection.3.3.2}{Struktura}{section.3.3}% 19
-\BOOKMARK [0][-]{chapter.4}{Szczeg\363\233y implementacyjne aplikacji}{}% 20
-\BOOKMARK [1][-]{section.4.1}{Aplikacja serwerowa}{chapter.4}% 21
-\BOOKMARK [2][-]{subsection.4.1.1}{Opis podstawowych klas}{section.4.1}% 22
-\BOOKMARK [1][-]{section.4.2}{Obs\233uga uzytkownik\363w}{chapter.4}% 23
-\BOOKMARK [2][-]{subsection.4.2.1}{Proces rejestracji uzytkownika}{section.4.2}% 24
-\BOOKMARK [2][-]{subsection.4.2.2}{Proces logowania uzytkownika}{section.4.2}% 25
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 26
+\BOOKMARK [2][-]{subsection.2.1.4}{Redis}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.5}{Docker}{section.2.1}% 9
+\BOOKMARK [1][-]{section.2.2}{Aplikacja kliencka}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.1}{Android}{section.2.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.2}{Kotlin}{section.2.2}% 12
+\BOOKMARK [0][-]{chapter.3}{Architektura}{}% 13
+\BOOKMARK [1][-]{section.3.1}{Architektura og\363lna}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.2}{Architektura aplikacji serwerowej}{chapter.3}% 15
+\BOOKMARK [2][-]{subsection.3.2.1}{Struktura}{section.3.2}% 16
+\BOOKMARK [2][-]{subsection.3.2.2}{Srodowisko}{section.3.2}% 17
+\BOOKMARK [1][-]{section.3.3}{Architektura aplikacji klienckiej}{chapter.3}% 18
+\BOOKMARK [2][-]{subsection.3.3.1}{Wzorzec Model\205view\205viewmodel\(MVVM\)}{section.3.3}% 19
+\BOOKMARK [2][-]{subsection.3.3.2}{Struktura}{section.3.3}% 20
+\BOOKMARK [0][-]{chapter.4}{Szczeg\363\233y implementacyjne aplikacji}{}% 21
+\BOOKMARK [1][-]{section.4.1}{Aplikacja serwerowa}{chapter.4}% 22
+\BOOKMARK [2][-]{subsection.4.1.1}{Opis podstawowych klas}{section.4.1}% 23
+\BOOKMARK [1][-]{section.4.2}{Obs\233uga uzytkownik\363w}{chapter.4}% 24
+\BOOKMARK [2][-]{subsection.4.2.1}{Proces rejestracji uzytkownika}{section.4.2}% 25
+\BOOKMARK [2][-]{subsection.4.2.2}{Proces logowania uzytkownika}{section.4.2}% 26
+\BOOKMARK [2][-]{subsection.4.2.3}{Proces wylogowania uzytkownika}{section.4.2}% 27
+\BOOKMARK [1][-]{section.4.3}{Uwierzytelnienie i autoryzacja zadan}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.3.1}{Spos\363b dzia\233ania funkcji authMiddlewareUser}{section.4.3}% 29
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 30

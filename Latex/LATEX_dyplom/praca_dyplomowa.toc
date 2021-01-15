@@ -6,7 +6,8 @@
 \contentsline {subsection}{\numberline {2.1.1}Node.js}{4}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}TypeScript}{4}{subsection.2.1.2}
 \contentsline {subsection}{\numberline {2.1.3}MongoDB}{5}{subsection.2.1.3}
-\contentsline {subsection}{\numberline {2.1.4}Docker}{5}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.4}Redis}{5}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Docker}{5}{subsection.2.1.5}
 \contentsline {section}{\numberline {2.2}Aplikacja kliencka}{6}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Android}{6}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Kotlin}{6}{subsection.2.2.2}
@@ -24,4 +25,7 @@
 \contentsline {section}{\numberline {4.2}Obs\IeC {\l }uga u\IeC {\.z}ytkownik\IeC {\'o}w}{14}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Proces rejestracji u\IeC {\.z}ytkownika}{15}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Proces logowania u\IeC {\.z}ytkownika}{16}{subsection.4.2.2}
-\contentsline {chapter}{Bibliografia}{17}{chapter*.4}
+\contentsline {subsection}{\numberline {4.2.3}Proces wylogowania u\IeC {\.z}ytkownika}{17}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Uwierzytelnienie i autoryzacja \IeC {\.z}\IeC {\k a}da\IeC {\'n}}{17}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Spos\IeC {\'o}b dzia\IeC {\l }ania funkcji authMiddlewareUser}{17}{subsection.4.3.1}
+\contentsline {chapter}{Bibliografia}{18}{chapter*.4}

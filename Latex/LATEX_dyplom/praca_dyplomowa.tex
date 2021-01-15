@@ -132,7 +132,7 @@ Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa
   % Historia
   %-----------------
 \section{Aplikacja serwerowa}
-W obecnych czasach ilość technologii pozwalających na pisanie aplikacji serwerowych jest ogromna. Podjęcie jednoznacznego wyboru dotyczącego, której z nich należy użyć do danego zadania jest niemalże niemożliwe, jednakże każda z nich cechuje się swoimi indywidualnymi cechami, które pozwalają w pewnym stopniu ocenić, które z dostępnych narzędzi będzie odpowiednie do rozwiązania wybranego problemu. W przypadku aplikacji serwerowej, tworzonej w ramach tej pracy, głównymi cechami branymi pod uwagę była wydajność danej technologii oraz ilość kodu wymagana do poprawnego i bezpiecznego działania aplikacji. Po przeanalizowaniu dostępnych rozwiązań, aplikacja zostanie napisana w środowisku Node.js, przy użyciu języka TypeScript. Do przechowywania danych wykorzystana zostanie baz danych MongoDB. Cała aplikacja serwerowa będzie uruchomiona jako kontenery Dockera.
+W obecnych czasach ilość technologii pozwalających na pisanie aplikacji serwerowych jest ogromna. Podjęcie jednoznacznego wyboru dotyczącego, której z nich należy użyć do danego zadania jest niemalże niemożliwe, jednakże każda z nich cechuje się swoimi indywidualnymi cechami, które pozwalają w pewnym stopniu ocenić, które z dostępnych narzędzi będzie odpowiednie do rozwiązania wybranego problemu. W przypadku aplikacji serwerowej, tworzonej w ramach tej pracy, głównymi cechami branymi pod uwagę była wydajność danej technologii oraz ilość kodu wymagana do poprawnego i bezpiecznego działania aplikacji. Po przeanalizowaniu dostępnych rozwiązań, aplikacja zostanie napisana w środowisku Node.js, przy użyciu języka TypeScript. Do przechowywania danych wykorzystana zostanie baza danych MongoDB, natomiast dane dotyczące sesji użytkowników będą przechowywane w bazie danych Redis. Cała aplikacja serwerowa będzie uruchomiona jako kontenery Dockera.
 
 \subsection{Node.js}
 Node.js jest środowiskiem uruchomieniowym bazującym na koncepcie \textit{,,JavaScript~everywhere''}, który unifikuje język używany podczas procesu tworzenia aplikacji webowej, wykorzystując JavaScript zarówno po stronie klienta jaki i serwera. W związku z tym, że w ramach projektu aplikacja kliencka będzie stworzona w formie aplikacji mobilnej na system Android, koncept ten nie zostanie spełniony. jednakże przy tworzeniu hipotetycznej aplikacji klienckiej działającej w przeglądarkach internetowych wykorzystywanie jednego języka, jest  sytuacją ułatwiającej rozwój i utrzymania takiej aplikacji.
@@ -158,6 +158,10 @@ W celu uruchomienia kodu napisanego w języku TypeScript, musi najpierw zostać 
 MongoDB jest nierelacyjną bazą danych, wykorzystywanym w ramach aplikacji serwerowej. W systemach nierelacyjnych w przeciwieństwie od relacyjnych, informacje nie są przechowywane w tabelach, a w formie dokumentów w stylu JSON, które oprócz samych danych przechowują także ich schemat. Dzięki temu zmiana schematu danych, nie wymaga zazwyczaj skomplikowanych migracji i pozwala na bardzo dynamiczne zarządzanie strukturą danych. Wadą takiego rozwiązania jest utrudnione wyszukiwanie żądanych informacji, jeśli wymagają one bardziej skomplikowanych kwerend, a także znacznie mniejsza szybkość wyszukiwania, zwłaszcza w przypadku większej liczby danych. 
 
 W celu łączenia się z bazą danych i mapowania obiektów z bazy danych na obiekty języka JavaScript wykorzystywany jest ODM Mongoose. Dzięki temu że baza danych przechowuje dokumenty w stylu JSON, w bardzo prosty sposób można zapisywać obiekty otrzymane od klienta w ramach żądania HTTP do bazy danych, a także wysyłać klientowi obiekty z bazy, bez konieczności znaczącej ingerencji w ich format i strukturę.
+
+\subsection{Redis}
+Redis jest bazą danych typu klucz-wartość, wykorzystywaną głównie w formie pamięci podręcznej dla aplikacji. W odróżnieniu od typowych baz danych, dane przechowywane są w pamięci, a nie na dysku twardym. Dzięki temu szybkość odczytu danych jest znacznie większa niż w przypadku klasycznych rozwiązań.
+Jest ona w stanie pod wybranym kluczem, przechowywać zwykle ciągi znaków, ale także słowniki, co wraz z szybkim odczytem danych sprawia, że baza ta dobrze nadaje się do przechowywania danych dotyczących sesji użytkownika.
 
 \subsection{Docker}
 W celu ułatwienia procesu wdrożenia aplikacji serwerowej w środowisku produkcyjnym, aplikacja wraz z bazą danych zostały zamknięte w kontenery Dockera. Jest to oprogramowanie  umożliwiające uruchamianie skonteneryzowanych aplikacji w środowisku odizolowanym od głównego systemy operacyjnego. Kontener zawiera w sobie całe środowisko potrzebne do uruchomienia aplikacji, w odróżnieniu jednak od typowej maszyny wirtualnej kontener nie musi zazwyczaj zawierać w sobie pełnego systemu operacyjnego co znacznie poprawia wydajność takiego rozwiązania, a jednocześnie sprawia że jesteśmy w stanie uruchomić aplikację zamkniętą w kontenerze, bez konieczności wstępnej konfiguracji środowiska uruchomieniowego, co znacznie poprawia przenośność takiej aplikacji. Izolacja kontenerów pomiędzy sobą, a także od pozostałych procesów głównego systemu operacyjnego może dodatkowo mieć wpływ na podniesienie bezpieczeństwa. Komunikacja pomiędzy różnymi kontenerami może mieć miejsce tylko w specjalnie przygotowanych kanałach komunikacyjnych, np. poprzez wydzieloną sieć, w skład której wchodzą tylko te kontenery, które muszą pomiędzy sobą wymieniać dane. Taka sytuacja ma miejsce przy wymianie danych pomiędzy aplikacją serwerową przygotowywaną w ramach tej pracy, a bazą danych MongoDB.
@@ -306,7 +310,7 @@ Dla celów autoryzacji, dokumenty reprezentujące użytkowników, które przecho
 	\item hash - pole zawierające sól oraz wynik funkcji skrótu dla hasła danego użytkownika
 	
 \end{itemize}
-Dzięki przechowywaniu wyniku funkcji skrótu dla hasła, zamiast jawnego jego przechowywania, podnoszony jest poziom bezpieczeństwa. Nawet w przypadku, gdy dane z bazy danych zostaną wykradzione, hasła użytkowników systemu nie będą mogły zostać odczytane. Wynika to z własności funkcji skrótu, które nie pozwala w łatwy sposób odczytać wartości wejściowej, nawet przy posiadania soli, która została wykorzystana podczas obliczania wyniku funkcji.
+Dzięki przechowywaniu wyniku funkcji skrótu dla hasła, zamiast jawnego jego przechowywania, podnoszony jest poziom bezpieczeństwa. Nawet w przypadku, gdy dane z bazy danych zostaną wykradzione, hasła użytkowników systemu nie będą mogły zostać odczytane. Wynika to z własności funkcji skrótu, która nie pozwala w łatwy sposób odczytać wartości wejściowej, nawet przy posiadania soli, która została wykorzystana podczas obliczania wyniku funkcji.
 
 \newpage
 \subsection{Proces rejestracji użytkownika}
@@ -320,9 +324,41 @@ Proces rejestracji użytkownika posiada następujący przebieg:
 	\caption{Diagram aktywności dla procesu rejestracji}
 	\label{diagramAktywnosciRejstracja}
 \end{figure}
+\newpage
 
 \subsection{Proces logowania użytkownika}
+Po pomyślnym przejściu procesu rejestracji, użytkownik nabywa możliwość zalogowania się do systemu za pomocą wcześniej podanego emaila i hasła. Proces ten wygląda następująco:
 
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.941]{\ImgPath/rys/diag_aktyw_logowanie.pdf}
+	\end{center}
+	\caption{Diagram aktywności dla procesu logowania}
+	\label{diagramAktywnosciLogowanie}
+\end{figure}
+\newpage
+W celu przeprowadzania logowania do systemu, wysyłane jest żądanie do aplikacji serwerowej z danymi, na podstawie, których użytkownik jest uwierzytelniany, a w odpowiedzi zwracany jest identyfikator sesji, który jest później wykorzystywany podczas wysyłania innych żądań. Posiada on ograniczoną czasową ważność, wynoszącą 7 dni.
+
+
+
+\subsection{Proces wylogowania użytkownika}
+
+\section{Uwierzytelnienie i autoryzacja żądań}
+Większość żądań obsługiwanych przez aplikacją serwerową, może być obsłużona tylko w przypadku, gdy użytkownik, które je wysłał został poprawnie uwierzytelniony i zautoryzowany. 
+Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żądania HTTP o nazwie \textit{Authorization}, który powinien zawierać identyfikator sesji. Za to zadanie odpowiedzialne są dwie funkcje pośredniczące w obsłudze żądania: 
+\begin{enumerate}
+	
+	\item \textit{authMiddlewareUser} - funkcja zezwala na pełne wykonanie żądania, tylko gdy użytkownik jest zalogowany.
+	
+	\item \textit{authMiddlewareOwner} - funkcja zezwala na pełne wykonanie żądania, tylko gdy użytkownik jest właścicielem zasobu, którego dotyczy żądanie.
+	
+\end{enumerate}
+
+\subsection{Sposób działania funkcji authMiddlewareUser}
+
+Po uwierzytelnieniu użytkownika, sprawdzane jest czy posiada on uprawnienia do wykonania akcji, która powinna zostać wykonana podczas obsługi żądania. W przypadku omawianej aplikacji serwerowej każdy zalogowany użytkownik ma prawo do dodania nowej, a także do wyświetlenia, edycji i usunięcia swoich starych publikacji. 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibitem{LOKI2}{daemon9, ,,LOKI2'', Phrack Magazine, Issue 51. 
