@@ -19,6 +19,7 @@ import User, { UserType } from '../controllers/users/user.model';
 
 const redisClient = RedisService.getClient();
 
+
 const checkAuth = async (req: Request, next: NextFunction, profileTypes: string[]) => {
     let token: string;
     if (req.header('Authorization')) {

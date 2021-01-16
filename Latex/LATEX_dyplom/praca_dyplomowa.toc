@@ -27,5 +27,6 @@
 \contentsline {subsection}{\numberline {4.2.2}Proces logowania u\IeC {\.z}ytkownika}{16}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}Proces wylogowania u\IeC {\.z}ytkownika}{17}{subsection.4.2.3}
 \contentsline {section}{\numberline {4.3}Uwierzytelnienie i autoryzacja \IeC {\.z}\IeC {\k a}da\IeC {\'n}}{17}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Spos\IeC {\'o}b dzia\IeC {\l }ania funkcji authMiddlewareUser}{17}{subsection.4.3.1}
-\contentsline {chapter}{Bibliografia}{18}{chapter*.4}
+\contentsline {subsection}{\numberline {4.3.1}Spos\IeC {\'o}b dzia\IeC {\l }ania funkcji checkAuth}{18}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Funkcja authMiddlewareUser}{18}{subsection.4.3.2}
+\contentsline {chapter}{Bibliografia}{19}{chapter*.4}

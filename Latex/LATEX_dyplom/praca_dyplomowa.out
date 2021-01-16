@@ -26,5 +26,6 @@
 \BOOKMARK [2][-]{subsection.4.2.2}{Proces logowania uzytkownika}{section.4.2}% 26
 \BOOKMARK [2][-]{subsection.4.2.3}{Proces wylogowania uzytkownika}{section.4.2}% 27
 \BOOKMARK [1][-]{section.4.3}{Uwierzytelnienie i autoryzacja zadan}{chapter.4}% 28
-\BOOKMARK [2][-]{subsection.4.3.1}{Spos\363b dzia\233ania funkcji authMiddlewareUser}{section.4.3}% 29
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 30
+\BOOKMARK [2][-]{subsection.4.3.1}{Spos\363b dzia\233ania funkcji checkAuth}{section.4.3}% 29
+\BOOKMARK [2][-]{subsection.4.3.2}{Funkcja authMiddlewareUser}{section.4.3}% 30
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 31

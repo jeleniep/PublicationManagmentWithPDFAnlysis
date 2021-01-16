@@ -19,6 +19,7 @@
 \usepackage{verbatim}
 \usepackage{indentfirst}
 \usepackage[pdftex]{hyperref}
+\usepackage{varwidth}
 
 
 % rozmaite polecenia pomocnicze
@@ -309,17 +310,19 @@ Dla celów autoryzacji, dokumenty reprezentujące użytkowników, które przecho
 	
 	\item hash - pole zawierające sól oraz wynik funkcji skrótu dla hasła danego użytkownika
 	
+	\item type - pole służące do określania roli użytkownika. Obecnie nie jest wykorzystywane, lecz umożliwia wprowadzenie w przyszłości podziału użytkowników na różne grupy, o specyficznych uprawnieniach
+	
 \end{itemize}
 Dzięki przechowywaniu wyniku funkcji skrótu dla hasła, zamiast jawnego jego przechowywania, podnoszony jest poziom bezpieczeństwa. Nawet w przypadku, gdy dane z bazy danych zostaną wykradzione, hasła użytkowników systemu nie będą mogły zostać odczytane. Wynika to z własności funkcji skrótu, która nie pozwala w łatwy sposób odczytać wartości wejściowej, nawet przy posiadania soli, która została wykorzystana podczas obliczania wyniku funkcji.
 
-\newpage
+
 \subsection{Proces rejestracji użytkownika}
 
 Proces rejestracji użytkownika posiada następujący przebieg:
  \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_rejestr.pdf}
+		\includegraphics[scale=0.8]{\ImgPath/rys/diag_aktyw_rejestr.pdf}
 	\end{center}
 	\caption{Diagram aktywności dla procesu rejestracji}
 	\label{diagramAktywnosciRejstracja}
@@ -333,7 +336,7 @@ Po pomyślnym przejściu procesu rejestracji, użytkownik nabywa możliwość za
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=0.941]{\ImgPath/rys/diag_aktyw_logowanie.pdf}
+		\includegraphics[scale=0.92]{\ImgPath/rys/diag_aktyw_logowanie.pdf}
 	\end{center}
 	\caption{Diagram aktywności dla procesu logowania}
 	\label{diagramAktywnosciLogowanie}
@@ -347,7 +350,7 @@ W celu przeprowadzania logowania do systemu, wysyłane jest żądanie do aplikac
 
 \section{Uwierzytelnienie i autoryzacja żądań}
 Większość żądań obsługiwanych przez aplikacją serwerową, może być obsłużona tylko w przypadku, gdy użytkownik, które je wysłał został poprawnie uwierzytelniony i zautoryzowany. 
-Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żądania HTTP o nazwie \textit{Authorization}, który powinien zawierać identyfikator sesji. Za to zadanie odpowiedzialne są dwie funkcje pośredniczące w obsłudze żądania: 
+Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żądania HTTP o nazwie \textit{Authorization}, który powinien zawierać token pełniący rolę identyfikatora sesji. Za to zadanie odpowiedzialne są dwie funkcje pośredniczące w obsłudze żądania: 
 \begin{enumerate}
 	
 	\item \textit{authMiddlewareUser} - funkcja zezwala na pełne wykonanie żądania, tylko gdy użytkownik jest zalogowany.
@@ -356,9 +359,39 @@ Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żąd
 	
 \end{enumerate}
 
-\subsection{Sposób działania funkcji authMiddlewareUser}
+Obie te funkcje wykorzystują w trakcie działania jedną z najważniejszych funkcji biorących udział w procesie obsługi użytkowników o nazwie \textit{checkAuth}. Jej rolą jest sprawdzenie ważności sesji i zgodności roli użytkownika zidentyfikowanego na podstawie tokena przesłanego w nagłówkach żądania, z wymaganiami bezpieczeństwa danego żądanie. Jeśli warunki te są spełnione, wtedy obsługa żądania przekazywana jest już do docelowej funkcji. 
 
-Po uwierzytelnieniu użytkownika, sprawdzane jest czy posiada on uprawnienia do wykonania akcji, która powinna zostać wykonana podczas obsługi żądania. W przypadku omawianej aplikacji serwerowej każdy zalogowany użytkownik ma prawo do dodania nowej, a także do wyświetlenia, edycji i usunięcia swoich starych publikacji. 
+Nagłówek funkcji \textit{checkAuth} prezentuje się następująco:
+\begin{verbatim}
+async function checkAuth (
+    req: Request,
+    next: NextFunction,                        
+    profileTypes: string[]
+)
+\end{verbatim}
+Do wywołania tej funkcji należy jej przekazać następujące parametry:
+\begin{enumerate}
+	
+	\item req - obiekt zawierający wszystkie parametry żądania, takie jak nagłówki czy ciało.
+	
+	\item next - funkcja, która powinna zostać wywołana jako kolejna, podczas procesu obsługi żądania.
+	
+	\item profileTypes - tablica zawierająca role użytkowników, którzy mają prawo do wywołania danego żądania.
+\end{enumerate}
+
+\subsection{Sposób działania funkcji checkAuth}
+Na początku działania, sprawdza czy w żądaniu, które zostało odebrane, znajduje się nagłówek \textit{Authorization} zawierający token identyfikujący sesję użytkownika. Jeśli token został odnaleziony, na jego podstawie wyszukiwany jest obiekt sesji w bazie danych Redis. Jeśli wyszukiwanie powiedzie się, funkcja \textit{checkAuth} przeprowadza następujące czynności:
+\begin{enumerate}	
+	\item Sprawdzenie czy czas ważności sesji nie został przekroczony.
+	
+	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes} przykazanym do funkcji jako parametr.
+\end{enumerate}
+W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość false, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. Jedynie w przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, funkcja zwróci wartość true, oznaczającą pomyślną autoryzację użytkownika.
+
+\subsection{Funkcja authMiddlewareUser}
+
+
+ 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibitem{LOKI2}{daemon9, ,,LOKI2'', Phrack Magazine, Issue 51. 
