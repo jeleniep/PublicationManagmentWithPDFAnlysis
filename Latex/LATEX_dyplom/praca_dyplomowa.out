@@ -24,8 +24,10 @@
 \BOOKMARK [1][-]{section.4.2}{Obs\233uga uzytkownik\363w}{chapter.4}% 24
 \BOOKMARK [2][-]{subsection.4.2.1}{Proces rejestracji uzytkownika}{section.4.2}% 25
 \BOOKMARK [2][-]{subsection.4.2.2}{Proces logowania uzytkownika}{section.4.2}% 26
-\BOOKMARK [2][-]{subsection.4.2.3}{Proces wylogowania uzytkownika}{section.4.2}% 27
-\BOOKMARK [1][-]{section.4.3}{Uwierzytelnienie i autoryzacja zadan}{chapter.4}% 28
-\BOOKMARK [2][-]{subsection.4.3.1}{Spos\363b dzia\233ania funkcji checkAuth}{section.4.3}% 29
-\BOOKMARK [2][-]{subsection.4.3.2}{Funkcja authMiddlewareUser}{section.4.3}% 30
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 31
+\BOOKMARK [1][-]{section.4.3}{Uwierzytelnienie i autoryzacja zadan}{chapter.4}% 27
+\BOOKMARK [2][-]{subsection.4.3.1}{Spos\363b dzia\233ania funkcji checkAuth}{section.4.3}% 28
+\BOOKMARK [2][-]{subsection.4.3.2}{Funkcja authMiddlewareUser}{section.4.3}% 29
+\BOOKMARK [2][-]{subsection.4.3.3}{Funkcja authMiddlewareOwner}{section.4.3}% 30
+\BOOKMARK [2][-]{subsection.4.3.4}{Proces wylogowania uzytkownika}{section.4.3}% 31
+\BOOKMARK [1][-]{section.4.4}{Zarzadzanie publikacjami}{chapter.4}% 32
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 33

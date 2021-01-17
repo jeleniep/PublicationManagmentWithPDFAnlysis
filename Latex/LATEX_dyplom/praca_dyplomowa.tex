@@ -310,7 +310,7 @@ Dla celów autoryzacji, dokumenty reprezentujące użytkowników, które przecho
 	
 	\item hash - pole zawierające sól oraz wynik funkcji skrótu dla hasła danego użytkownika
 	
-	\item type - pole służące do określania roli użytkownika. Obecnie nie jest wykorzystywane, lecz umożliwia wprowadzenie w przyszłości podziału użytkowników na różne grupy, o specyficznych uprawnieniach
+	\item type - pole służące do określania typu użytkownika. Obecnie nie jest one wykorzystywane i zawsze posiada wartość \textit{USER}, lecz umożliwia wprowadzenie w przyszłości podziału użytkowników na różne grupy, o specyficznych uprawnieniach.
 	
 \end{itemize}
 Dzięki przechowywaniu wyniku funkcji skrótu dla hasła, zamiast jawnego jego przechowywania, podnoszony jest poziom bezpieczeństwa. Nawet w przypadku, gdy dane z bazy danych zostaną wykradzione, hasła użytkowników systemu nie będą mogły zostać odczytane. Wynika to z własności funkcji skrótu, która nie pozwala w łatwy sposób odczytać wartości wejściowej, nawet przy posiadania soli, która została wykorzystana podczas obliczania wyniku funkcji.
@@ -346,8 +346,6 @@ W celu przeprowadzania logowania do systemu, wysyłane jest żądanie do aplikac
 
 
 
-\subsection{Proces wylogowania użytkownika}
-
 \section{Uwierzytelnienie i autoryzacja żądań}
 Większość żądań obsługiwanych przez aplikacją serwerową, może być obsłużona tylko w przypadku, gdy użytkownik, które je wysłał został poprawnie uwierzytelniony i zautoryzowany. 
 Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żądania HTTP o nazwie \textit{Authorization}, który powinien zawierać token pełniący rolę identyfikatora sesji. Za to zadanie odpowiedzialne są dwie funkcje pośredniczące w obsłudze żądania: 
@@ -363,7 +361,7 @@ Obie te funkcje wykorzystują w trakcie działania jedną z najważniejszych fun
 
 Nagłówek funkcji \textit{checkAuth} prezentuje się następująco:
 \begin{verbatim}
-async function checkAuth (
+async function checkAuth: boolean (
     req: Request,
     next: NextFunction,                        
     profileTypes: string[]
@@ -386,12 +384,71 @@ Na początku działania, sprawdza czy w żądaniu, które zostało odebrane, zna
 	
 	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes} przykazanym do funkcji jako parametr.
 \end{enumerate}
-W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość false, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. Jedynie w przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, funkcja zwróci wartość true, oznaczającą pomyślną autoryzację użytkownika.
+W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość false, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. W przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, do obiektu żądania zostaną dopisane parametry użytkownika powiązanego z sesją a następnie funkcja zwróci wartość true, która oznacza, że proces autoryzacji użytkownika zakończył się pomyślnie.
 
 \subsection{Funkcja authMiddlewareUser}
+Funkcja authMiddlewareUser wykorzystuje wzorzec projektowy Adapter, w celu dostosowania funkcji \textit{checkAuth} do interfejsu, który jest wymagany dla funkcji pośredniczących w środowisku Node.js. Jej nagłówek prezentuje się następująco: 
+
+\begin{verbatim}
+async function authMiddlewareUser: void (
+    req: Request,
+    res: Response,
+    next: NextFunction
+)
+\end{verbatim}
+W odróżnieniu od funkcji \textit{checkAuth} wśród argumentów wejściowych brakuje parametru \textit{profileTypes}, będącego listą ról użytkowników, którzy mają prawo do wywołania danego żądania. Dodatkowo w celu zapewnienia zgodności z interfejsem funkcji pośredniczącej w Node.js, pojawił się parametr \textit{res}, który jest obiektem odpowiedzi na żądanie.   
+
+Jej działanie polega na wywołaniu funkcji \textit{checkAuth} oraz sprawdzeniu czy zwróci ona wartość \verb|true|. Jeśli tak się stanie, wywoływana jest funkcja \textit{next}, która jest następną funkcją odpowiedzialną za przetworzenie żądania.
+Przy wywoływaniu funkcji \textit{checkAuth}, jako parametr \textit{profileTypes}  zawsze zostaje przekazana tablica \verb|[ "USER" ]|, co oznacza, że obługa żądania będzie kontynuowana, tylko gdy użytkownik, z którym będzie powiązany identyfikator sesji zawarty w nagłówku żądania jest typu \verb|USER|. 
+
+Ze względu na to, że obecnie wszyscy użytkownicy posiadają typ \verb|USER|, funkcja \textit{authMiddlewareUser} pozwala w rzeczywistości na badanie czy użytkownik wywołujący żądanie jest zalogowany.
+
+\subsection{Funkcja authMiddlewareOwner}
+Funkcja authMiddlewareOwner w odróżnieniu authMiddlewareUser, nie posiada interfejsu zgodnego z funkcjami pośredniczącymi, gdyż wykorzystuje ona domknięcie, zwracając funkcję, posiadającą interfejs funkcji pośredniczącej.
 
 
- 
+Jedynym argumentem, który przyjmuje funkcja \textit{authMiddlewareOwner} jest obiekt \textit{DBModel} typu \textit{Model<IOwnership  Document>} pochodzącego z biblioteki Mongoose, który służy do zarządzania wybranym rodzajem dokumentów w bazie danych MongoDB. Do funkcji może zostać przekazany jedynie taki model, który obsługuje dokumenty które są jednocześnie implementują interfejs \textit{Document}, który również pochodzi  z biblioteki Mongoose i reprezentuje pojedynczy dokument z bazy danych oraz \textit{IOwnership}, który wykorzystywany jest we wszystkich dokumentach, które mogą posiadać właścicieli, jak ma to miejsce przykładowo dla dokumentów przechowujących dane pojedynczej publikacji. 
+
+Poniżej przedstawiony został interfejs \textit{IOwnership}:
+\begin{verbatim}
+interface IOwnership {
+    owners: UserType[ ]
+} 
+\end{verbatim}
+Interfejs ten jest bardzo prosty i posiada tylko jedno pole \textit{owners}, które jest tablicą użytkowników, będących właścicielami obiektu, który implementuje ten interfejs. Dzięki zastosowaniu tego interfejsu, nie ma potrzeba pisania osobnej obsługi rozpoznawania czy użytkownik jest właścicielem wybranego obiektu, dla każdego rodzaju dokumentów osobno. Z tej właśnie własności korzysta funkcja \textit{authMiddlewareOwner}.
+\newpage
+Uproszczony kod funkcji \textit{authMiddlewareOwner} prezentuje się następująco:
+\begin{verbatim}
+const authMiddlewareOwner = 
+  (DbModel: Model<IOwnership & Document>) => (
+    async (req: Request, res: Response, next: NextFunction) => {
+    const authStatus = await checkAuth(req, next, [USER, ADMIN]);
+    const { documentId } = req.params;
+    const { _id as userId } = (<any>req).user;
+    let user: UserType = await User.findById(userId);
+    dbObject = await DbModel.findOne({ _id: documentId, owners: user });           
+  })
+}
+\end{verbatim}
+
+Jej działanie opiera się o domknięcie - jako argument otrzymuje ona obiekt modelu, który później zostaje zawarty w środowisku zwracanej funkcji. Dzięki temu, że model ten musi implementować interfejs \textit{IOwnership}, dokumenty, które zostaną pobrane z bazy danych za jego pomocą muszą posiadać pole \textit{owners}, określające ich właścicieli.
+Zatem funkcja  \textit{authMiddlewareOwner} po wywołaniu zwraca inną funkcję, która jest już właściwą funkcją pośredniczącą, zawierającą dodatkowo w swoim środowisko odwołanie do obiektu modelu dokumentu z bazy danych. Sposób działania zwracanej funkcji wygląda następująco:
+
+\begin{enumerate}
+	
+	\item W sposób analogiczny do funkcji \textit{authMiddlewareUser}, wykorzystując funkcję \textit{checkAuth}, sprawdzana jest tożsamość i typ użytkownika, który wysłał żądanie.
+	
+	\item Jeśli funkcja \textit{checkAuth} potwierdzi, to że użytkownik jest zalogowany oraz to czy jego typ jest odpowiedni, sprawdzane jest czy dokument, którego dotyczy żądanie jest własnością tego użytkownika. 
+	
+	\item Jeśli użytkownik okaże się właścicielem dokumentu, wywoływana jest funkcja \textit{next}, która jest następną funkcją odpowiedzialną za przetworzenie żądania.
+\end{enumerate}
+
+Dzięki tej funkcji, nie trzeba każdorazowo sprawdzać czy użytkownik wysyłający żądanie usunięcia lub edycji danego dokumentu, ma do tego prawo, co ułatwia bezpośrednio kod tych funkcji które wykonują już właściwe operacje na dokumentach przechowywanych w bazie danych.
+
+\subsection{Proces wylogowania użytkownika}
+Proces wylogowywania użytkownika jest stosunkowo prosty i polega najpierw na jego zidentyfikowaniu,a następnie na usunięciu danych dotyczących jego sesji z bazy danych Redis.
+\section{Zarządzanie publikacjami}
+
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibitem{LOKI2}{daemon9, ,,LOKI2'', Phrack Magazine, Issue 51. 
