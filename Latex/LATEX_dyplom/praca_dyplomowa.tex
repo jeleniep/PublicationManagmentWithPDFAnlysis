@@ -276,8 +276,8 @@ Do obsługi asynchroniczności zapytań, wszystkie klasy korzystające z paczki 
 	
 	\item onFail - metoda wywoływana, w przypadku gdy żądanie zakończyło się błędem.
 \end{enumerate}
-\chapter{Szczegóły implementacyjne aplikacji}
-\section{Aplikacja serwerowa}
+\chapter{Szczegóły implementacyjne aplikacji serwerowej}
+\section{Ogólna struktura}
 Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerowej została ona podzielona na trzy moduły. W tym rozdziale zostaną przedstawione ich szczegóły implementacyjne oraz sposób komunikacji pomiędzy sobą. Organizacja kodu aplikacji serwerwoej została przedstawiona, na poniższym diagramie klas:
 
  \begin{figure}[!htbp]
@@ -434,6 +434,8 @@ const authMiddlewareOwner =
 Jej działanie opiera się o domknięcie - jako argument otrzymuje ona obiekt modelu, który później zostaje zawarty w środowisku zwracanej funkcji. Dzięki temu, że model ten musi implementować interfejs \textit{IOwnership}, dokumenty, które zostaną pobrane z bazy danych za jego pomocą muszą posiadać pole \textit{owners}, określające ich właścicieli.
 Zatem funkcja  \textit{authMiddlewareOwner} po wywołaniu zwraca inną funkcję, która jest już właściwą funkcją pośredniczącą, zawierającą dodatkowo w swoim środowisko odwołanie do obiektu modelu dokumentu z bazy danych. Sposób działania zwracanej funkcji wygląda następująco:
 
+Wywołanie funkcji \verb|authMiddlewareOwner(Publication)|, zwróci funkcję pośredniczą, która pozwoli na wywołanie kolejnej metody obsługującej żądanie, tylko gdy użytkownik wywołujący żądanie, jest właścicielem obiektu typu \verb|Publication|, którego id została przekazane jako parametr w ścieżce żądania.
+
 \begin{enumerate}
 	
 	\item W sposób analogiczny do funkcji \textit{authMiddlewareUser}, wykorzystując funkcję \textit{checkAuth}, sprawdzana jest tożsamość i typ użytkownika, który wysłał żądanie.
@@ -446,8 +448,167 @@ Zatem funkcja  \textit{authMiddlewareOwner} po wywołaniu zwraca inną funkcję,
 Dzięki tej funkcji, nie trzeba każdorazowo sprawdzać czy użytkownik wysyłający żądanie usunięcia lub edycji danego dokumentu, ma do tego prawo, co ułatwia bezpośrednio kod tych funkcji które wykonują już właściwe operacje na dokumentach przechowywanych w bazie danych.
 
 \subsection{Proces wylogowania użytkownika}
-Proces wylogowywania użytkownika jest stosunkowo prosty i polega najpierw na jego zidentyfikowaniu,a następnie na usunięciu danych dotyczących jego sesji z bazy danych Redis.
-\section{Zarządzanie publikacjami}
+Proces wylogowywania użytkownika jest stosunkowo prosty i polega najpierw na jego zidentyfikowaniu przy pomocy funkcji pośredniczącej \textit{authMiddlewareUser}, a następnie na usunięciu danych dotyczących jego sesji z bazy danych Redis. Dzięki temu, pomimo że identyfikator sesji może pozostać zapisany po stronie klienta, wysłane żądanie zawierające ten identyfikator nie zostanie wykonane.
+
+\section{Zarządzanie publikacjami oraz przetwarzanie plików pdf}
+W bazie danych MongoDB dokument reprezentujący publikację posiada następujące pola: 
+\begin{enumerate}
+	
+	\item \verb|name: string| - tytuł publikacji. Może zostać odczytany podczas  z pliku PDF.
+	
+	\item \verb|authors: string[ ]| - tablica zawierająca autorów publikacji. Pole to nie powinno być mylone z \verb|owners: UserType[ ]|, który w odróżnieniu od \verb|authors: string[ ]|, przechowuje właścicieli publikacji
+	
+	\item \verb|file: string| - ścieżka do pliku PDF 
+	
+	\item \verb|description: string| - opis publikacji
+	
+	\item \verb|doi: string| - nr doi publikacji
+\end{enumerate}
+Dodatkowo zawiera pole \textit{owners} pochodzące z interfejsu \textit{IOwnership}, co pozwala korzystać z funkcji pośredniczącej \textit{authMiddlewareOwner}, w odniesieniu do publikacji.
+
+Zarządzanie publikacjami odbywa się poprzez obsługę 7 żądań. Aby wywołać każde z nich użytkownik wcześniej zalogować się do systemu. Posiadają one następujące funkcjonalnościach:
+\begin{enumerate}
+	
+	\item Żądanie typu GET - pobranie informacji dotyczących pojedynczej publikacji. Aby pobrać publikację 
+	
+	\item Żądanie typu GET - pobranie listy z informacjami o wszystkich publikacjach użytkownika. 
+		
+	\item Żądanie typu PUT - edycja informacji dotyczących pojedynczej publikacji.
+	
+	\item Żądanie typu DELETE - Usunięcie informacji i pliku pdf należących do pojedynczej publikacji.
+	
+	\item Żądanie typu GET - pobranie pliku pdf przypisanego do wybranej publikacji.
+	
+	\item Żądanie typu POST - przetworzenie pliku pdf. Jako odpowiedź zwracane było informacje, które udało się odczytać z wysłanego pliku pdf.
+	
+	\item Żądanie typu POST - dodanie nowej publikacji.
+\end{enumerate}
+
+Pierwsze pięć wymienionych wyżej opiera się o zwykłe operacje CRUD przeprowadzane na bazie danych, natomiast dwa pozostałe zależne od siebie żądania również korzystają z bazy danych, lecz wykonują także inne czynności, takie jak operacje na plikach, czy też komunikacja z API służącym do pobierania informacji na temat danej publikacji na podstawie wyszukanego wcześniej numeru DOI.
+
+
+\subsection{Definiowanie żądań}
+
+Przykładowa deklaracja obsługi żądania wygląda następująco:
+\begin{verbatim}
+router.get(
+   '/:id', 
+   authMiddlewareOwner(Publication), 
+   getPublication
+)
+\end{verbatim}
+Przedstawiony w powyższym fragmencie obiekt \verb|router|, służy do definiowania sposobu obsługi żądań. W celu dodania nowego żądania, należy wywołać metodę on nazwie zgodnej z jego typem. Przykładowo w celu dodania obsługi żądania GET należy wywołać metodę \verb|get|. Każda z tych metod jako pierwszy argument przyjmuje ścieżkę żądania, a następnie funkcje obsługujące żądnie, gdzie pozycja wśród argumentów odpowiada kolejności, w której poszczególne funkcje będą wywoływane. Zatem w przypadku dla powyższej próbki kodu po odebraniu żądania, najpierw wywołana zostanie metoda zwrócona przez funkcję \verb|authMiddlewareOwner(Publication)|, a następnie w zależności wyniku działania tej funkcji może zostać wywołana funkcja \verb|getPublication| lub też obsługa żądania może zakończyć się błędem przed wywołaniem tej funkcji.
+
+
+
+\subsection{Pobranie listy publikacji}
+Proces ten polega na wyszukaniu w bazie danych tych dokumentów opisujących publikacje, których właścicielem jest użytkownik rozpoznany podczas procesu autoryzacji. Uproszczony kod funkcji prezentuje się następująco:
+\begin{verbatim}
+const { _id as userId } = (<any>req).user;
+user = await User.findById(userId);
+const publications = await Publication.find({owners: user});	
+\end{verbatim}
+
+\subsection{Pobranie dokumentu pojedynczej publikacji}
+Proces rozpoczyna się od sprawdzenia czy użytkownik wywołujący to żądanie, jest właścicielem publikacji, której szczegóły próbuje odczytać. Jeśli tak jest, publikacja zostaje wyszukana w bazie danych i zwrócona użytkownikowi.
+
+\subsection{Edycja dokumentu pojedynczej publikacji}
+Początek obsługi tego żądania jest taki sam jak w przypadku pobrania pojedynczej publikacji - najpierw sprawdzane jest użytkownik wywołujący to żądanie, jest właścicielem publikacji, którą próbuje edytować. Jeśli tak publikacja zostaje zedytowana zgodnie z danymi otrzymanymi w żądaniu.
+
+\subsection{Usunięcie pojedynczej publikacji}
+Analogicznie to dwóch wyżej wymienionych żądań, w przypadku usuwania aplikacji, najpierw sprawdzane jest użytkownik wywołujący to żądanie, jest właścicielem publikacji, a następnie dochodzi do usunięcia dokumentu zawierającego jej szczegółu oraz PDF do niej należącego.
+
+\subsection{Pobranie pliku PDF nalezącego do pojedynczej publikacji}
+Obsługa tego żądania jest niemal identyczna do obsługi pobierania dokumentu pojedynczej publikacji, z tą różnicą, że zamiast zwracać obiekt, zwracany jest plik, którego ścieżka zapisana jest w dokumencie wybranej publikacji.
+
+
+\subsection{Dodawanie publikacji na podstawie pliku PDF}
+Proces dodawania publikacji, składa się dwóch podstawowych kroków:
+\begin{enumerate}
+	\item Przetworzenie pliku pdf, w wyniku którego mogą zostać odczytane informacje dotyczące publikacji.
+	\item Zapisanie publikacji, po zreadgowaniu i uzupełnieniu przez użytkownika informacji na temat publikacji, które pochodzą z procesu przetwarzania
+\end{enumerate}
+Cały proces składa się także z dwóch osobnych żądań: 
+\begin{enumerate}	
+	\item Żądanie przetwarzające plik PDF - w ramach ciała żądania wysyłany jest plik PDF, który zostaje zapisany w lokalizacji tymczasowej, a w odpowiedzi zwracane są informacje, które udało się odczytać z pliku. 
+	\begin{figure}[!htbp]
+		\begin{center}
+			\centering
+			\includegraphics[scale=0.9]{\ImgPath/rys/diag_aktyw_wstepne_przetwarzanie.pdf}
+		\end{center}
+		\caption{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}
+		\label{diagramAktywnosciDodawanie}
+	\end{figure}
+	
+	\item Żądanie dodające dokument publikacji - w ciele żądania powinny znajdować się informacje pochodzące z wcześniejszego przetwarzania pliku PDF, które zostały zredagowane przez użytkownika. Wśród odebranych parametrów publikacji, musi znaleźć się identyfikator przetworzonego wcześniej pliku PDF.
+	\begin{figure}[!htbp]
+		\begin{center}
+			\centering
+			\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_dodawanie_pub.pdf}
+		\end{center}
+		\caption{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}
+		\label{diagramAktywnosciDodawanie}
+	\end{figure}
+	
+\end{enumerate}
+
+\subsection{Przetwarzanie plików PDF}
+Funkcja przetwarzająca plik PDF jest wywoływana podczas obsługi żądania przetwarzania pliku PDF. Proces ten polega na przeszukaniu treści pliku oraz jego metadanych w celu odnalezienia identyfikatora DOI, który zostanie wykorzystany później w celu pobrania szczegółów dotyczących publikacji. Jeśli identyfikator DOI nie zostanie odnaleziony, następuje wtedy próba odczytania informacji o publikacji wprost z metadanych pliku PDF.
+
+W przypadku, gdy identyfikator DOI nie zostanie odnaleziony wśród metadanych pliku, jego poszukiwanie w treści pliku wykonywane jest przy użyciu wyrażenia regularnego:
+\begin{verbatim}
+const regex = /\S+(doi.org)\S+/g;
+const found = pdfData.text.match(regex);
+\end{verbatim}
+Stała \verb|regex| zawiera w sobie definicję poszukiwanego ciągu znaków. Obiekt pdfData powstaje w wyniku wykorzystania funkcji dostarczonej w bibliotece \textit{pdf-parse}. Polę text należące do tego obiektu, zawiera cały tekst znajdujący się wewnątrz przetwarzanego pliku. Przy wykorzystaniu funkcji \verb|match|, która wyszukuje ciągi tekstu zgodne z wyrażeniem regularnym, który został przekazany do funkcji jako argument, wyszukiwane są wszystkie możliwie identyfikatory DOI zawarte w pliku. Jako właściwy identyfikator DOI zostaje uznany ten, który jako pierwszy zostanie odnaleziony w tekście, gdyż z duża dozą prawdopodobieństwa pozostałe identyfikatory należą do innych publikacji, do których występują odwołania, wewnątrz badanego pliku.
+
+Jeśli identyfikator DOI został pomyślnie odnaleziony, następuje próba pobrania na jego podstawie szczegółów dotyczących publikacji. Następnie pobrane dane są uzupełniane o te odczytane bezpośrednio z metadanych pliku PDF.
+
+Gdyby identyfikator DOI nie został odnaleziony, nastąpiła by próba odczytania wszystkich wartości wprost z metadanych pliku. Jeśli i ta operacja zakończyła by się niepowodzeniem, użytkownik będzie musiał ręcznie wprowadzić wszelkie szczegóły dotyczące publikacji.
+
+\section{Walidacja danych}
+W celu zwiększenia bezpieczeństwa oraz łatwiejszego odnajdowania błędów użytkownika, ciała prawie wszystkich żądań typu POST i PUT, są walidowane, po procesie autoryzacji użytkownika ale przed wywołaniem właściwej funkcji obsługującej żądanie. Do tego celu wykorzystana została funkcja pośrednicząca \textit{validationMiddleware}. 
+
+W swoim działania funkcja ta korzysta z biblioteki \textit{class-validator}, która umożliwia walidowanie obiektów wykorzystując zdefiniowane wcześniej do tego celu wzorce. Wykorzystuje ona również domknięcie, zwracając funkcję, która jest zgodna z interfejsem funkcji pośredniczącej.
+
+Nagłówek funkcji \textit{validationMiddleware} prezentuje się następująco: 
+
+\begin{verbatim}
+function validationMiddleware<T>(type: any): express.RequestHandler
+\end{verbatim}
+
+Jej jedynym argumentem jest obiekt, będący definicją typu, z którym musi być zgodne ciało żądania, do którego obsługi wykorzystana została ta funkcja.
+
+Przykładowa definicja typu, który musi być zgodny z ciałem żądania dodającego publikację ma postać: 
+\begin{verbatim}
+class AddPublicationDto {
+
+  @IsString()
+  public readonly name: string;
+
+  @IsString()
+  public readonly description: string;
+  
+  @IsString()
+  public readonly file: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @ArrayMinSize(0)
+  @Type(() => String)        
+  public readonly authors: string[];
+
+}
+\end{verbatim}
+Definiowanie warunków, które muszą zostać spełnione przez poszczególne pola ciała żądania definiowane są za pomocą dekoratorów. Znaczenie częśći z tych, które zostały wykorzystane w powyższym przykładzie jest następujące: 
+\begin{itemize}
+	\item \verb|@IsString()| - sprawdza czy wartość danego pola jest ciągiem znaków
+	\item \verb|@IsArray()| - sprawdza czy wartość danego pola jest tablicą 
+	\item \verb|@ValidateNested()| - określa czy w przypadku tablic oraz obiektów należy walidować, każdą zagnieżdżoną wartość 
+	\item \verb|@ArrayMinSize(0)| - służy do określenia minimalnej wielkości tablicy
+\end{itemize}
+
+\chapter{Szczegóły implementacyjne aplikacji klienckiej}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
@@ -455,6 +616,7 @@ Proces wylogowywania użytkownika jest stosunkowo prosty i polega najpierw na je
 \url{http://phrack.org}}
 \bibitem{RWWWS}{van Hauser, Reverse WWW Shell,  THC, The Hacker's 
 Choice.\newline \url{www.thc.org}}
+
 
 
 \end{thebibliography}

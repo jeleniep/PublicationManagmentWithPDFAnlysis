@@ -18,8 +18,8 @@
 \BOOKMARK [1][-]{section.3.3}{Architektura aplikacji klienckiej}{chapter.3}% 18
 \BOOKMARK [2][-]{subsection.3.3.1}{Wzorzec Model\205view\205viewmodel\(MVVM\)}{section.3.3}% 19
 \BOOKMARK [2][-]{subsection.3.3.2}{Struktura}{section.3.3}% 20
-\BOOKMARK [0][-]{chapter.4}{Szczeg\363\233y implementacyjne aplikacji}{}% 21
-\BOOKMARK [1][-]{section.4.1}{Aplikacja serwerowa}{chapter.4}% 22
+\BOOKMARK [0][-]{chapter.4}{Szczeg\363\233y implementacyjne aplikacji serwerowej}{}% 21
+\BOOKMARK [1][-]{section.4.1}{Og\363lna struktura}{chapter.4}% 22
 \BOOKMARK [2][-]{subsection.4.1.1}{Opis podstawowych klas}{section.4.1}% 23
 \BOOKMARK [1][-]{section.4.2}{Obs\233uga uzytkownik\363w}{chapter.4}% 24
 \BOOKMARK [2][-]{subsection.4.2.1}{Proces rejestracji uzytkownika}{section.4.2}% 25
@@ -29,5 +29,15 @@
 \BOOKMARK [2][-]{subsection.4.3.2}{Funkcja authMiddlewareUser}{section.4.3}% 29
 \BOOKMARK [2][-]{subsection.4.3.3}{Funkcja authMiddlewareOwner}{section.4.3}% 30
 \BOOKMARK [2][-]{subsection.4.3.4}{Proces wylogowania uzytkownika}{section.4.3}% 31
-\BOOKMARK [1][-]{section.4.4}{Zarzadzanie publikacjami}{chapter.4}% 32
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 33
+\BOOKMARK [1][-]{section.4.4}{Zarzadzanie publikacjami oraz przetwarzanie plik\363w pdf}{chapter.4}% 32
+\BOOKMARK [2][-]{subsection.4.4.1}{Definiowanie zadan}{section.4.4}% 33
+\BOOKMARK [2][-]{subsection.4.4.2}{Pobranie listy publikacji}{section.4.4}% 34
+\BOOKMARK [2][-]{subsection.4.4.3}{Pobranie dokumentu pojedynczej publikacji}{section.4.4}% 35
+\BOOKMARK [2][-]{subsection.4.4.4}{Edycja dokumentu pojedynczej publikacji}{section.4.4}% 36
+\BOOKMARK [2][-]{subsection.4.4.5}{Usuniecie pojedynczej publikacji}{section.4.4}% 37
+\BOOKMARK [2][-]{subsection.4.4.6}{Pobranie pliku PDF nalezacego do pojedynczej publikacji}{section.4.4}% 38
+\BOOKMARK [2][-]{subsection.4.4.7}{Dodawanie publikacji na podstawie pliku PDF}{section.4.4}% 39
+\BOOKMARK [2][-]{subsection.4.4.8}{Przetwarzanie plik\363w PDF}{section.4.4}% 40
+\BOOKMARK [1][-]{section.4.5}{Walidacja danych}{chapter.4}% 41
+\BOOKMARK [0][-]{chapter.5}{Szczeg\363\233y implementacyjne aplikacji klienckiej}{}% 42
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 43

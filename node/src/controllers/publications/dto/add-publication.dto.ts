@@ -9,6 +9,9 @@ class AddPublicationDto {
     @IsString()
     public readonly description: string;
 
+    @IsString()
+    public readonly file: string;
+
     @IsArray()
     @ValidateNested({ each: true })
     @ArrayMinSize(0)

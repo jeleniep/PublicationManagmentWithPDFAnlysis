@@ -19,8 +19,8 @@
 \contentsline {section}{\numberline {3.3}Architektura aplikacji klienckiej}{11}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Wzorzec Model\IeC {\textendash }view\IeC {\textendash }viewmodel(MVVM)}{11}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Struktura}{12}{subsection.3.3.2}
-\contentsline {chapter}{\numberline {4}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji}{13}{chapter.4}
-\contentsline {section}{\numberline {4.1}Aplikacja serwerowa}{13}{section.4.1}
+\contentsline {chapter}{\numberline {4}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji serwerowej}{13}{chapter.4}
+\contentsline {section}{\numberline {4.1}Og\IeC {\'o}lna struktura}{13}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Opis podstawowych klas}{14}{subsection.4.1.1}
 \contentsline {section}{\numberline {4.2}Obs\IeC {\l }uga u\IeC {\.z}ytkownik\IeC {\'o}w}{14}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Proces rejestracji u\IeC {\.z}ytkownika}{15}{subsection.4.2.1}
@@ -30,5 +30,15 @@
 \contentsline {subsection}{\numberline {4.3.2}Funkcja authMiddlewareUser}{18}{subsection.4.3.2}
 \contentsline {subsection}{\numberline {4.3.3}Funkcja authMiddlewareOwner}{19}{subsection.4.3.3}
 \contentsline {subsection}{\numberline {4.3.4}Proces wylogowania u\IeC {\.z}ytkownika}{21}{subsection.4.3.4}
-\contentsline {section}{\numberline {4.4}Zarz\IeC {\k a}dzanie publikacjami}{21}{section.4.4}
-\contentsline {chapter}{Bibliografia}{22}{chapter*.4}
+\contentsline {section}{\numberline {4.4}Zarz\IeC {\k a}dzanie publikacjami oraz przetwarzanie plik\IeC {\'o}w pdf}{21}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Definiowanie \IeC {\.z}\IeC {\k a}da\IeC {\'n}}{22}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Pobranie listy publikacji}{22}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Pobranie dokumentu pojedynczej publikacji}{23}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Edycja dokumentu pojedynczej publikacji}{23}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}Usuni\IeC {\k e}cie pojedynczej publikacji}{23}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {4.4.6}Pobranie pliku PDF nalez\IeC {\k a}cego do pojedynczej publikacji}{23}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {4.4.7}Dodawanie publikacji na podstawie pliku PDF}{23}{subsection.4.4.7}
+\contentsline {subsection}{\numberline {4.4.8}Przetwarzanie plik\IeC {\'o}w PDF}{26}{subsection.4.4.8}
+\contentsline {section}{\numberline {4.5}Walidacja danych}{26}{section.4.5}
+\contentsline {chapter}{\numberline {5}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji klienckiej}{28}{chapter.5}
+\contentsline {chapter}{Bibliografia}{29}{chapter*.4}
