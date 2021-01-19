@@ -270,7 +270,7 @@ Natywne aplikacje działające pod kontrolą systemu Android zbudowaną są z ko
 
 Do komunikacji z aplikacja serwerową za pomocą protokołu HTTP wykorzystana zostanie biblioteka Retrofit. Wykorzystywana będzie w klasach należących do paczki \textit{network}, która odpowiadać za obsługę żądań HTTP wykorzystywanych do logowania użytkowników oraz do odczytywania, dodawania i edycji publikacji naukowych. 
 
-Do obsługi asynchroniczności zapytań, wszystkie klasy korzystające z paczki \textit{network}, będą wymagały zaimplementowania interfejsu \textit{RequestObserver}, który będzie zawierał dwie metody:
+Do obsługi asynchroniczności zapytań, wszystkie klasy korzystające z klas pakietu \textit{network}, będą wymagały zaimplementowania interfejsu \textit{RequestObserver}, który będzie zawierał dwie metody:
 \begin{enumerate}
 	\item onSuccess - metoda wywoływana, w przypadku gdy żądanie zakończyło się pomyślnie.
 	
@@ -609,6 +609,92 @@ Definiowanie warunków, które muszą zostać spełnione przez poszczególne pol
 \end{itemize}
 
 \chapter{Szczegóły implementacyjne aplikacji klienckiej}
+
+Aplikacja kliencka przygotowana w ramach tego projektu, została napisana w celu działania na urządzeniach mobilnych wyposażonych w system Android. Zgodnie z informacjami zawartymi w poprzednich rozdziałach, będzie ona wykorzystywać wzorzec Model-View-Viewmodel(MVVM) oraz do jej stworzenia wykorzystany został język Kotlin. 
+
+Najważniejsze klasy definiujące trzy aktywności, z których składa się aplikacja kliencka należą do podstawowego pakietu publicationManager
+Dodatkowo została podzielona następujące podpakiety:
+\begin{enumerate}
+ 	\item network - zawiera wszystkie klasy odpowiedzialne za wymianę danych z aplikacją serwerową, przy użyciu żądań wysyłanych za pomocą protokołu HTTP
+ 	\item ui - składa się z klas odpowiedzialnych za obsługę interfejsu użytkownika.
+ 	\item interfaces - w tym pakiecie znajdują się interfejsy wykorzystywane wewnątrz aplikacji, służące między innymi do obsługi odpowiedzi na żądania
+ 	\item utils - w skład tego pakietu wchodzą różnego rodzaju klasy i funkcje pomocnicze
+\end{enumerate}
+
+Oprócz kodu napisanego w języku Kotlin, aplikacja składa się także z plików XML. Są one wykorzystywane do konfiguracji ustawień wymaganych przez system Android, a także do definiowania styli oraz układu poszczególnych elementów interfejsu użytkownika. 
+
+\section{LoginActivity}
+LoginActivity jest pierwszą aktywnością, która jest uruchamiana po włączeniu aplikacji. Zgodnie z nazwą, odpowiada ona za obsłużenie procesu logowania użytkownika, a także za sprawdzenie czy użytkownik nie zalogował się wcześniej do aplikacji. Jej sposób działania prezentuje się następująco: 
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_mob_log_aktyw.pdf}
+	\end{center}
+	\caption{Diagram aktywności dla LoginActivity}
+	\label{diagramAktywnosciLoginActivity}
+\end{figure}
+
+Ze względu na stosunkową prostotę i jedynie jeden ekran, który należy do tej aktywności, nie została ona podzielona na fragmenty. Inna cechą tej aktywności jest fakt, że nie jest ona zapisywana na stosie cofania, dzięki czemu użytkownik po zalogowaniu, nie jest w stanie cofnąć się do tej aktywności przy użyciu klawisza cofnij.
+
+ Ze względu na fakt wywoływania asynchroniczną naturę metod obsługujących żądania wysyłany do aplikacji serwerowej, klasa LoginActivity implementuje interfejs \textit{LoginObserver} służący do obsługi odpowiedzi na żądania logowania. Prezentuje się on następująco:
+\begin{verbatim}
+interface LoginObserver {
+  fun onUserLoginSuccessful(userDTO: UserDTO)  
+  fun onUserLoginFailure(errorResponse: ErrorResponse?)
+}
+\end{verbatim} 
+
+Funkcja \textit{onUserLoginSuccessful} zaimplementowana w LoginActivity zostaje wywołana gdy żądanie logowania zostanie pomyślnie zakończone. Jako argument funkcja otrzymuje obiekt transferu danych typu \textit{UserDTO}, który zawiera informacje dotyczące zalogowanego użytkownika oraz token sesji, który zostaje zapisany w pamięci urządzenia przy użyciu interfejsu \textit{SharedPreferences}, służącego do przechowywania informacji w postaci klucz-wartość. Funkcja ta odpowiada także za uruchomienie głównej aktywności \textit{MainActivity}
+
+Funkcja \textit{onUserLoginFailure} jest wywoływana w przypadku gdy żądanie logowania zakończy się błędem. Jeśli taka sytuacja wystąpi, funkcja ta wyświetli komunikat użytkownikowi w formie chmurki zwanej tostem(Toast).
+
+\section{MainActivity}
+MainActivity jest główną aktywnością w aplikacji składającą się z dwóch fragmentów: 
+\begin{enumerate}
+	\item PublicationsListFragment - fragment odpowiedzialny za ekran z listą publikacji użytkownika
+	\item UserDetailsFragment - ekran powiązany z tym fragmentem przedstawia szczegóły zalogowanego użytkownika oraz zezwala na ich edycję.
+\end{enumerate}
+
+\subsection{PublicationsListFragment}
+Ekran reprezentujący \textit{PublicationsListFragment} składa się z przewijanej listy zawierającej odnośniki do poszczególnych publikacji należących do obecnie zalogowanego użytkownika. Za jej wyświetlenie odpowiedzialny jest komponent \textit{RecyclerView}. Jego największą zaletą jest fakt, iż w odróżnieniu od komponentu \textit{ScrollView} jest on w stanie wyświetlać bez większych spowolnień bardzo długie listy. 
+
+Przewaga komponentu \textit{RecyclerView} wynika z faktu, że zamiast trzymać w pamięci wszystkie elementy listy jak ma to miejsce w \textit{ScrollView}, przechowuje jedynie te, które są widoczne na ekranie. W momencie gdy dany element listy znika z pola widzenia, jest przesuwany na początek ze zmienioną zawartością, odpowiadającą kolejnemu elementowi listy. 
+
+Wadą komponentu \textit{RecyclerView} jest niewątpliwe stosunkowo skomplikowana obsługa w kodzie, gdyż aby móc z niego korzystać należy przygotować specjalną klasę będącą adapterem listy wejściowej na jej graficzną reprezentację.
+
+Za pobranie i aktualizację danych odpowiada klasa  \textit{PublicationsListViewModel}, stanowiąca warstwę viewmodelu.
+Jej deklaracja prezentuje się następująco:
+\begin{verbatim}
+class PublicationsListViewModel : 
+  ViewModel(),
+  RequestObserver<ArrayList<PublicationListItem>> 
+  
+\end{verbatim}
+Klasa \textit{PublicationsListViewModel} dziedziczy po klasie ViewModel, co pozwala w łatwy sposób połączyć ją klasą z warstwy View - w tym przypadku z klasą \textit{PublicationsListFragment}. Dodatkowo implementuje ona interfejs \textit{RequestObserver}, który umożliwia obsługę odpowiedzi na żądanie. Jest on zbliżony do interfejsu \textit{LoginObserver}, gdyż również posiada on dwie metody: jedną wywoływaną gdy żądanie zakończy się pomyślnie oraz drugą która uruchamiana jest gdy odpowiedź żądania będzie zawierała błąd. Jednak dzięki wprowadzeniu do niego typów generycznych, można go wykorzystywać do obsługi wielu typów odpowiedzi na żądania. Jego kod wygląda następująco:
+\begin{verbatim}
+
+interface RequestObserver<T> {
+  fun onSuccess(response: T, type: String)
+  fun onFail(errorResponse: ErrorResponse?, type: String)
+}
+
+\end{verbatim}
+ Klasa \textit{PublicationsListViewModel} posiada jedno publiczne pole \textit{publications}, które jest typu \textit{LiveData<List<PublicationListItem>>}. Typ \textit{LiveData} ten daje możliwość obserwacji zmian wartości, dzięki czemu w warstwie widoku wystarczy zdefiniować obserwatora pola typu LiveData, który zostanie poinformowany o każdej zmianie wartości obserwowanego pola i pozwoli na dynamiczne odświeżenie prezentowanych informacji.
+ 
+Poniższy diagram przedstawia w jaki współpracują między sobą klasy \textit{PublicationsListFragment}, \textit{PublicationsListViewModel}, a także klasa \textit{PublicationRepository}, odpowiedzialna za obsługę żądań dotyczących publikacji:
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_mob_log_aktyw.pdf}
+	\end{center}
+	\caption{Diagram aktywności dla LoginActivity}
+	\label{diagramAktywnosciLoginActivity}
+\end{figure}
+
+\subsection{UserDetailsFragment}
+Klasa \textit{UserDetailsFragment} jest odpowiedzialna za prezentowanie i edycję danych zalogowanego użytkownika. Prezentuje ona na ekranie pola tekstowe zawierające email użytkownika oraz jego pseudonim, a także dwa przyciski odpowiadające za zapisanie zmian oraz wylogowanie użytkownika. 
+
+\section{PublicationDetailsActivity}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}

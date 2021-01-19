@@ -40,4 +40,9 @@
 \BOOKMARK [2][-]{subsection.4.4.8}{Przetwarzanie plik\363w PDF}{section.4.4}% 40
 \BOOKMARK [1][-]{section.4.5}{Walidacja danych}{chapter.4}% 41
 \BOOKMARK [0][-]{chapter.5}{Szczeg\363\233y implementacyjne aplikacji klienckiej}{}% 42
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 43
+\BOOKMARK [1][-]{section.5.1}{LoginActivity}{chapter.5}% 43
+\BOOKMARK [1][-]{section.5.2}{MainActivity}{chapter.5}% 44
+\BOOKMARK [2][-]{subsection.5.2.1}{PublicationsListFragment}{section.5.2}% 45
+\BOOKMARK [2][-]{subsection.5.2.2}{UserDetailsFragment}{section.5.2}% 46
+\BOOKMARK [1][-]{section.5.3}{PublicationDetailsActivity}{chapter.5}% 47
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 48

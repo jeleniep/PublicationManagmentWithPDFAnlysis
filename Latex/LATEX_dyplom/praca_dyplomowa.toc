@@ -41,4 +41,9 @@
 \contentsline {subsection}{\numberline {4.4.8}Przetwarzanie plik\IeC {\'o}w PDF}{26}{subsection.4.4.8}
 \contentsline {section}{\numberline {4.5}Walidacja danych}{26}{section.4.5}
 \contentsline {chapter}{\numberline {5}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji klienckiej}{28}{chapter.5}
-\contentsline {chapter}{Bibliografia}{29}{chapter*.4}
+\contentsline {section}{\numberline {5.1}LoginActivity}{29}{section.5.1}
+\contentsline {section}{\numberline {5.2}MainActivity}{30}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}PublicationsListFragment}{30}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}UserDetailsFragment}{33}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}PublicationDetailsActivity}{33}{section.5.3}
+\contentsline {chapter}{Bibliografia}{34}{chapter*.4}
