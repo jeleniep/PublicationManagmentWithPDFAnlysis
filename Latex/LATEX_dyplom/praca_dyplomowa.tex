@@ -20,8 +20,19 @@
 \usepackage{indentfirst}
 \usepackage[pdftex]{hyperref}
 \usepackage{varwidth}
+\usepackage{listings}
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	keepspaces=true,
+}
 
-
+\hypersetup{
+	colorlinks   = true, %Colours links instead of ugly boxes
+	urlcolor     = black, %Colour for external hyperlinks
+	linkcolor    = black, %Colour of internal links
+	citecolor   = red %Colour of citations
+}
 % rozmaite polecenia pomocnicze
 % gdzie rysunki?
 \newcommand{\ImgPath}{.}
@@ -100,94 +111,94 @@
 % Wstęp
 %-----------------
 \chapter{Wstęp}
-Przy pisaniu artykułów naukowych często sięga się po efekty prac przedstawione w innych publikacjach naukowych. Wraz z pisaniem coraz większej liczby tego typu dokumentów, ilość wykorzystywanych w nich pozycji bibliograficznych może zacząć znacznie wzrastać co może utrudnić odnajdowanie potrzebnych publikacji w stale rozszerzającym się ich zbiorze. 
+Przy pisaniu artykułów naukowych często sięga się po efekty prac przedstawione w innych publikacjach naukowych. Wraz z pisaniem coraz większej liczby tego typu dokumentów, liczba wykorzystywanych w nich pozycji bibliograficznych może zacząć znacznie wzrastać co może utrudnić odnajdowanie potrzebnych publikacji w stale rozszerzającym się ich zbiorze. 
 
 Dlatego też ta praca będzie przedstawiała efekty prac nad aplikacją do zarządzania publikacjami naukowymi z automatyczną analizą plików PDF, której głównym celem jest ułatwienie procesu zarządzania publikacjami naukowymi, które przechowywane są w formie plików PDF. System będzie składał się aplikacji klienckiej przygotowanej dla systemu Android oraz aplikacji serwerowej działającej w kontenerze Dockera.
 \section{Założenia projektowe}
 
 \hspace{10pt} 	System powstający w ramach pracy inżynierskiej będzie opierał się o następujące założenia: 	
 \begin{enumerate}
-	\item Aplikacja serwerowa będzie napisana przy użyciu Node.js oraz języka TypeScript.
-	\item W celu ułatwienia konfiguracji środowiska deweloperskiego jaki produkcyjnego, baza danych wraz z aplikacją serwerową będą uruchamiane w sposób skonteneryzowany przy wykorzystaniu technologii Docker. 
-	\item Aplikacja kliencka będzie przeznaczona na system Android oraz do jej napisania wykorzystany zostanie język Kotlin.
-	\item W celu korzystania z aplikacji użytkownik będzie musiał utworzyć konto w systemie.
-	\item Do uzyskania informacji z pliku PDF dotyczących publikacji wykorzystane zostanie API dostępne pod adresem: \newline \url{https://api.crossref.org/} 
-	\item Aplikacje będą tworzone w sposób modułowy, umożliwiając stosunkowo łatwą możliwość rozbudowywania funkcjonalności.W
-	\item Podczas implementacji obu aplikacji w miarę możliwości stosowane będą najlepsze praktyki programistyczne.
+	\item Aplikacja serwerowa będzie napisana przy użyciu Node.js oraz języka TypeScript;
+	\item W celu ułatwienia konfiguracji środowiska programistycznego jak i produkcyjnego, baza danych wraz z aplikacją serwerową będą uruchamiane w sposób skonteneryzowany przy wykorzystaniu technologii Docker;
+	\item Aplikacja kliencka będzie przeznaczona na system Android oraz do jej napisania wykorzystany zostanie język Kotlin;
+	\item W celu korzystania z aplikacji użytkownik będzie musiał utworzyć konto w systemie;
+	\item Do uzyskania informacji z pliku PDF dotyczących publikacji wykorzystane zostanie API dostępne pod adresem: \newline \url{https://api.crossref.org/} ;
+	\item Aplikacje będą tworzone w sposób modułowy, umożliwiając stosunkowo łatwą możliwość rozbudowywania funkcjonalności.;
+	\item Podczas implementacji obu aplikacji w miarę możliwości stosowane będą najlepsze praktyki programistyczne;
 \end{enumerate}
 
-W systemie będą dostępne następujące funkcjonalności:		
+W systemie będą dostępne następujące funkcje:		
 \begin{enumerate}
-	\item Wyświetlanie listy publikacji.
-	\item Wyświetlanie opisu publikacji naukowych.
-	\item Tworzenie nowej publikacji w oparciu o metadane oraz numer DOI, jeśli są dostępne w dodawanym pliku PDF.
-	\item Edycja publikacji.
-	\item Pobranie pliku PDF powiązanego z daną publikacją.
+	\item Wyświetlanie listy publikacji;
+	\item Wyświetlanie opisu publikacji naukowych;
+	\item Tworzenie nowej publikacji w oparciu o metadane oraz numer DOI\footnote{Document Object Identifier(DOI) - unikalny identyfikator dokumentu elektronicznego }, jeśli są dostępne w dodawanym pliku PDF;
+	\item Edycja metadanych publikacji;
+	\item Pobranie pliku PDF powiązanego z daną publikacją;
 \end{enumerate}
 %-----------------
 % \
 %-----------------
 \chapter{Przedstawienie wykorzystywanych technologii}
-Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa analiza dostępnych technologii zarówno w kontekście aplikacji serwerowej jak również klienckiej. W trakcie jej trwania pod uwagę brane były przede wszystkim aspekty dotyczące specyfik danych technologii takich jak wydajność czy też sugerowane przeznaczenie poszczególnych rozwiązań, ale także kwestie dotyczące osobistych preferencji odnoszących się do danych technologii. 
+Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa analiza dostępnych technologii zarówno w kontekście aplikacji serwerowej jak również klienckiej. W trakcie jej trwania pod uwagę brane były przede wszystkim aspekty dotyczące specyficznych cech danych technologii takich jak wydajność czy też sugerowane przeznaczenie poszczególnych rozwiązań, ale także kwestie dotyczące osobistych preferencji odnoszących się do danych technologii. 
   %-----------------
   % Historia
   %-----------------
 \section{Aplikacja serwerowa}
-W obecnych czasach ilość technologii pozwalających na pisanie aplikacji serwerowych jest ogromna. Podjęcie jednoznacznego wyboru dotyczącego, której z nich należy użyć do danego zadania jest niemalże niemożliwe, jednakże każda z nich cechuje się swoimi indywidualnymi cechami, które pozwalają w pewnym stopniu ocenić, które z dostępnych narzędzi będzie odpowiednie do rozwiązania wybranego problemu. W przypadku aplikacji serwerowej, tworzonej w ramach tej pracy, głównymi cechami branymi pod uwagę była wydajność danej technologii oraz ilość kodu wymagana do poprawnego i bezpiecznego działania aplikacji. Po przeanalizowaniu dostępnych rozwiązań, aplikacja zostanie napisana w środowisku Node.js, przy użyciu języka TypeScript. Do przechowywania danych wykorzystana zostanie baza danych MongoDB, natomiast dane dotyczące sesji użytkowników będą przechowywane w bazie danych Redis. Cała aplikacja serwerowa będzie uruchomiona jako kontenery Dockera.
+W obecnych czasach liczba technologii pozwalających na pisanie aplikacji serwerowych jest ogromna. Podjęcie jednoznacznego wyboru dotyczącego, której z nich należy użyć do danego zadania jest niemalże niemożliwe, jednakże każda z nich cechuje się swoimi indywidualnymi cechami, które pozwalają w pewnym stopniu ocenić, które z dostępnych narzędzi będzie odpowiednie do rozwiązania wybranego problemu. W przypadku aplikacji serwerowej, tworzonej w ramach tej pracy, głównymi cechami branymi pod uwagę była wydajność danej technologii oraz ilość kodu wymagana do poprawnego i bezpiecznego działania aplikacji. Po przeanalizowaniu dostępnych rozwiązań, aplikacja zostanie napisana w środowisku Node.js, przy użyciu języka TypeScript. Do przechowywania danych wykorzystana zostanie baza danych MongoDB, natomiast dane dotyczące sesji użytkowników będą przechowywane w bazie danych Redis. Cała aplikacja serwerowa będzie uruchomiona jako kontenery Dockera.
 
-\subsection{Node.js}
-Node.js jest środowiskiem uruchomieniowym bazującym na koncepcie \textit{,,JavaScript~everywhere''}, który unifikuje język używany podczas procesu tworzenia aplikacji webowej, wykorzystując JavaScript zarówno po stronie klienta jaki i serwera. W związku z tym, że w ramach projektu aplikacja kliencka będzie stworzona w formie aplikacji mobilnej na system Android, koncept ten nie zostanie spełniony. jednakże przy tworzeniu hipotetycznej aplikacji klienckiej działającej w przeglądarkach internetowych wykorzystywanie jednego języka, jest  sytuacją ułatwiającej rozwój i utrzymania takiej aplikacji.
+\subsection{Środowisko uruchomieniowe}
+Node.js jest środowiskiem uruchomieniowym bazującym na pomyśle \textit{,,JavaScript~everywhere''}, który unifikuje język używany podczas procesu tworzenia aplikacji webowej, wykorzystując JavaScript zarówno po stronie klienta jaki i serwera. W związku z tym, że w ramach projektu aplikacja kliencka będzie stworzona w formie aplikacji mobilnej na system Android, projekt nie skorzysta z tej jednorodności. jednakże przy tworzeniu hipotetycznej aplikacji klienckiej działającej w przeglądarkach internetowych wykorzystywanie jednego języka, jest  sytuacją ułatwiającej rozwój i utrzymania takiej aplikacji.
 
-Do niewątpliwych zalet środowiska Node.js należy ogromna ilość bibliotek dostępnych do wykorzystania w aplikacji. Dzięki temu wiele problemów może zostać rozwiązanych przy użyciu gotowych komponentów, co znacznie wpływa na zmniejszenie ilości kodu, który jest wymagany do rozwiązania konkretnego problemu. Z punktu widzenia aplikacji serwerowej tworzonej w ramach tego projektu, niezwykle istotna okazała się dostępność biblioteki umożliwiającej przetwarzanie i odczyt danych z plików \textit{pdf}. 
+Do niewątpliwych zalet środowiska Node.js należy ogromna liczba bibliotek dostępnych do wykorzystania w aplikacji. Dzięki temu wiele problemów może zostać rozwiązanych przy użyciu gotowych komponentów, co znacznie wpływa na zmniejszenie ilości kodu, który jest wymagany do rozwiązania konkretnego problemu. Z punktu widzenia aplikacji serwerowej tworzonej w ramach tego projektu, niezwykle istotna okazała się dostępność biblioteki umożliwiającej przetwarzanie i odczyt danych z plików \textit{pdf}. 
 
-Inną ważną cechą środowiska Node.js, w odróżnieniu od środowisk wykorzystujących  język Python, jest bardzo dobra obsługa standardu JSON, która pozwala na używanie obiektów zgodnych ze standardem JSON niemal jako standardowych obiektów języka JavaScript, co znacznie wpływa na ułatwienie komunikacji pomiędzy aplikacją serwerową a kliencką. 
+Inną ważną cechą środowiska Node.js, w odróżnieniu od środowisk wykorzystujących  język Python, jest bardzo dobra obsługa standardu JSON\footnote{Standard ECMA-404 \url{https://www.json.org/}}, która pozwala na używanie obiektów zgodnych z tym formatem niemal jako standardowych obiektów języka JavaScript, co znacznie wpływa na ułatwienie komunikacji pomiędzy aplikacją serwerową a kliencką. 
 
-\subsection{TypeScript}
-Językiem który zostanie wykorzystany do napisania aplikacji serwerowej będzie TypeScipt. Jest on nadzbiorem języka JavaScript, utworzonym i utrzymywanym przez firmę Microsoft. Zasadniczą różnicą pomiędzy tymi języki jest typowanie.
+\subsection{Język}
+Językiem który zostanie wykorzystany do napisania aplikacji serwerowej będzie TypeScipt. Jest on nadzbiorem języka JavaScript, utworzonym i utrzymywanym przez firmę Microsoft. Zasadniczą różnicą pomiędzy tymi językami jest typowanie.
 
 Typowanie można podzielić między innymi na następujące dwa rodzaje:
 \begin{itemize}
-	\item Typowanie statyczne - zmienne mają ustalany typ w momencie deklaracji. Wykorzystywane w języku TypeScript
+	\item Typowanie statyczne - zmienne mają ustalany typ w momencie deklaracji. Wykorzystywane w języku TypeScript;
 	\item Typowanie dynamiczne -  typ zmiennej wynika wynika z wartości jaka jest w niej przechowywana. Wykorzystywane w języku JavaScript.
 \end{itemize}
 
-Pomimo że typowanie dynamiczne pozwala na większą elastyczność przy wykorzystaniu zmiennych, typowanie statyczne pozwala na wykrycie części błędów w momencie kompilacji, bądź też transpilacji kodu.
+Pomimo, że typowanie dynamiczne pozwala na większą elastyczność przy wykorzystaniu zmiennych, typowanie statyczne pozwala na wykrycie części błędów w momencie kompilacji, bądź też transpilacji kodu.
 
 W celu uruchomienia kodu napisanego w języku TypeScript, musi najpierw zostać dokonana jego transpilacja do języka JavaScript. Dopiero ten kod jest realnie wykonywany w środowisku uruchomieniowym.
 
-\subsection{MongoDB}
-MongoDB jest nierelacyjną bazą danych, wykorzystywanym w ramach aplikacji serwerowej. W systemach nierelacyjnych w przeciwieństwie od relacyjnych, informacje nie są przechowywane w tabelach, a w formie dokumentów w stylu JSON, które oprócz samych danych przechowują także ich schemat. Dzięki temu zmiana schematu danych, nie wymaga zazwyczaj skomplikowanych migracji i pozwala na bardzo dynamiczne zarządzanie strukturą danych. Wadą takiego rozwiązania jest utrudnione wyszukiwanie żądanych informacji, jeśli wymagają one bardziej skomplikowanych kwerend, a także znacznie mniejsza szybkość wyszukiwania, zwłaszcza w przypadku większej liczby danych. 
+\subsection{Baza danych}
+MongoDB jest nierelacyjną bazą danych, wykorzystywanym w ramach aplikacji serwerowej. W systemach nierelacyjnych w przeciwieństwie od relacyjnych, informacje nie są przechowywane w tabelach, a w formie dokumentów w stylu JSON, które oprócz samych danych przechowują także ich schemat. Dzięki temu zmiana schematu danych, nie wymaga zazwyczaj skomplikowanych migracji i pozwala na bardzo dynamiczne zarządzanie strukturą danych. Wadą takiego rozwiązania jest utrudnione wyszukiwanie żądanych informacji, jeśli wymagają one bardziej skomplikowanych kwerend, a także znacznie mniejsza szybkość wyszukiwania, zwłaszcza w przypadku większej ilości danych. 
 
-W celu łączenia się z bazą danych i mapowania obiektów z bazy danych na obiekty języka JavaScript wykorzystywany jest ODM Mongoose. Dzięki temu że baza danych przechowuje dokumenty w stylu JSON, w bardzo prosty sposób można zapisywać obiekty otrzymane od klienta w ramach żądania HTTP do bazy danych, a także wysyłać klientowi obiekty z bazy, bez konieczności znaczącej ingerencji w ich format i strukturę.
+W celu łączenia się z bazą danych i mapowania obiektów z bazy danych na obiekty języka JavaScript wykorzystywany jest ODM Mongoose. Dzięki temu że baza danych przechowuje dokumenty w stylu BSON, w bardzo prosty sposób można zapisywać obiekty otrzymane od klienta w ramach żądania HTTP do bazy danych, a także wysyłać klientowi obiekty z bazy, bez konieczności znaczącej ingerencji w ich format i strukturę.
 
-\subsection{Redis}
-Redis jest bazą danych typu klucz-wartość, wykorzystywaną głównie w formie pamięci podręcznej dla aplikacji. W odróżnieniu od typowych baz danych, dane przechowywane są w pamięci, a nie na dysku twardym. Dzięki temu szybkość odczytu danych jest znacznie większa niż w przypadku klasycznych rozwiązań.
+\subsection{Baza danych typu klucz-wartość}
+Redis jest bazą danych typu klucz-wartość, wykorzystywaną głównie w formie pamięci podręcznej dla aplikacji. W odróżnieniu od typowych baz danych, dane często przechowywane są w pamięci, a nie na dysku twardym. Dzięki temu szybkość odczytu danych jest znacznie większa niż w przypadku klasycznych rozwiązań.
 Jest ona w stanie pod wybranym kluczem, przechowywać zwykle ciągi znaków, ale także słowniki, co wraz z szybkim odczytem danych sprawia, że baza ta dobrze nadaje się do przechowywania danych dotyczących sesji użytkownika.
 
-\subsection{Docker}
+\subsection{Konteneryzacja}
 W celu ułatwienia procesu wdrożenia aplikacji serwerowej w środowisku produkcyjnym, aplikacja wraz z bazą danych zostały zamknięte w kontenery Dockera. Jest to oprogramowanie  umożliwiające uruchamianie skonteneryzowanych aplikacji w środowisku odizolowanym od głównego systemy operacyjnego. Kontener zawiera w sobie całe środowisko potrzebne do uruchomienia aplikacji, w odróżnieniu jednak od typowej maszyny wirtualnej kontener nie musi zazwyczaj zawierać w sobie pełnego systemu operacyjnego co znacznie poprawia wydajność takiego rozwiązania, a jednocześnie sprawia że jesteśmy w stanie uruchomić aplikację zamkniętą w kontenerze, bez konieczności wstępnej konfiguracji środowiska uruchomieniowego, co znacznie poprawia przenośność takiej aplikacji. Izolacja kontenerów pomiędzy sobą, a także od pozostałych procesów głównego systemu operacyjnego może dodatkowo mieć wpływ na podniesienie bezpieczeństwa. Komunikacja pomiędzy różnymi kontenerami może mieć miejsce tylko w specjalnie przygotowanych kanałach komunikacyjnych, np. poprzez wydzieloną sieć, w skład której wchodzą tylko te kontenery, które muszą pomiędzy sobą wymieniać dane. Taka sytuacja ma miejsce przy wymianie danych pomiędzy aplikacją serwerową przygotowywaną w ramach tej pracy, a bazą danych MongoDB.
 
 
 \section{Aplikacja kliencka}
-W obecnych czasach telefony komórkowe nie są wykorzystywane wyłącznie do wykonywania połączeń, ale także do korzystania z zasobów internetu czy też do obsługi różnych aplikacji o najróżniejszym zastosowaniu. Dzięki temu zyskują one coraz większą popularność - obecnie znaczna część społeczeństwa posiada swojego osobistego smartfona. Dlatego też aplikacja kliencka przygotowana została z myślą o urządzeniach mobilnych, a konkretnie tych, które działają pod kontrolą systemu Android. 
+W obecnych czasach telefony komórkowe nie są wykorzystywane wyłącznie do wykonywania połączeń, ale także do korzystania z zasobów Internetu czy też do obsługi różnych aplikacji o najróżniejszym zastosowaniu. Dzięki temu zyskują one coraz większą popularność - obecnie znaczna część społeczeństwa posiada swojego osobistego smartfona. Dlatego też aplikacja kliencka przygotowana została z myślą o urządzeniach mobilnych, a konkretnie tych, które działają pod kontrolą systemu Android. 
 
 \subsection{Android}
-Android jest systemem operacyjnym opartym o jądro Linuxa, przygotowany głównie z myślą o smartfonach, choć można go także znaleźć innych urządzeniach tj. telewizory czy smartwatche. Obecnie rozwijany jest i utrzymywany przez firmę Google. W badaniu przeprowadzonym przez firmę Gemius, polegającym na sprawdzeniu z jakiego systemu operacyjnego pochodzą odsłony wybranych stron internetowych, Android zajął pierwsze miejsce z około 54\% udziałem. Można zatem wnioskować, że jest to jeden z najpopularniejszych systemów na świecie, dlatego też aplikacja kliencka będzie przygotowywana do działania na urządzeniach z system Android. 
+Android jest systemem operacyjnym opartym o jądro Linuksa, przygotowanym głównie z myślą o smartfonach, choć można go także znaleźć innych urządzeniach tj. telewizory czy smartwatche. Obecnie rozwijany jest i utrzymywany przez firmę Google. W badaniu przeprowadzonym przez firmę Gemius\footnote{\url{https://mobirank.pl/2020/03/01/ranking-systemow-operacyjnych-i-przegladarek-w-polsce-1-2020/}}, polegającym na sprawdzeniu z jakiego systemu operacyjnego pochodzą odsłony wybranych stron internetowych, Android zajął pierwsze miejsce z około 54\% udziałem. Można zatem wnioskować, że jest to jeden z najpopularniejszych systemów na świecie, dlatego też aplikacja kliencka będzie przygotowywana do działania na urządzeniach z system Android. 
  
 \subsection{Kotlin}
 Na początku istnienia systemu Android, natywne aplikacje na ten system były pisane w języku Java. Jednak w roku 2019, firma Google umożliwiła rozwijanie programów także w języku Kotlin. Jest to język wieloparadygmatowy, zaprezentowany w 2011 roku przez firmę JetBrains - autorów środowiska InteliJ Idea, na którym oparte jest środowisko Android Studio. Kotlin uruchamiany jest w wirtualnej maszynie Javy, dzięki czemu możliwe jest wykorzystywanie bibliotek napisanych w języku Java w aplikacjach bazujących na Kotlinie. Dodatkowo środowisko Android Studio umożliwia translację plików napisanych w Javie na język Kotlin, a także odwrotnie. 
 
 Do głównych przewag języka Kotlin na Javą należy zaliczyć przede wszystkim fakt, że często wymaga znacznie mniej kodu, w celu rozwiązania tego samego problemu, dzięki czemu kod jest czytelniejszy co zmniejsza prawdopodobieństwo powstawania błędów. Dodatkowo Kotlin posiada mechanizmy chroniące programistę przed wyjątkiem \textit{NullPointerExecption}, co także minimalizuje prawdopodobieństwo powstania wadliwego kodu. 
 
-Dla osób mających doświadczenie w programowaniu w innych językach niż Kotlin, jego wadą może być składnia, która znacząco różni się względem innych popularnych języków takich jak Javy, czy C++ co może powodować problemy dla programistów, którzy uczą się pisania aplikacji przy użyciu  Kotlina, pisząc wcześniej w języku, którego składnia wywodzi się z C. Wartym wspomnienia jest również fakt, że Kotlin jest obecnie językiem mniej popularnym niż Java, co powoduje, że ilość problemów opisywanych na forach internetowych dotyczących rozwijania aplikacji na system Android, częściej dotyczy języka Java. Jednakże problem ten nie jest bardzo dotkliwy, ze względu na to, że rozwiązania z języka Java może stosunkowo łatwo wykorzystać w Kotlinie. Dodatkowo oficjalna dokumentacja systemu Android, w której przykładowy kod napisany zarówno w języku Kotlin jak i w Javie, również minimalizuje tą niedogodność. 
+Dla osób mających doświadczenie w programowaniu w innych językach niż Kotlin, jego wadą może być składnia, która znacząco różni się względem innych popularnych języków takich jak Javy, czy C++ co może powodować problemy dla programistów, którzy uczą się pisania aplikacji przy użyciu  Kotlina, pisząc wcześniej w języku, którego składnia wywodzi się z C. Wartym wspomnienia jest również fakt, że Kotlin jest obecnie językiem mniej popularnym niż Java\footnote{\url{https://www.tiobe.com/tiobe-index/}}, co powoduje, że ilość problemów opisywanych na forach internetowych dotyczących rozwijania aplikacji na system Android, częściej dotyczy języka Java. Jednakże problem ten nie jest bardzo dotkliwy, ze względu na to, że rozwiązania z języka Java może stosunkowo łatwo wykorzystać w Kotlinie. Dodatkowo oficjalna dokumentacja systemu Android, w której przykładowy kod napisany zarówno w języku Kotlin jak i w Javie, również minimalizuje tą niedogodność. 
 
 \chapter{Architektura}
 Cały system, który zostanie utworzony w ramach opisywanego projektu będzie składał się z trzech głównych części: 
 
 \begin{itemize}
-	\item Aplikacja serwerowa - udostępnia ona interfejs programistyczny służący do szeroko rozumianego zarządzania publikacjami naukowymi. 
-	\item Baza danych MongoDB - będzie służyła do przechowywanie informacji na temat publikacji naukowych. Bezpośredni dostęp będzie miała do niej tylko aplikacja serwerowa
-	\item Mobilna aplikacja kliencka - przeznaczona na urządzenia z systemem Android, wykorzystująca interfejs udostępniany przez aplikację serwerową
+	\item Aplikacja serwerowa - udostępnia ona interfejs programistyczny służący do szeroko rozumianego zarządzania publikacjami naukowymi; 
+	\item Baza danych MongoDB - będzie służyła do przechowywanie informacji na temat publikacji naukowych. Bezpośredni dostęp będzie miała do niej tylko aplikacja serwerowa;
+	\item Mobilna aplikacja kliencka - przeznaczona na urządzenia z systemem Android, wykorzystująca interfejs udostępniany przez aplikację serwerową.
 \end{itemize}
 
 Ze względu na pełną niezależność aplikacji serwerowej od mobilnej, możliwe jest przygotowanie w przyszłości klienta działającego w przeglądarce internetowej lub innej platformie. 
@@ -196,7 +207,7 @@ Każda z aplikacji ze wykorzystuje inne, specyficzne dla swoich platform wzorce 
 
 \newpage
 \section{Architektura ogólna}
-Na poniższym diagramie znajduje się ogólny schemat przedstawiający architekturę całego systemu: 
+Ogólny schemat struktury całego systemu przedstawia Rysunek 3.1:
 
  \begin{figure}[!htbp]
  	\begin{center}
@@ -217,48 +228,48 @@ Aplikacja serwerowa zbudowana będzie w oparciu o środowisko Node.js. Składać
 	
 	\item Moduł publikacji - będzie posiadał następujące zadania:
 	\begin{itemize}
-		\item obsługa żądań HTTP dotyczących publikacji
-		\item zapis, odczyt i modyfikacja publikacji w bazie danych
-		\item zlecanie operacji przetwarzania pliku PDF
-		\item zapisywanie i odczyt plików PDF przypisanych do publikacji
+		\item obsługa żądań HTTP dotyczących publikacji;
+		\item zapis, odczyt i modyfikacja publikacji w bazie danych;
+		\item zlecanie operacji przetwarzania pliku PDF;
+		\item zapisywanie i odczyt plików PDF przypisanych do publikacji.
 	\end{itemize}
 	 
-	\item Moduł przetwarzania plików pdf - jako jedyny nie będzie odpowiadał za obsługę żądań, a za przetwarzania plików pdf. Do przetwarzania plików pdf zostanie wykorzystana biblioteka \textit{pdf-parse}. Będzie dostarczał następujące funkcjonalności:
+	\item Moduł przetwarzania plików pdf - jako jedyny nie będzie odpowiadał za obsługę żądań, a za przetwarzania plików PDF. Do przetwarzania plików pdf zostanie wykorzystana biblioteka \textit{pdf-parse}. Będzie dostarczał następujące funkcjonalności:
 	\begin{itemize}
-		\item odczyt informacji takich jak tytuł lub autor publikacji z metadanych plików PDF
-		\item wyszukiwanie DOI w metadanych pliku PDF, bądź w jego treści
-		\item pobieranie szczegółów dotyczących przetwarzanej publikacji na podstawie znalezionego wcześniej numery DOI
+		\item odczyt informacji takich jak tytuł lub autor publikacji z metadanych plików PDF;
+		\item wyszukiwanie DOI w metadanych pliku PDF, bądź w jego treści;
+		\item pobieranie szczegółów dotyczących przetwarzanej publikacji na podstawie znalezionego wcześniej numery DOI.
 	\end{itemize}
 \end{enumerate}
 
 
 Dodatkowo żądania HTTP będą przetwarzane wstępnie, także przez następujące moduły pośredniczące:
 \begin{enumerate}
-	\item Moduł autoryzacyjny - jego rolą będzie sprawdzanie czy dane żądanie wysłane została przez użytkownika, który posiada uprawnienia do jego wykonania
+	\item Moduł autoryzacyjny - jego rolą będzie sprawdzanie czy dane żądanie wysłane zostało przez użytkownika, który posiada uprawnienia do jego wykonania
 	\item Moduł walidacji danych - będzie odpowiedzialny za sprawdzania czy dane przychodzące w żądaniach, typu POST oraz PUT, które tworzą lub modyfikują informacje w bazie danych, są w odpowiednim formacie
 \end{enumerate}
 
 
 \subsection{Środowisko}
-Aplikacja serwerowa będzie przygotowana do pracy jako kontener Dockera. Dzięki temu przy wdrażaniu aplikacji konfiguracja środowiska produkcyjnego, nie będzie wymagała pełnego przygotowania środowiska Node.js, potrzebując do pracy jednie aplikacji Docker oraz docker-compose, która pozwala na zarządzanie i konfigurację wielu kontenerów, mogących współpracować między sobą. Dzięki temu, że baza danych MongoDB może również działać w formie kontenera Dockerowego, przy wykorzystaniu aplikacji docker-compose, uruchomienie całej aplikacji serwerowej wraz bazą danych będzie ograniczać się do pobrania kontenerów oraz ich uruchomienia za pomocą jednego polecenia, a dodatkowo pozwala na wdrożenie aplikacji zarówno przy użyciu systemu Linux i Windows jaki i MacOs.
+Aplikacja serwerowa będzie przygotowana do pracy jako kontener Dockera. Dzięki temu przy wdrażaniu aplikacji konfiguracja środowiska produkcyjnego, nie będzie wymagała pełnego przygotowania środowiska Node.js, potrzebując do pracy jednie aplikacji Docker oraz docker-compose, która pozwala na zarządzanie i konfigurację wielu kontenerów, mogących współpracować między sobą. Dzięki temu, że baza danych MongoDB może również działać w formie kontenera Dockerowego, przy wykorzystaniu aplikacji docker-compose, uruchomienie całej aplikacji serwerowej wraz bazą danych będzie ograniczać się do pobrania kontenerów oraz ich uruchomienia za pomocą jednego polecenia, a dodatkowo pozwala na wdrożenie aplikacji zarówno przy użyciu systemu Linux i Windows jaki i macOS.
 
 \section{Architektura aplikacji klienckiej}
-Aplikacja kliencka będzie przeznaczona na urządzenia mobilne z systemem Android. Zostanie wykonana w sposób natywny dla tej platformy przy wykorzystaniu środowiska Android Studio oraz języka Kotlin. Zgodnie z zaleceniami występującymi w dokumentacji Android, wykorzystany zostanie uproszczony wzorzec Model–view–viewmodel(MVVM). 
+Aplikacja kliencka będzie przeznaczona na urządzenia mobilne z systemem Android. Zostanie wykonana w sposób natywny dla tej platformy przy wykorzystaniu środowiska Android Studio oraz języka Kotlin. Zgodnie z zaleceniami występującymi w dokumentacji Android, wykorzystany zostanie uproszczony wzorzec Model–View–Viewmodel(MVVM). 
 
-\subsection{Wzorzec Model–view–viewmodel(MVVM)}
-Wzorzec MVVM bazuje na popularnym wzorcu Model-view-controller. Jest często wykorzystywany podczas tworzenia aplikacji z interfejsem graficznym, do których możemy zaliczyć programy przeznaczone na system Android. 
+\subsection{Wzorzec Model–View–Viewmodel(MVVM)}
+Wzorzec MVVM bazuje na popularnym wzorcu Model-View-Controller. Jest często wykorzystywany podczas tworzenia aplikacji z interfejsem graficznym, do których możemy zaliczyć programy przeznaczone na system Android. 
 Zgodnie z tą architekturą aplikacja składa się z głównych elementów:
 \begin{enumerate}
-	\item model - przechowuje dane, pobrane przez viewmodel, później prezentowane w warstwie view, nie powinien zawierać logiki biznesowej
-	\item view - jest to reprezentacja graficznego widoku, widzianego przez użytkownika aplikacji
+	\item model - przechowuje dane, pobrane przez viewmodel, później prezentowane w warstwie view, nie powinien zawierać logiki biznesowej,
+	\item view - jest to reprezentacja graficznego widoku, widzianego przez użytkownika aplikacji,
 	\item viewmodel - element spajający model i view, pod pewnym względem odpowiadający dla wartswy controller z wzorca MVC. Jest odpowiedzialny za wypełnianie widoku danymi, pobranymi z modelu oraz za obsługę interakcji w użytkownikiem. 
 \end{enumerate}
 
-Jedną z podstawowych cech tego wzorca jest tak zwany databinding. Polega on automatycznym odświeżaniu danych pochodzących z modelu w widoku, w momencie gdy dojdzie do ich modyfikacji w viewmodelu. Dzięki temu, programista jest zwolniony z ciągłego dbania o uaktualnianie danych prezentowanych w widoku.
+Jedną z podstawowych cech tego wzorca jest tak zwane wiązanie danych. Polega ono na automatycznym odświeżaniu danych pochodzących z modelu w widoku, w momencie gdy dojdzie do ich modyfikacji w viewmodelu. Dzięki temu, programista jest zwolniony z ciągłego dbania o uaktualnianie danych prezentowanych w widoku.
 
 \newpage
 \subsection{Struktura}
-Natywne aplikacje działające pod kontrolą systemu Android zbudowaną są z komponentów zwanych aktywnościami(Activity). Zgodnie z definicją dostępną w dokumentacji, jest to  pojedyncza konkretna czynność, która może zostać wykonana przez użytkownika. Dodatkowo aktywności mogą składać się z mniejszych części zwanych fragmentami. Aplikacja kliencka przygotowywana w ramach tej pracy, będzie składała się z trzech aktywności:
+Natywne aplikacje działające pod kontrolą systemu Android zbudowaną są z komponentów zwanych aktywnościami (Activity). Zgodnie z definicją dostępną w dokumentacji\footnote{\url{https://developer.android.com/reference/android/app/Activity}}, jest to  pojedyncza konkretna czynność, która może zostać wykonana przez użytkownika. Dodatkowo aktywności mogą składać się z mniejszych części zwanych fragmentami. Aplikacja kliencka przygotowywana w ramach tej pracy, będzie składała się z trzech aktywności:
 \begin{enumerate}
 	\item LoginActivity - aktywność odpowiedzialna za proces logowania użytkownika.
 	
@@ -278,7 +289,7 @@ Do obsługi asynchroniczności zapytań, wszystkie klasy korzystające z klas pa
 \end{enumerate}
 \chapter{Szczegóły implementacyjne aplikacji serwerowej}
 \section{Ogólna struktura}
-Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerowej została ona podzielona na trzy moduły. W tym rozdziale zostaną przedstawione ich szczegóły implementacyjne oraz sposób komunikacji pomiędzy sobą. Organizacja kodu aplikacji serwerwoej została przedstawiona, na poniższym diagramie klas:
+Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerowej została ona podzielona na trzy moduły. W tym rozdziale zostaną przedstawione ich szczegóły implementacyjne oraz sposób komunikacji pomiędzy sobą. Organizacja kodu aplikacji serwerowej została przedstawiona, na poniższym Rysunku 4.1:
 
  \begin{figure}[!htbp]
 	\begin{center}
@@ -291,11 +302,11 @@ Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerow
 \subsection{Opis podstawowych klas}
 Przedstawione na powyższym diagramie klasy pełnią następujące funkcje:
 \begin{enumerate}
-	\item App - główna klasa aplikacji, która inicjalizuje wszystkie klasy rozszerzające klasę Controller, a także odpowiedzialna za skonfigurowanie oprogramowania pośredniczącego(middleware) .
+	\item App - główna klasa aplikacji, która inicjalizuje wszystkie klasy rozszerzające klasę Controller, a także odpowiedzialna za skonfigurowanie oprogramowania pośredniczącego (middleware);
 	
-	\item Controller - klasa rozszerzana przez inne klasy, odpowiedzialne za obsługę żądań  HTTP.
+	\item Controller - klasa rozszerzana przez inne klasy, odpowiedzialne za obsługę żądań  HTTP;
 	
-	\item UsersController - klasa obsługująca żądania dotyczące rejestracji, logowania, oraz wylogowywania użytkowników.
+	\item UsersController - klasa obsługująca żądania dotyczące rejestracji, logowania, oraz wylogowywania użytkowników;
 	
 	\item PublicationsController - klasa obsługująca żądania dotyczące dodawania, odczytywania, usuwania oraz edycji publikacji.
 	
@@ -306,9 +317,9 @@ Cała obsługa użytkowników w systemie została napisana od podstaw. Odpowiedz
 
 Dla celów autoryzacji, dokumenty reprezentujące użytkowników, które przechowywane są w bazie danych, posiadają w swojej strukturze dwa pola:
 \begin{itemize}
-	\item email - służący do identyfikacji, użytkownika, który próbuje zalogować się do systemu
+	\item email - służący do identyfikacji, użytkownika, który próbuje zalogować się do systemu;
 	
-	\item hash - pole zawierające sól oraz wynik funkcji skrótu dla hasła danego użytkownika
+	\item hash - pole zawierające sól oraz wynik funkcji skrótu dla hasła danego użytkownika;
 	
 	\item type - pole służące do określania typu użytkownika. Obecnie nie jest one wykorzystywane i zawsze posiada wartość \textit{USER}, lecz umożliwia wprowadzenie w przyszłości podziału użytkowników na różne grupy, o specyficznych uprawnieniach.
 	
@@ -348,7 +359,7 @@ W celu przeprowadzania logowania do systemu, wysyłane jest żądanie do aplikac
 
 \section{Uwierzytelnienie i autoryzacja żądań}
 Większość żądań obsługiwanych przez aplikacją serwerową, może być obsłużona tylko w przypadku, gdy użytkownik, które je wysłał został poprawnie uwierzytelniony i zautoryzowany. 
-Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żądania HTTP o nazwie \textit{Authorization}, który powinien zawierać token pełniący rolę identyfikatora sesji. Za to zadanie odpowiedzialne są dwie funkcje pośredniczące w obsłudze żądania: 
+Autoryzacja żądania odbywa się na podstawie weryfikacji nagłówka żądania HTTP o nazwie \textit{Authorization}, który powinien zawierać żeton pełniący rolę identyfikatora sesji. Za to zadanie odpowiedzialne są dwie funkcje pośredniczące w obsłudze żądania: 
 \begin{enumerate}
 	
 	\item \textit{authMiddlewareUser} - funkcja zezwala na pełne wykonanie żądania, tylko gdy użytkownik jest zalogowany.
@@ -357,45 +368,48 @@ Uwierzytelnienie żądania odbywa się na podstawie weryfikacji nagłówka żąd
 	
 \end{enumerate}
 
-Obie te funkcje wykorzystują w trakcie działania jedną z najważniejszych funkcji biorących udział w procesie obsługi użytkowników o nazwie \textit{checkAuth}. Jej rolą jest sprawdzenie ważności sesji i zgodności roli użytkownika zidentyfikowanego na podstawie tokena przesłanego w nagłówkach żądania, z wymaganiami bezpieczeństwa danego żądanie. Jeśli warunki te są spełnione, wtedy obsługa żądania przekazywana jest już do docelowej funkcji. 
+Obie te funkcje wykorzystują w trakcie działania jedną z najważniejszych funkcji biorących udział w procesie obsługi użytkowników o nazwie \textit{checkAuth}. Jej rolą jest sprawdzenie ważności sesji i zgodności roli użytkownika zidentyfikowanego na podstawie żetonu przesłanego w nagłówkach żądania, z wymaganiami bezpieczeństwa danego żądanie. Jeśli warunki te są spełnione, wtedy obsługa żądania przekazywana jest już do docelowej funkcji. 
 
 Nagłówek funkcji \textit{checkAuth} prezentuje się następująco:
-\begin{verbatim}
+
+\begin{lstlisting}[caption=Sygnatura funkcji checkAuth,label=code1,captionpos=b]
 async function checkAuth: boolean (
-    req: Request,
-    next: NextFunction,                        
-    profileTypes: string[]
+	req: Request,
+	next: NextFunction,                        
+	profileTypes: string[]
 )
-\end{verbatim}
+\end{lstlisting}
+
+
+
 Do wywołania tej funkcji należy jej przekazać następujące parametry:
 \begin{enumerate}
 	
-	\item req - obiekt zawierający wszystkie parametry żądania, takie jak nagłówki czy ciało.
+	\item req - obiekt zawierający wszystkie parametry żądania, takie jak nagłówki czy ciało,
 	
-	\item next - funkcja, która powinna zostać wywołana jako kolejna, podczas procesu obsługi żądania.
+	\item next - funkcja, która powinna zostać wywołana jako kolejna, podczas procesu obsługi żądania, w przypadku gdy obecnie wykonywana funkcja zakończy się prawidłowo,
 	
 	\item profileTypes - tablica zawierająca role użytkowników, którzy mają prawo do wywołania danego żądania.
 \end{enumerate}
 
 \subsection{Sposób działania funkcji checkAuth}
-Na początku działania, sprawdza czy w żądaniu, które zostało odebrane, znajduje się nagłówek \textit{Authorization} zawierający token identyfikujący sesję użytkownika. Jeśli token został odnaleziony, na jego podstawie wyszukiwany jest obiekt sesji w bazie danych Redis. Jeśli wyszukiwanie powiedzie się, funkcja \textit{checkAuth} przeprowadza następujące czynności:
+Na początku działania, sprawdza czy w żądaniu, które zostało odebrane, znajduje się nagłówek \textit{Authorization} zawierający żeton identyfikujący sesję użytkownika. Jeśli żeton został odnaleziony, na jego podstawie wyszukiwany jest obiekt sesji w bazie danych Redis. Jeśli wyszukiwanie powiedzie się, funkcja \textit{checkAuth} przeprowadza następujące czynności:
 \begin{enumerate}	
 	\item Sprawdzenie czy czas ważności sesji nie został przekroczony.
 	
 	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes} przykazanym do funkcji jako parametr.
 \end{enumerate}
-W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość false, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. W przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, do obiektu żądania zostaną dopisane parametry użytkownika powiązanego z sesją a następnie funkcja zwróci wartość true, która oznacza, że proces autoryzacji użytkownika zakończył się pomyślnie.
+W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość \verb|false|, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. W przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, do obiektu żądania zostaną dopisane parametry użytkownika powiązanego z sesją a następnie funkcja zwróci wartość true, która oznacza, że proces autoryzacji użytkownika zakończył się pomyślnie.
 
 \subsection{Funkcja authMiddlewareUser}
 Funkcja authMiddlewareUser wykorzystuje wzorzec projektowy Adapter, w celu dostosowania funkcji \textit{checkAuth} do interfejsu, który jest wymagany dla funkcji pośredniczących w środowisku Node.js. Jej nagłówek prezentuje się następująco: 
-
-\begin{verbatim}
+\begin{lstlisting}[caption=Sygnatura funkcji authMiddlewareUser,label=code1,captionpos=b]
 async function authMiddlewareUser: void (
-    req: Request,
-    res: Response,
-    next: NextFunction
+	req: Request,
+	res: Response,
+	next: NextFunction
 )
-\end{verbatim}
+\end{lstlisting}
 W odróżnieniu od funkcji \textit{checkAuth} wśród argumentów wejściowych brakuje parametru \textit{profileTypes}, będącego listą ról użytkowników, którzy mają prawo do wywołania danego żądania. Dodatkowo w celu zapewnienia zgodności z interfejsem funkcji pośredniczącej w Node.js, pojawił się parametr \textit{res}, który jest obiektem odpowiedzi na żądanie.   
 
 Jej działanie polega na wywołaniu funkcji \textit{checkAuth} oraz sprawdzeniu czy zwróci ona wartość \verb|true|. Jeśli tak się stanie, wywoływana jest funkcja \textit{next}, która jest następną funkcją odpowiedzialną za przetworzenie żądania.
@@ -404,32 +418,34 @@ Przy wywoływaniu funkcji \textit{checkAuth}, jako parametr \textit{profileTypes
 Ze względu na to, że obecnie wszyscy użytkownicy posiadają typ \verb|USER|, funkcja \textit{authMiddlewareUser} pozwala w rzeczywistości na badanie czy użytkownik wywołujący żądanie jest zalogowany.
 
 \subsection{Funkcja authMiddlewareOwner}
-Funkcja authMiddlewareOwner w odróżnieniu authMiddlewareUser, nie posiada interfejsu zgodnego z funkcjami pośredniczącymi, gdyż wykorzystuje ona domknięcie, zwracając funkcję, posiadającą interfejs funkcji pośredniczącej.
+Funkcja \textit{authMiddlewareOwner} w odróżnieniu \textit{authMiddlewareUser}, nie posiada interfejsu zgodnego z funkcjami pośredniczącymi, gdyż wykorzystuje ona domknięcie, zwracając funkcję, posiadającą interfejs funkcji pośredniczącej.
 
 
 Jedynym argumentem, który przyjmuje funkcja \textit{authMiddlewareOwner} jest obiekt \textit{DBModel} typu \textit{Model<IOwnership  Document>} pochodzącego z biblioteki Mongoose, który służy do zarządzania wybranym rodzajem dokumentów w bazie danych MongoDB. Do funkcji może zostać przekazany jedynie taki model, który obsługuje dokumenty które są jednocześnie implementują interfejs \textit{Document}, który również pochodzi  z biblioteki Mongoose i reprezentuje pojedynczy dokument z bazy danych oraz \textit{IOwnership}, który wykorzystywany jest we wszystkich dokumentach, które mogą posiadać właścicieli, jak ma to miejsce przykładowo dla dokumentów przechowujących dane pojedynczej publikacji. 
 
-Poniżej przedstawiony został interfejs \textit{IOwnership}:
-\begin{verbatim}
+Interfejs \textit{IOwnership} został przedstawiony na Listingu 4.3:
+\begin{lstlisting}[caption=Interfejs IOwnership,label=code1,captionpos=b]
 interface IOwnership {
-    owners: UserType[ ]
+	owners: UserType[]
 } 
-\end{verbatim}
+\end{lstlisting}
 Interfejs ten jest bardzo prosty i posiada tylko jedno pole \textit{owners}, które jest tablicą użytkowników, będących właścicielami obiektu, który implementuje ten interfejs. Dzięki zastosowaniu tego interfejsu, nie ma potrzeba pisania osobnej obsługi rozpoznawania czy użytkownik jest właścicielem wybranego obiektu, dla każdego rodzaju dokumentów osobno. Z tej właśnie własności korzysta funkcja \textit{authMiddlewareOwner}.
-\newpage
-Uproszczony kod funkcji \textit{authMiddlewareOwner} prezentuje się następująco:
-\begin{verbatim}
-const authMiddlewareOwner = 
-  (DbModel: Model<IOwnership & Document>) => (
-    async (req: Request, res: Response, next: NextFunction) => {
-    const authStatus = await checkAuth(req, next, [USER, ADMIN]);
-    const { documentId } = req.params;
-    const { _id as userId } = (<any>req).user;
-    let user: UserType = await User.findById(userId);
-    dbObject = await DbModel.findOne({ _id: documentId, owners: user });           
-  })
-}
-\end{verbatim}
+
+Uproszczony kod funkcji \textit{authMiddlewareOwner} został przedstawiony na Listingu 4.4:
+\begin{lstlisting}[caption=Sygnatura funkcji authMiddlewareOwner,label=code1,captionpos=b]
+const authMiddlewareOwner = (DbModel: Model<IOwnership & Document>) => (
+  async (req: Request, res: Response, next: NextFunction) => {
+	const authStatus = await checkAuth(req, next, [USER, ADMIN]);
+	if (authStatus) {	
+		const { documentId } = req.params;
+		const { _id as userId } = (<any>req).user;
+		let user: UserType = await User.findById(userId);
+		dbObject = await DbModel
+			.findOne({ _id: documentId, owners: user });
+	}           
+  }
+)
+\end{lstlisting}
 
 Jej działanie opiera się o domknięcie - jako argument otrzymuje ona obiekt modelu, który później zostaje zawarty w środowisku zwracanej funkcji. Dzięki temu, że model ten musi implementować interfejs \textit{IOwnership}, dokumenty, które zostaną pobrane z bazy danych za jego pomocą muszą posiadać pole \textit{owners}, określające ich właścicieli.
 Zatem funkcja  \textit{authMiddlewareOwner} po wywołaniu zwraca inną funkcję, która jest już właściwą funkcją pośredniczącą, zawierającą dodatkowo w swoim środowisko odwołanie do obiektu modelu dokumentu z bazy danych. Sposób działania zwracanej funkcji wygląda następująco:
@@ -449,7 +465,7 @@ Dzięki tej funkcji, nie trzeba każdorazowo sprawdzać czy użytkownik wysyłaj
 
 \subsection{Proces wylogowania użytkownika}
 Proces wylogowywania użytkownika jest stosunkowo prosty i polega najpierw na jego zidentyfikowaniu przy pomocy funkcji pośredniczącej \textit{authMiddlewareUser}, a następnie na usunięciu danych dotyczących jego sesji z bazy danych Redis. Dzięki temu, pomimo że identyfikator sesji może pozostać zapisany po stronie klienta, wysłane żądanie zawierające ten identyfikator nie zostanie wykonane.
-
+\newpage
 \section{Zarządzanie publikacjami oraz przetwarzanie plików pdf}
 W bazie danych MongoDB dokument reprezentujący publikację posiada następujące pola: 
 \begin{enumerate}
@@ -483,32 +499,36 @@ Zarządzanie publikacjami odbywa się poprzez obsługę 7 żądań. Aby wywoła�
 	
 	\item Żądanie typu POST - dodanie nowej publikacji.
 \end{enumerate}
-
+\pagebreak
 Pierwsze pięć wymienionych wyżej opiera się o zwykłe operacje CRUD przeprowadzane na bazie danych, natomiast dwa pozostałe zależne od siebie żądania również korzystają z bazy danych, lecz wykonują także inne czynności, takie jak operacje na plikach, czy też komunikacja z API służącym do pobierania informacji na temat danej publikacji na podstawie wyszukanego wcześniej numeru DOI.
 
 
 \subsection{Definiowanie żądań}
 
-Przykładowa deklaracja obsługi żądania wygląda następująco:
-\begin{verbatim}
+Przykładowa deklaracja obsługi żądania została przedstawiona na Listingu 4.5:
+
+\begin{lstlisting}[caption=Deklaracja obsługi żądania,label=code1,captionpos=b]
 router.get(
-   '/:id', 
-   authMiddlewareOwner(Publication), 
-   getPublication
+	'/:id', 
+	authMiddlewareOwner(Publication), 
+	getPublication
 )
-\end{verbatim}
+\end{lstlisting}
 Przedstawiony w powyższym fragmencie obiekt \verb|router|, służy do definiowania sposobu obsługi żądań. W celu dodania nowego żądania, należy wywołać metodę on nazwie zgodnej z jego typem. Przykładowo w celu dodania obsługi żądania GET należy wywołać metodę \verb|get|. Każda z tych metod jako pierwszy argument przyjmuje ścieżkę żądania, a następnie funkcje obsługujące żądnie, gdzie pozycja wśród argumentów odpowiada kolejności, w której poszczególne funkcje będą wywoływane. Zatem w przypadku dla powyższej próbki kodu po odebraniu żądania, najpierw wywołana zostanie metoda zwrócona przez funkcję \verb|authMiddlewareOwner(Publication)|, a następnie w zależności wyniku działania tej funkcji może zostać wywołana funkcja \verb|getPublication| lub też obsługa żądania może zakończyć się błędem przed wywołaniem tej funkcji.
 
 
-
 \subsection{Pobranie listy publikacji}
-Proces ten polega na wyszukaniu w bazie danych tych dokumentów opisujących publikacje, których właścicielem jest użytkownik rozpoznany podczas procesu autoryzacji. Uproszczony kod funkcji prezentuje się następująco:
-\begin{verbatim}
-const { _id as userId } = (<any>req).user;
-user = await User.findById(userId);
-const publications = await Publication.find({owners: user});	
-\end{verbatim}
+Proces ten polega na wyszukaniu w bazie danych tych dokumentów opisujących publikacje, których właścicielem jest użytkownik rozpoznany podczas procesu autoryzacji.
+\pagebreak
 
+Uproszczony kod funkcji został przedstawiony na Listingu 4.6:
+\begin{lstlisting}[caption=Funkcja getPublication,label=code1,captionpos=b]
+const getPublication = () => {
+	const { _id as userId } = (<any>req).user;
+	user = await User.findById(userId);
+	const publications = await Publication.find({owners: user});
+}
+\end{lstlisting}
 \subsection{Pobranie dokumentu pojedynczej publikacji}
 Proces rozpoczyna się od sprawdzenia czy użytkownik wywołujący to żądanie, jest właścicielem publikacji, której szczegóły próbuje odczytać. Jeśli tak jest, publikacja zostaje wyszukana w bazie danych i zwrócona użytkownikowi.
 
@@ -521,6 +541,21 @@ Analogicznie to dwóch wyżej wymienionych żądań, w przypadku usuwania aplika
 \subsection{Pobranie pliku PDF nalezącego do pojedynczej publikacji}
 Obsługa tego żądania jest niemal identyczna do obsługi pobierania dokumentu pojedynczej publikacji, z tą różnicą, że zamiast zwracać obiekt, zwracany jest plik, którego ścieżka zapisana jest w dokumencie wybranej publikacji.
 
+\subsection{Przetwarzanie plików PDF}
+Funkcja przetwarzająca plik PDF jest wywoływana podczas obsługi żądania przetwarzania pliku PDF. Proces ten polega na przeszukaniu treści pliku oraz jego metadanych w celu odnalezienia identyfikatora DOI, który zostanie wykorzystany później w celu pobrania szczegółów dotyczących publikacji. Jeśli identyfikator DOI nie zostanie odnaleziony, następuje wtedy próba odczytania informacji o publikacji wprost z metadanych pliku PDF.
+
+W przypadku, gdy identyfikator DOI nie zostanie odnaleziony wśród metadanych pliku, jego poszukiwanie w treści pliku wykonywane jest przy użyciu wyrażenia regularnego, co przedstawione zostało Listingu 4.7:
+
+\begin{lstlisting}[caption=Wykorzystanie wyrażenia regularnego do poszukiwania DOI,label=code1,captionpos=b]
+const regex = /\S+(doi.org)\S+/g;
+const found = pdfData.text.match(regex);
+}
+\end{lstlisting}
+Stała \verb|regex| zawiera w sobie definicję poszukiwanego ciągu znaków. Obiekt pdfData powstaje w wyniku wykorzystania funkcji dostarczonej w bibliotece \textit{pdf-parse}. Polę text należące do tego obiektu, zawiera cały tekst znajdujący się wewnątrz przetwarzanego pliku. Przy wykorzystaniu funkcji \verb|match|, która wyszukuje ciągi tekstu zgodne z wyrażeniem regularnym, który został przekazany do funkcji jako argument, wyszukiwane są wszystkie możliwie identyfikatory DOI zawarte w pliku. Jako właściwy identyfikator DOI zostaje uznany ten, który jako pierwszy zostanie odnaleziony w tekście, gdyż z duża dozą prawdopodobieństwa pozostałe identyfikatory należą do innych publikacji, do których występują odwołania, wewnątrz badanego pliku.
+
+Jeśli identyfikator DOI został pomyślnie odnaleziony, następuje próba pobrania na jego podstawie szczegółów dotyczących publikacji. Następnie pobrane dane są uzupełniane o te odczytane bezpośrednio z metadanych pliku PDF.
+
+Gdyby identyfikator DOI nie został odnaleziony, nastąpiła by próba odczytania wszystkich wartości wprost z metadanych pliku. Jeśli i ta operacja zakończyła by się niepowodzeniem, użytkownik będzie musiał ręcznie wprowadzić wszelkie szczegóły dotyczące publikacji.
 
 \subsection{Dodawanie publikacji na podstawie pliku PDF}
 Proces dodawania publikacji, składa się dwóch podstawowych kroków:
@@ -530,82 +565,68 @@ Proces dodawania publikacji, składa się dwóch podstawowych kroków:
 \end{enumerate}
 Cały proces składa się także z dwóch osobnych żądań: 
 \begin{enumerate}	
-	\item Żądanie przetwarzające plik PDF - w ramach ciała żądania wysyłany jest plik PDF, który zostaje zapisany w lokalizacji tymczasowej, a w odpowiedzi zwracane są informacje, które udało się odczytać z pliku. 
+	\item Żądanie przetwarzające plik PDF - w ramach ciała żądania wysyłany jest plik PDF, który zostaje zapisany w lokalizacji tymczasowej, a w odpowiedzi zwracane są informacje, które udało się odczytać z pliku.  Proces obsługi żądania prezentuje Rysunek 4.4:
 	\begin{figure}[!htbp]
 		\begin{center}
 			\centering
-			\includegraphics[scale=0.9]{\ImgPath/rys/diag_aktyw_wstepne_przetwarzanie.pdf}
+			\includegraphics[scale=0.873]{\ImgPath/rys/diag_aktyw_wstepne_przetwarzanie.pdf}
 		\end{center}
 		\caption{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}
 		\label{diagramAktywnosciDodawanie}
 	\end{figure}
 	
-	\item Żądanie dodające dokument publikacji - w ciele żądania powinny znajdować się informacje pochodzące z wcześniejszego przetwarzania pliku PDF, które zostały zredagowane przez użytkownika. Wśród odebranych parametrów publikacji, musi znaleźć się identyfikator przetworzonego wcześniej pliku PDF.
+	\item Żądanie dodające dokument publikacji - w ciele żądania powinny znajdować się informacje pochodzące z wcześniejszego przetwarzania pliku PDF, które zostały zredagowane przez użytkownika. Wśród odebranych parametrów publikacji, musi znaleźć się identyfikator przetworzonego wcześniej pliku PDF. Proces obsługi żądania został zaprezentowany na Rysunku 4.5:
 	\begin{figure}[!htbp]
 		\begin{center}
 			\centering
 			\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_dodawanie_pub.pdf}
 		\end{center}
-		\caption{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}
+		\caption{Diagram aktywności dla procesu dodawania publikacji}
 		\label{diagramAktywnosciDodawanie}
 	\end{figure}
 	
 \end{enumerate}
 
-\subsection{Przetwarzanie plików PDF}
-Funkcja przetwarzająca plik PDF jest wywoływana podczas obsługi żądania przetwarzania pliku PDF. Proces ten polega na przeszukaniu treści pliku oraz jego metadanych w celu odnalezienia identyfikatora DOI, który zostanie wykorzystany później w celu pobrania szczegółów dotyczących publikacji. Jeśli identyfikator DOI nie zostanie odnaleziony, następuje wtedy próba odczytania informacji o publikacji wprost z metadanych pliku PDF.
-
-W przypadku, gdy identyfikator DOI nie zostanie odnaleziony wśród metadanych pliku, jego poszukiwanie w treści pliku wykonywane jest przy użyciu wyrażenia regularnego:
-\begin{verbatim}
-const regex = /\S+(doi.org)\S+/g;
-const found = pdfData.text.match(regex);
-\end{verbatim}
-Stała \verb|regex| zawiera w sobie definicję poszukiwanego ciągu znaków. Obiekt pdfData powstaje w wyniku wykorzystania funkcji dostarczonej w bibliotece \textit{pdf-parse}. Polę text należące do tego obiektu, zawiera cały tekst znajdujący się wewnątrz przetwarzanego pliku. Przy wykorzystaniu funkcji \verb|match|, która wyszukuje ciągi tekstu zgodne z wyrażeniem regularnym, który został przekazany do funkcji jako argument, wyszukiwane są wszystkie możliwie identyfikatory DOI zawarte w pliku. Jako właściwy identyfikator DOI zostaje uznany ten, który jako pierwszy zostanie odnaleziony w tekście, gdyż z duża dozą prawdopodobieństwa pozostałe identyfikatory należą do innych publikacji, do których występują odwołania, wewnątrz badanego pliku.
-
-Jeśli identyfikator DOI został pomyślnie odnaleziony, następuje próba pobrania na jego podstawie szczegółów dotyczących publikacji. Następnie pobrane dane są uzupełniane o te odczytane bezpośrednio z metadanych pliku PDF.
-
-Gdyby identyfikator DOI nie został odnaleziony, nastąpiła by próba odczytania wszystkich wartości wprost z metadanych pliku. Jeśli i ta operacja zakończyła by się niepowodzeniem, użytkownik będzie musiał ręcznie wprowadzić wszelkie szczegóły dotyczące publikacji.
 
 \section{Walidacja danych}
 W celu zwiększenia bezpieczeństwa oraz łatwiejszego odnajdowania błędów użytkownika, ciała prawie wszystkich żądań typu POST i PUT, są walidowane, po procesie autoryzacji użytkownika ale przed wywołaniem właściwej funkcji obsługującej żądanie. Do tego celu wykorzystana została funkcja pośrednicząca \textit{validationMiddleware}. 
 
 W swoim działania funkcja ta korzysta z biblioteki \textit{class-validator}, która umożliwia walidowanie obiektów wykorzystując zdefiniowane wcześniej do tego celu wzorce. Wykorzystuje ona również domknięcie, zwracając funkcję, która jest zgodna z interfejsem funkcji pośredniczącej.
 
-Nagłówek funkcji \textit{validationMiddleware} prezentuje się następująco: 
+Sygnatura funkcji \textit{validationMiddleware} została zaprezentowana na Listingu 4.8: 
 
-\begin{verbatim}
-function validationMiddleware<T>(type: any): express.RequestHandler
-\end{verbatim}
-
+\begin{lstlisting}[caption=Sygnatura funkcji validationMiddleware,label=code1,captionpos=b]
+function validationMiddleware<T>(type: any): RequestHandler
+\end{lstlisting}
 Jej jedynym argumentem jest obiekt, będący definicją typu, z którym musi być zgodne ciało żądania, do którego obsługi wykorzystana została ta funkcja.
 
-Przykładowa definicja typu, który musi być zgodny z ciałem żądania dodającego publikację ma postać: 
-\begin{verbatim}
+Przykładowa definicja typu, który musi być zgodny z ciałem żądania dodającego publikację przedstawiona została na Listingu 4.9:
+\begin{lstlisting}[caption=Klasa AddPublicationDto,label=code1,captionpos=b]
 class AddPublicationDto {
-
-  @IsString()
-  public readonly name: string;
-
-  @IsString()
-  public readonly description: string;
-  
-  @IsString()
-  public readonly file: string;
-
-  @IsArray()
-  @ValidateNested({ each: true })
-  @ArrayMinSize(0)
-  @Type(() => String)        
-  public readonly authors: string[];
-
+	@IsString()
+	public readonly name: string;
+	
+	@IsString()
+	public readonly description: string;
+	
+	@IsString()
+	public readonly file: string;
+	
+	@IsArray()
+	@ValidateNested({ each: true })
+	@ArrayMinSize(0)
+	@Type(() => String)        
+	public readonly authors: string[];
 }
-\end{verbatim}
+\end{lstlisting} 
+\pagebreak
+
 Definiowanie warunków, które muszą zostać spełnione przez poszczególne pola ciała żądania definiowane są za pomocą dekoratorów. Znaczenie częśći z tych, które zostały wykorzystane w powyższym przykładzie jest następujące: 
 \begin{itemize}
-	\item \verb|@IsString()| - sprawdza czy wartość danego pola jest ciągiem znaków
-	\item \verb|@IsArray()| - sprawdza czy wartość danego pola jest tablicą 
-	\item \verb|@ValidateNested()| - określa czy w przypadku tablic oraz obiektów należy walidować, każdą zagnieżdżoną wartość 
-	\item \verb|@ArrayMinSize(0)| - służy do określenia minimalnej wielkości tablicy
+	\item \verb|@IsString()| - sprawdza czy wartość danego pola jest ciągiem znaków;
+	\item \verb|@IsArray()| - sprawdza czy wartość danego pola jest tablicą; 
+	\item \verb|@ValidateNested()| - określa czy w przypadku tablic oraz obiektów należy walidować, każdą zagnieżdżoną wartość ;
+	\item \verb|@ArrayMinSize(0)| - służy do określenia minimalnej wielkości tablicy.
 \end{itemize}
 
 \chapter{Szczegóły implementacyjne aplikacji klienckiej}
@@ -636,15 +657,16 @@ LoginActivity jest pierwszą aktywnością, która jest uruchamiana po włączen
 
 Ze względu na stosunkową prostotę i jedynie jeden ekran, który należy do tej aktywności, nie została ona podzielona na fragmenty. Inna cechą tej aktywności jest fakt, że nie jest ona zapisywana na stosie cofania, dzięki czemu użytkownik po zalogowaniu, nie jest w stanie cofnąć się do tej aktywności przy użyciu klawisza cofnij.
 
- Ze względu na fakt wywoływania asynchroniczną naturę metod obsługujących żądania wysyłany do aplikacji serwerowej, klasa LoginActivity implementuje interfejs \textit{LoginObserver} służący do obsługi odpowiedzi na żądania logowania. Prezentuje się on następująco:
-\begin{verbatim}
+ Ze względu na fakt wywoływania asynchroniczną naturę metod obsługujących żądania wysyłany do aplikacji serwerowej, klasa LoginActivity implementuje interfejs \textit{LoginObserver} służący do obsługi odpowiedzi na żądania logowania. Został on zaprezentowany na Listingu 5.1:
+ \begin{lstlisting}[caption=Interfejs LoginObserver,label=code1,captionpos=b]
 interface LoginObserver {
-  fun onUserLoginSuccessful(userDTO: UserDTO)  
-  fun onUserLoginFailure(errorResponse: ErrorResponse?)
+	fun onUserLoginSuccessful(userDTO: UserDTO)  
+	fun onUserLoginFailure(errorResponse: ErrorResponse?)
 }
-\end{verbatim} 
+ \end{lstlisting} 
 
-Funkcja \textit{onUserLoginSuccessful} zaimplementowana w LoginActivity zostaje wywołana gdy żądanie logowania zostanie pomyślnie zakończone. Jako argument funkcja otrzymuje obiekt transferu danych typu \textit{UserDTO}, który zawiera informacje dotyczące zalogowanego użytkownika oraz token sesji, który zostaje zapisany w pamięci urządzenia przy użyciu interfejsu \textit{SharedPreferences}, służącego do przechowywania informacji w postaci klucz-wartość. Funkcja ta odpowiada także za uruchomienie głównej aktywności \textit{MainActivity}
+
+Funkcja \textit{onUserLoginSuccessful} zaimplementowana w LoginActivity zostaje wywołana gdy żądanie logowania zostanie pomyślnie zakończone. Jako argument funkcja otrzymuje obiekt transferu danych typu \textit{UserDTO}, który zawiera informacje dotyczące zalogowanego użytkownika oraz żeton sesji, który zostaje zapisany w pamięci urządzenia przy użyciu interfejsu \textit{SharedPreferences}, służącego do przechowywania informacji w postaci klucz-wartość. Funkcja ta odpowiada także za uruchomienie głównej aktywności \textit{MainActivity}
 
 Funkcja \textit{onUserLoginFailure} jest wywoływana w przypadku gdy żądanie logowania zakończy się błędem. Jeśli taka sytuacja wystąpi, funkcja ta wyświetli komunikat użytkownikowi w formie chmurki zwanej tostem(Toast).
 
@@ -663,22 +685,22 @@ Przewaga komponentu \textit{RecyclerView} wynika z faktu, że zamiast trzymać w
 Wadą komponentu \textit{RecyclerView} jest niewątpliwe stosunkowo skomplikowana obsługa w kodzie, gdyż aby móc z niego korzystać należy przygotować specjalną klasę będącą adapterem listy wejściowej na jej graficzną reprezentację.
 
 Za pobranie i aktualizację danych odpowiada klasa  \textit{PublicationsListViewModel}, stanowiąca warstwę viewmodelu.
-Jej deklaracja prezentuje się następująco:
-\begin{verbatim}
+Jej sygnatura została zaprezentowana na Listingu 5.2:
+
+ \begin{lstlisting}[caption=Sygnatura klasy PublicationsListViewModel,label=code1,captionpos=b]
 class PublicationsListViewModel : 
-  ViewModel(),
-  RequestObserver<ArrayList<PublicationListItem>> 
-  
-\end{verbatim}
-Klasa \textit{PublicationsListViewModel} dziedziczy po klasie ViewModel, co pozwala w łatwy sposób połączyć ją klasą z warstwy View - w tym przypadku z klasą \textit{PublicationsListFragment}. Dodatkowo implementuje ona interfejs \textit{RequestObserver}, który umożliwia obsługę odpowiedzi na żądanie. Jest on zbliżony do interfejsu \textit{LoginObserver}, gdyż również posiada on dwie metody: jedną wywoływaną gdy żądanie zakończy się pomyślnie oraz drugą która uruchamiana jest gdy odpowiedź żądania będzie zawierała błąd. Jednak dzięki wprowadzeniu do niego typów generycznych, można go wykorzystywać do obsługi wielu typów odpowiedzi na żądania. Jego kod wygląda następująco:
-\begin{verbatim}
-
-interface RequestObserver<T> {
-  fun onSuccess(response: T, type: String)
-  fun onFail(errorResponse: ErrorResponse?, type: String)
+	ViewModel(),
+	RequestObserver<ArrayList<PublicationListItem>>   
 }
+\end{lstlisting} 
+Klasa \textit{PublicationsListViewModel} dziedziczy po klasie ViewModel, co pozwala w łatwy sposób połączyć ją klasą z warstwy View - w tym przypadku z klasą \textit{PublicationsListFragment}. Dodatkowo implementuje ona interfejs \textit{RequestObserver}, który umożliwia obsługę odpowiedzi na żądanie. Jest on zbliżony do interfejsu \textit{LoginObserver}, gdyż również posiada on dwie metody: jedną wywoływaną gdy żądanie zakończy się pomyślnie oraz drugą która uruchamiana jest gdy odpowiedź żądania będzie zawierała błąd. Jednak dzięki wprowadzeniu do niego typów generycznych, można go wykorzystywać do obsługi wielu typów odpowiedzi na żądania. Jego kod został zaprezentowany na Listingu 5.3:
 
-\end{verbatim}
+ \begin{lstlisting}[caption=Interfejs RequestObserver,label=code1,captionpos=b]
+interface RequestObserver<T> {
+	fun onSuccess(response: T, type: String)
+	fun onFail(errorResponse: ErrorResponse?, type: String)
+}
+\end{lstlisting} 
  Klasa \textit{PublicationsListViewModel} posiada jedno publiczne pole \textit{publications}, które jest typu \textit{LiveData<List<PublicationListItem>>}. Typ \textit{LiveData} ten daje możliwość obserwacji zmian wartości, dzięki czemu w warstwie widoku wystarczy zdefiniować obserwatora pola typu LiveData, który zostanie poinformowany o każdej zmianie wartości obserwowanego pola i pozwoli na dynamiczne odświeżenie prezentowanych informacji.
  
 Poniższy diagram przedstawia w jaki współpracują między sobą klasy \textit{PublicationsListFragment}, \textit{PublicationsListViewModel}, a także klasa \textit{PublicationRepository}, odpowiedzialna za obsługę żądań dotyczących publikacji:

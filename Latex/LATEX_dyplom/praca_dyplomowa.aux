@@ -26,14 +26,14 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Aplikacja serwerowa}{3}{section.2.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Node.js}{4}{subsection.2.1.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}TypeScript}{4}{subsection.2.1.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}MongoDB}{5}{subsection.2.1.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Redis}{5}{subsection.2.1.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.5}Docker}{5}{subsection.2.1.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}\IeC {\'S}rodowisko uruchomieniowe}{4}{subsection.2.1.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}J\IeC {\k e}zyk}{4}{subsection.2.1.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}Baza danych}{5}{subsection.2.1.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Baza danych typu klucz-warto\IeC {\'s}\IeC {\'c}}{5}{subsection.2.1.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.5}Konteneryzacja}{5}{subsection.2.1.5}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Aplikacja kliencka}{6}{section.2.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Android}{6}{subsection.2.2.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Kotlin}{6}{subsection.2.2.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Kotlin}{7}{subsection.2.2.2}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Architektura}{8}{chapter.3}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -44,7 +44,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Struktura}{10}{subsection.3.2.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}\IeC {\'S}rodowisko}{10}{subsection.3.2.2}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Architektura aplikacji klienckiej}{11}{section.3.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Wzorzec Model\IeC {\textendash }view\IeC {\textendash }viewmodel(MVVM)}{11}{subsection.3.3.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Wzorzec Model\IeC {\textendash }View\IeC {\textendash }Viewmodel(MVVM)}{11}{subsection.3.3.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Struktura}{12}{subsection.3.3.2}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji serwerowej}{13}{chapter.4}}
 \@writefile{lof}{\addvspace {10\p@ }}
@@ -61,36 +61,60 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla procesu logowania}}{16}{figure.4.3}}
 \newlabel{diagramAktywnosciLogowanie}{{4.3}{16}{Diagram aktywności dla procesu logowania}{figure.4.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Uwierzytelnienie i autoryzacja \IeC {\.z}\IeC {\k a}da\IeC {\'n}}{17}{section.4.3}}
+\newlabel{code1}{{4.1}{17}{Sygnatura funkcji checkAuth}{lstlisting.4.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}Sygnatura funkcji checkAuth}{17}{lstlisting.4.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Spos\IeC {\'o}b dzia\IeC {\l }ania funkcji checkAuth}{18}{subsection.4.3.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Funkcja authMiddlewareUser}{18}{subsection.4.3.2}}
+\newlabel{code1}{{4.2}{18}{Sygnatura funkcji authMiddlewareUser}{lstlisting.4.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}Sygnatura funkcji authMiddlewareUser}{18}{lstlisting.4.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Funkcja authMiddlewareOwner}{19}{subsection.4.3.3}}
+\newlabel{code1}{{4.3}{19}{Interfejs IOwnership}{lstlisting.4.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}Interfejs IOwnership}{19}{lstlisting.4.3}}
+\newlabel{code1}{{4.4}{20}{Sygnatura funkcji authMiddlewareOwner}{lstlisting.4.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}Sygnatura funkcji authMiddlewareOwner}{20}{lstlisting.4.4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Proces wylogowania u\IeC {\.z}ytkownika}{21}{subsection.4.3.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Zarz\IeC {\k a}dzanie publikacjami oraz przetwarzanie plik\IeC {\'o}w pdf}{21}{section.4.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Definiowanie \IeC {\.z}\IeC {\k a}da\IeC {\'n}}{22}{subsection.4.4.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Pobranie listy publikacji}{22}{subsection.4.4.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Pobranie dokumentu pojedynczej publikacji}{23}{subsection.4.4.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Edycja dokumentu pojedynczej publikacji}{23}{subsection.4.4.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Usuni\IeC {\k e}cie pojedynczej publikacji}{23}{subsection.4.4.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}Pobranie pliku PDF nalez\IeC {\k a}cego do pojedynczej publikacji}{23}{subsection.4.4.6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.7}Dodawanie publikacji na podstawie pliku PDF}{23}{subsection.4.4.7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla obs\IeC {\l }ugi \IeC {\.z}\IeC {\k a}dania przetwarzania pliku PDF}}{24}{figure.4.4}}
-\newlabel{diagramAktywnosciDodawanie}{{4.4}{24}{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}{figure.4.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla obs\IeC {\l }ugi \IeC {\.z}\IeC {\k a}dania przetwarzania pliku PDF}}{25}{figure.4.5}}
-\newlabel{diagramAktywnosciDodawanie}{{4.5}{25}{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}{figure.4.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.8}Przetwarzanie plik\IeC {\'o}w PDF}{26}{subsection.4.4.8}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Walidacja danych}{26}{section.4.5}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji klienckiej}{28}{chapter.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Zarz\IeC {\k a}dzanie publikacjami oraz przetwarzanie plik\IeC {\'o}w pdf}{22}{section.4.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Definiowanie \IeC {\.z}\IeC {\k a}da\IeC {\'n}}{23}{subsection.4.4.1}}
+\newlabel{code1}{{4.5}{23}{Deklaracja obsługi żądania}{lstlisting.4.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}Deklaracja obs\IeC {\l }ugi \IeC {\.z}\IeC {\k a}dania}{23}{lstlisting.4.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Pobranie listy publikacji}{23}{subsection.4.4.2}}
+\newlabel{code1}{{4.6}{24}{Funkcja getPublication}{lstlisting.4.6}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.6}Funkcja getPublication}{24}{lstlisting.4.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Pobranie dokumentu pojedynczej publikacji}{24}{subsection.4.4.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Edycja dokumentu pojedynczej publikacji}{24}{subsection.4.4.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Usuni\IeC {\k e}cie pojedynczej publikacji}{24}{subsection.4.4.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}Pobranie pliku PDF nalez\IeC {\k a}cego do pojedynczej publikacji}{24}{subsection.4.4.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.7}Przetwarzanie plik\IeC {\'o}w PDF}{25}{subsection.4.4.7}}
+\newlabel{code1}{{4.7}{25}{Wykorzystanie wyrażenia regularnego do poszukiwania DOI}{lstlisting.4.7}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.7}Wykorzystanie wyra\IeC {\.z}enia regularnego do poszukiwania DOI}{25}{lstlisting.4.7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.8}Dodawanie publikacji na podstawie pliku PDF}{25}{subsection.4.4.8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla obs\IeC {\l }ugi \IeC {\.z}\IeC {\k a}dania przetwarzania pliku PDF}}{26}{figure.4.4}}
+\newlabel{diagramAktywnosciDodawanie}{{4.4}{26}{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}{figure.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla procesu dodawania publikacji}}{27}{figure.4.5}}
+\newlabel{diagramAktywnosciDodawanie}{{4.5}{27}{Diagram aktywności dla procesu dodawania publikacji}{figure.4.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Walidacja danych}{28}{section.4.5}}
+\newlabel{code1}{{4.8}{28}{Sygnatura funkcji validationMiddleware}{lstlisting.4.8}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.8}Sygnatura funkcji validationMiddleware}{28}{lstlisting.4.8}}
+\newlabel{code1}{{4.9}{28}{Klasa AddPublicationDto}{lstlisting.4.9}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.9}Klasa AddPublicationDto}{28}{lstlisting.4.9}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Szczeg\IeC {\'o}\IeC {\l }y implementacyjne aplikacji klienckiej}{30}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}LoginActivity}{29}{section.5.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla LoginActivity}}{29}{figure.5.1}}
-\newlabel{diagramAktywnosciLoginActivity}{{5.1}{29}{Diagram aktywności dla LoginActivity}{figure.5.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}MainActivity}{30}{section.5.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}PublicationsListFragment}{30}{subsection.5.2.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla LoginActivity}}{32}{figure.5.2}}
-\newlabel{diagramAktywnosciLoginActivity}{{5.2}{32}{Diagram aktywności dla LoginActivity}{figure.5.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}UserDetailsFragment}{33}{subsection.5.2.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}PublicationDetailsActivity}{33}{section.5.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}LoginActivity}{31}{section.5.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla LoginActivity}}{31}{figure.5.1}}
+\newlabel{diagramAktywnosciLoginActivity}{{5.1}{31}{Diagram aktywności dla LoginActivity}{figure.5.1}{}}
+\newlabel{code1}{{5.1}{32}{Interfejs LoginObserver}{lstlisting.5.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.1}Interfejs LoginObserver}{32}{lstlisting.5.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}MainActivity}{32}{section.5.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}PublicationsListFragment}{32}{subsection.5.2.1}}
+\newlabel{code1}{{5.2}{33}{Sygnatura klasy PublicationsListViewModel}{lstlisting.5.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.2}Sygnatura klasy PublicationsListViewModel}{33}{lstlisting.5.2}}
+\newlabel{code1}{{5.3}{33}{Interfejs RequestObserver}{lstlisting.5.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.3}Interfejs RequestObserver}{33}{lstlisting.5.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Diagram aktywno\IeC {\'s}ci dla LoginActivity}}{34}{figure.5.2}}
+\newlabel{diagramAktywnosciLoginActivity}{{5.2}{34}{Diagram aktywności dla LoginActivity}{figure.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}UserDetailsFragment}{35}{subsection.5.2.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}PublicationDetailsActivity}{35}{section.5.3}}
 \bibcite{LOKI2}{1}
 \bibcite{RWWWS}{2}
-\@writefile{toc}{\contentsline {chapter}{Bibliografia}{34}{chapter*.4}}
+\@writefile{toc}{\contentsline {chapter}{Bibliografia}{36}{chapter*.4}}
