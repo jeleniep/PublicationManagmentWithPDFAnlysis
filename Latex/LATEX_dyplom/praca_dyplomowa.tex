@@ -370,7 +370,7 @@ Autoryzacja żądania odbywa się na podstawie weryfikacji nagłówka żądania 
 
 Obie te funkcje wykorzystują w trakcie działania jedną z najważniejszych funkcji biorących udział w procesie obsługi użytkowników o nazwie \textit{checkAuth}. Jej rolą jest sprawdzenie ważności sesji i zgodności roli użytkownika zidentyfikowanego na podstawie żetonu przesłanego w nagłówkach żądania, z wymaganiami bezpieczeństwa danego żądanie. Jeśli warunki te są spełnione, wtedy obsługa żądania przekazywana jest już do docelowej funkcji. 
 
-Nagłówek funkcji \textit{checkAuth} prezentuje się następująco:
+Nagłówek funkcji \textit{checkAuth} został zaprezentowany na Listingu 4.1:
 
 \begin{lstlisting}[caption=Sygnatura funkcji checkAuth,label=code1,captionpos=b]
 async function checkAuth: boolean (
@@ -395,9 +395,9 @@ Do wywołania tej funkcji należy jej przekazać następujące parametry:
 \subsection{Sposób działania funkcji checkAuth}
 Na początku działania, sprawdza czy w żądaniu, które zostało odebrane, znajduje się nagłówek \textit{Authorization} zawierający żeton identyfikujący sesję użytkownika. Jeśli żeton został odnaleziony, na jego podstawie wyszukiwany jest obiekt sesji w bazie danych Redis. Jeśli wyszukiwanie powiedzie się, funkcja \textit{checkAuth} przeprowadza następujące czynności:
 \begin{enumerate}	
-	\item Sprawdzenie czy czas ważności sesji nie został przekroczony.
+	\item Sprawdzenie czy czas ważności sesji nie został przekroczony, poprzez odczytanie czasu ważności z obiektu sesji, na następnie porównanie go z obecnym czasu. 
 	
-	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes} przykazanym do funkcji jako parametr.
+	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes} przykazanym do funkcji jako parametr. Zgodność określana jest na poprzez sprawdzenie czy typ użytkownika odczytany z obiektu sesji znajduje się w tablicy \textit{profileTypes}.
 \end{enumerate}
 W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość \verb|false|, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. W przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, do obiektu żądania zostaną dopisane parametry użytkownika powiązanego z sesją a następnie funkcja zwróci wartość true, która oznacza, że proces autoryzacji użytkownika zakończył się pomyślnie.
 
@@ -703,18 +703,18 @@ interface RequestObserver<T> {
 \end{lstlisting} 
  Klasa \textit{PublicationsListViewModel} posiada jedno publiczne pole \textit{publications}, które jest typu \textit{LiveData<List<PublicationListItem>>}. Typ \textit{LiveData} ten daje możliwość obserwacji zmian wartości, dzięki czemu w warstwie widoku wystarczy zdefiniować obserwatora pola typu LiveData, który zostanie poinformowany o każdej zmianie wartości obserwowanego pola i pozwoli na dynamiczne odświeżenie prezentowanych informacji.
  
-Poniższy diagram przedstawia w jaki współpracują między sobą klasy \textit{PublicationsListFragment}, \textit{PublicationsListViewModel}, a także klasa \textit{PublicationRepository}, odpowiedzialna za obsługę żądań dotyczących publikacji:
+Na Rysunku 5.2 przedstawione zostało w jaki współpracują między sobą klasy \textit{PublicationsListFragment}, \textit{PublicationsListViewModel}, a także klasa \textit{PublicationRepository}, odpowiedzialna za obsługę żądań dotyczących publikacji:
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_mob_log_aktyw.pdf}
+		\includegraphics[scale=0.9]{\ImgPath/rys/diag_aktyw_mob_odsw_list_pub.pdf}
 	\end{center}
 	\caption{Diagram aktywności dla LoginActivity}
 	\label{diagramAktywnosciLoginActivity}
 \end{figure}
 
 \subsection{UserDetailsFragment}
-Klasa \textit{UserDetailsFragment} jest odpowiedzialna za prezentowanie i edycję danych zalogowanego użytkownika. Prezentuje ona na ekranie pola tekstowe zawierające email użytkownika oraz jego pseudonim, a także dwa przyciski odpowiadające za zapisanie zmian oraz wylogowanie użytkownika. 
+Klasa \textit{UserDetailsFragment} jest odpowiedzialna za prezentowanie i edycję danych zalogowanego użytkownika. Prezentuje ona na ekranie pola tekstowe zawierające email użytkownika oraz jego pseudonim, a także dwa przyciski odpowiadające za zapisanie zmian oraz wylogowanie użytkownika. W celu aktualizacji danych prezentowanych w warstwie widoku, przygotowana została klasa UserDetailsViewModel.
 
 \section{PublicationDetailsActivity}
 
