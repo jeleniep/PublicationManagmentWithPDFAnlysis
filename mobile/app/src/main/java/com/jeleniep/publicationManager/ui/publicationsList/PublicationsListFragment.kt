@@ -7,6 +7,7 @@ import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ class PublicationsListFragment : Fragment(), PublicationAdapter.OnItemClickListe
         savedInstanceState: Bundle?
     ): View? {
         publicationsListViewModel =
-            ViewModelProviders.of(this).get(PublicationsListViewModel::class.java)
+            ViewModelProvider(this).get(PublicationsListViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_publications_list, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.publications_recycler_view)
         recyclerView.adapter = adapter

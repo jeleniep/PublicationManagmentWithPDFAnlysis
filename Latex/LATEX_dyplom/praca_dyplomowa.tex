@@ -122,8 +122,8 @@ Dlatego też ta praca będzie przedstawiała efekty prac nad aplikacją do zarz�
 	\item W celu ułatwienia konfiguracji środowiska programistycznego jak i produkcyjnego, baza danych wraz z aplikacją serwerową będą uruchamiane w sposób skonteneryzowany przy wykorzystaniu technologii Docker;
 	\item Aplikacja kliencka będzie przeznaczona na system Android oraz do jej napisania wykorzystany zostanie język Kotlin;
 	\item W celu korzystania z aplikacji użytkownik będzie musiał utworzyć konto w systemie;
-	\item Do uzyskania informacji z pliku PDF dotyczących publikacji wykorzystane zostanie API dostępne pod adresem: \newline \url{https://api.crossref.org/} ;
-	\item Aplikacje będą tworzone w sposób modułowy, umożliwiając stosunkowo łatwą możliwość rozbudowywania funkcjonalności.;
+	\item Do uzyskania informacji z pliku PDF dotyczących publikacji wykorzystane zostanie API dostępne pod adresem: \newline \url{https://api.crossref.org/};
+	\item Aplikacje będą tworzone w sposób modułowy, umożliwiając stosunkowo łatwą możliwość rozbudowywania funkcjonalności;
 	\item Podczas implementacji obu aplikacji w miarę możliwości stosowane będą najlepsze praktyki programistyczne;
 \end{enumerate}
 
@@ -131,7 +131,7 @@ W systemie będą dostępne następujące funkcje:
 \begin{enumerate}
 	\item Wyświetlanie listy publikacji;
 	\item Wyświetlanie opisu publikacji naukowych;
-	\item Tworzenie nowej publikacji w oparciu o metadane oraz numer DOI\footnote{Document Object Identifier(DOI) - unikalny identyfikator dokumentu elektronicznego }, jeśli są dostępne w dodawanym pliku PDF;
+	\item Tworzenie nowej publikacji w oparciu o metadane oraz numer DOI\footnote{Digital Object Identifier(DOI) - unikalny identyfikator dokumentu elektronicznego. Więcej informacji: \url{https://www.doi.org/} }, jeśli są dostępne w dodawanym pliku PDF;
 	\item Edycja metadanych publikacji;
 	\item Pobranie pliku PDF powiązanego z daną publikacją;
 \end{enumerate}
@@ -139,7 +139,7 @@ W systemie będą dostępne następujące funkcje:
 % \
 %-----------------
 \chapter{Przedstawienie wykorzystywanych technologii}
-Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa analiza dostępnych technologii zarówno w kontekście aplikacji serwerowej jak również klienckiej. W trakcie jej trwania pod uwagę brane były przede wszystkim aspekty dotyczące specyficznych cech danych technologii takich jak wydajność czy też sugerowane przeznaczenie poszczególnych rozwiązań, ale także kwestie dotyczące osobistych preferencji odnoszących się do danych technologii. 
+Przed rozpoczęciem implementacji projektu przeprowadzona została szczegółowa analiza dostępnych technologii zarówno w kontekście aplikacji serwerowej jak również klienckiej. W trakcie jej trwania pod uwagę brane były przede wszystkim aspekty dotyczące specyficznych cech danych technologii takich jak wydajność czy też sugerowane przeznaczenie poszczególnych rozwiązań, ale także kwestie dotyczące osobistych preferencji odnoszących się do danych technologii. \cite{LOKI2}
   %-----------------
   % Historia
   %-----------------
@@ -151,7 +151,7 @@ Node.js jest środowiskiem uruchomieniowym bazującym na pomyśle \textit{,,Java
 
 Do niewątpliwych zalet środowiska Node.js należy ogromna liczba bibliotek dostępnych do wykorzystania w aplikacji. Dzięki temu wiele problemów może zostać rozwiązanych przy użyciu gotowych komponentów, co znacznie wpływa na zmniejszenie ilości kodu, który jest wymagany do rozwiązania konkretnego problemu. Z punktu widzenia aplikacji serwerowej tworzonej w ramach tego projektu, niezwykle istotna okazała się dostępność biblioteki umożliwiającej przetwarzanie i odczyt danych z plików \textit{pdf}. 
 
-Inną ważną cechą środowiska Node.js, w odróżnieniu od środowisk wykorzystujących  język Python, jest bardzo dobra obsługa standardu JSON\footnote{Standard ECMA-404 \url{https://www.json.org/}}, która pozwala na używanie obiektów zgodnych z tym formatem niemal jako standardowych obiektów języka JavaScript, co znacznie wpływa na ułatwienie komunikacji pomiędzy aplikacją serwerową a kliencką. 
+Inną ważną cechą środowiska Node.js, w odróżnieniu od środowisk wykorzystujących  język Python, jest bardzo dobra obsługa standardu JSON\footnote{Standard ECMA-404: \url{https://www.json.org/}}, która pozwala na używanie obiektów zgodnych z tym formatem niemal jako standardowych obiektów języka JavaScript, co znacznie wpływa na ułatwienie komunikacji pomiędzy aplikacją serwerową a kliencką. 
 
 \subsection{Język}
 Językiem który zostanie wykorzystany do napisania aplikacji serwerowej będzie TypeScipt. Jest on nadzbiorem języka JavaScript, utworzonym i utrzymywanym przez firmę Microsoft. Zasadniczą różnicą pomiędzy tymi językami jest typowanie.
@@ -183,14 +183,14 @@ W celu ułatwienia procesu wdrożenia aplikacji serwerowej w środowisku produkc
 W obecnych czasach telefony komórkowe nie są wykorzystywane wyłącznie do wykonywania połączeń, ale także do korzystania z zasobów Internetu czy też do obsługi różnych aplikacji o najróżniejszym zastosowaniu. Dzięki temu zyskują one coraz większą popularność - obecnie znaczna część społeczeństwa posiada swojego osobistego smartfona. Dlatego też aplikacja kliencka przygotowana została z myślą o urządzeniach mobilnych, a konkretnie tych, które działają pod kontrolą systemu Android. 
 
 \subsection{Android}
-Android jest systemem operacyjnym opartym o jądro Linuksa, przygotowanym głównie z myślą o smartfonach, choć można go także znaleźć innych urządzeniach tj. telewizory czy smartwatche. Obecnie rozwijany jest i utrzymywany przez firmę Google. W badaniu przeprowadzonym przez firmę Gemius\footnote{\url{https://mobirank.pl/2020/03/01/ranking-systemow-operacyjnych-i-przegladarek-w-polsce-1-2020/}}, polegającym na sprawdzeniu z jakiego systemu operacyjnego pochodzą odsłony wybranych stron internetowych, Android zajął pierwsze miejsce z około 54\% udziałem. Można zatem wnioskować, że jest to jeden z najpopularniejszych systemów na świecie, dlatego też aplikacja kliencka będzie przygotowywana do działania na urządzeniach z system Android. 
+Android jest systemem operacyjnym opartym o jądro Linuksa, przygotowanym głównie z myślą o smartfonach, choć można go także znaleźć innych urządzeniach tj. telewizory czy smartwatche. Obecnie rozwijany jest i utrzymywany przez firmę Google. W badaniu przeprowadzonym przez firmę Gemius\footnote{ Szczegółowe wyniki badania: \url{https://mobirank.pl/2020/03/01/ranking-systemow-operacyjnych-i-przegladarek-w-polsce-1-2020/}}, polegającym na sprawdzeniu z jakiego systemu operacyjnego pochodzą odsłony wybranych stron internetowych, Android zajął pierwsze miejsce z około 54\% udziałem. Można zatem wnioskować, że jest to jeden z najpopularniejszych systemów na świecie, dlatego też aplikacja kliencka będzie przygotowywana do działania na urządzeniach z system Android. 
  
 \subsection{Kotlin}
 Na początku istnienia systemu Android, natywne aplikacje na ten system były pisane w języku Java. Jednak w roku 2019, firma Google umożliwiła rozwijanie programów także w języku Kotlin. Jest to język wieloparadygmatowy, zaprezentowany w 2011 roku przez firmę JetBrains - autorów środowiska InteliJ Idea, na którym oparte jest środowisko Android Studio. Kotlin uruchamiany jest w wirtualnej maszynie Javy, dzięki czemu możliwe jest wykorzystywanie bibliotek napisanych w języku Java w aplikacjach bazujących na Kotlinie. Dodatkowo środowisko Android Studio umożliwia translację plików napisanych w Javie na język Kotlin, a także odwrotnie. 
 
 Do głównych przewag języka Kotlin na Javą należy zaliczyć przede wszystkim fakt, że często wymaga znacznie mniej kodu, w celu rozwiązania tego samego problemu, dzięki czemu kod jest czytelniejszy co zmniejsza prawdopodobieństwo powstawania błędów. Dodatkowo Kotlin posiada mechanizmy chroniące programistę przed wyjątkiem \textit{NullPointerExecption}, co także minimalizuje prawdopodobieństwo powstania wadliwego kodu. 
 
-Dla osób mających doświadczenie w programowaniu w innych językach niż Kotlin, jego wadą może być składnia, która znacząco różni się względem innych popularnych języków takich jak Javy, czy C++ co może powodować problemy dla programistów, którzy uczą się pisania aplikacji przy użyciu  Kotlina, pisząc wcześniej w języku, którego składnia wywodzi się z C. Wartym wspomnienia jest również fakt, że Kotlin jest obecnie językiem mniej popularnym niż Java\footnote{\url{https://www.tiobe.com/tiobe-index/}}, co powoduje, że ilość problemów opisywanych na forach internetowych dotyczących rozwijania aplikacji na system Android, częściej dotyczy języka Java. Jednakże problem ten nie jest bardzo dotkliwy, ze względu na to, że rozwiązania z języka Java może stosunkowo łatwo wykorzystać w Kotlinie. Dodatkowo oficjalna dokumentacja systemu Android, w której przykładowy kod napisany zarówno w języku Kotlin jak i w Javie, również minimalizuje tą niedogodność. 
+Dla osób mających doświadczenie w programowaniu w innych językach niż Kotlin, jego wadą może być składnia, która znacząco różni się względem innych popularnych języków takich jak Javy, czy C++ co może powodować problemy dla programistów, którzy uczą się pisania aplikacji przy użyciu  Kotlina, pisząc wcześniej w języku, którego składnia wywodzi się z C. Wartym wspomnienia jest również fakt, że Kotlin jest obecnie językiem mniej popularnym niż Java\footnote{Na podstawie Tiobe Index: \url{ https://www.tiobe.com/tiobe-index/}}, co powoduje, że ilość problemów opisywanych na forach internetowych dotyczących rozwijania aplikacji na system Android, częściej dotyczy języka Java. Jednakże problem ten nie jest bardzo dotkliwy, ze względu na to, że rozwiązania z języka Java może stosunkowo łatwo wykorzystać w Kotlinie. Dodatkowo oficjalna dokumentacja systemu Android, w której przykładowy kod napisany zarówno w języku Kotlin jak i w Javie, również minimalizuje tą niedogodność. 
 
 \chapter{Architektura}
 Cały system, który zostanie utworzony w ramach opisywanego projektu będzie składał się z trzech głównych części: 
@@ -207,7 +207,7 @@ Każda z aplikacji ze wykorzystuje inne, specyficzne dla swoich platform wzorce 
 
 \newpage
 \section{Architektura ogólna}
-Ogólny schemat struktury całego systemu przedstawia Rysunek 3.1:
+Ogólny schemat struktury całego systemu przedstawia Rysunek 3.1.
 
  \begin{figure}[!htbp]
  	\begin{center}
@@ -289,7 +289,7 @@ Do obsługi asynchroniczności zapytań, wszystkie klasy korzystające z klas pa
 \end{enumerate}
 \chapter{Szczegóły implementacyjne aplikacji serwerowej}
 \section{Ogólna struktura}
-Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerowej została ona podzielona na trzy moduły. W tym rozdziale zostaną przedstawione ich szczegóły implementacyjne oraz sposób komunikacji pomiędzy sobą. Organizacja kodu aplikacji serwerowej została przedstawiona, na poniższym Rysunku 4.1:
+Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerowej została ona podzielona na trzy moduły. W tym rozdziale zostaną przedstawione ich szczegóły implementacyjne oraz sposób komunikacji pomiędzy sobą. Organizacja kodu aplikacji serwerowej została przedstawiona, na poniższym Rysunku 4.1.
 
  \begin{figure}[!htbp]
 	\begin{center}
@@ -328,8 +328,7 @@ Dzięki przechowywaniu wyniku funkcji skrótu dla hasła, zamiast jawnego jego p
 
 
 \subsection{Proces rejestracji użytkownika}
-
-Proces rejestracji użytkownika posiada następujący przebieg:
+Proces rejestracji użytkownika został przedstawiony na Rysunku 4.2:
  \begin{figure}[!htbp]
 	\begin{center}
 		\centering
@@ -341,7 +340,7 @@ Proces rejestracji użytkownika posiada następujący przebieg:
 \newpage
 
 \subsection{Proces logowania użytkownika}
-Po pomyślnym przejściu procesu rejestracji, użytkownik nabywa możliwość zalogowania się do systemu za pomocą wcześniej podanego emaila i hasła. Proces ten wygląda następująco:
+Po pomyślnym przejściu procesu rejestracji, użytkownik nabywa możliwość zalogowania się do systemu za pomocą wcześniej podanego emaila i hasła. Proces ten został zaprezentowany na Rysunku 4.3.
 
 
 \begin{figure}[!htbp]
@@ -370,7 +369,7 @@ Autoryzacja żądania odbywa się na podstawie weryfikacji nagłówka żądania 
 
 Obie te funkcje wykorzystują w trakcie działania jedną z najważniejszych funkcji biorących udział w procesie obsługi użytkowników o nazwie \textit{checkAuth}. Jej rolą jest sprawdzenie ważności sesji i zgodności roli użytkownika zidentyfikowanego na podstawie żetonu przesłanego w nagłówkach żądania, z wymaganiami bezpieczeństwa danego żądanie. Jeśli warunki te są spełnione, wtedy obsługa żądania przekazywana jest już do docelowej funkcji. 
 
-Nagłówek funkcji \textit{checkAuth} został zaprezentowany na Listingu 4.1:
+Nagłówek funkcji \textit{checkAuth} został zaprezentowany na Listingu 4.1.
 
 \begin{lstlisting}[caption=Sygnatura funkcji checkAuth,label=code1,captionpos=b]
 async function checkAuth: boolean (
@@ -395,14 +394,14 @@ Do wywołania tej funkcji należy jej przekazać następujące parametry:
 \subsection{Sposób działania funkcji checkAuth}
 Na początku działania, sprawdza czy w żądaniu, które zostało odebrane, znajduje się nagłówek \textit{Authorization} zawierający żeton identyfikujący sesję użytkownika. Jeśli żeton został odnaleziony, na jego podstawie wyszukiwany jest obiekt sesji w bazie danych Redis. Jeśli wyszukiwanie powiedzie się, funkcja \textit{checkAuth} przeprowadza następujące czynności:
 \begin{enumerate}	
-	\item Sprawdzenie czy czas ważności sesji nie został przekroczony, poprzez odczytanie czasu ważności z obiektu sesji, na następnie porównanie go z obecnym czasu. 
+	\item Sprawdzenie czy czas ważności sesji nie został przekroczony, poprzez odczytanie czasu ważności z obiektu sesji, na następnie porównanie go z czasem obecnym. 
 	
-	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes} przykazanym do funkcji jako parametr. Zgodność określana jest na poprzez sprawdzenie czy typ użytkownika odczytany z obiektu sesji znajduje się w tablicy \textit{profileTypes}.
+	\item Sprawdzenie czy rola użytkownika, którego sesja została zidentyfikowana, jest zgodna z parametrem \textit{profileTypes}. Zgodność określana jest na poprzez sprawdzenie czy typ użytkownika odczytany z obiektu sesji znajduje się w tablicy \textit{profileTypes}.
 \end{enumerate}
-W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, bądź też gdy choć jedna z czynności wymienionych powyżej zakończy się niepowodzeniem, funkcja zwraca wartość \verb|false|, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. W przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, do obiektu żądania zostaną dopisane parametry użytkownika powiązanego z sesją a następnie funkcja zwróci wartość true, która oznacza, że proces autoryzacji użytkownika zakończył się pomyślnie.
+W przypadku nie odnalezienia nagłówka \textit{Authorization} lub obiektu sesji w bazie danych Redis, funkcja zwraca wartość \verb|false|, która oznacza, że proces autoryzacji również zostanie zakończony niepomyślnie. W przypadku gdy wszystkie wyżej wymienione warunki zostaną spełnione, do obiektu żądania zostaną dopisane parametry użytkownika powiązanego z sesją a następnie funkcja zwróci wartość true, która oznacza, że proces autoryzacji użytkownika zakończył się pomyślnie.
 
 \subsection{Funkcja authMiddlewareUser}
-Funkcja authMiddlewareUser wykorzystuje wzorzec projektowy Adapter, w celu dostosowania funkcji \textit{checkAuth} do interfejsu, który jest wymagany dla funkcji pośredniczących w środowisku Node.js. Jej nagłówek prezentuje się następująco: 
+Funkcja authMiddlewareUser wykorzystuje wzorzec projektowy Adapter, w celu dostosowania funkcji \textit{checkAuth} do interfejsu, funkcji pośredniczących w środowisku Node.js. Jej sygnatura została przedstawiona na Listingu 4.2.
 \begin{lstlisting}[caption=Sygnatura funkcji authMiddlewareUser,label=code1,captionpos=b]
 async function authMiddlewareUser: void (
 	req: Request,
@@ -423,7 +422,7 @@ Funkcja \textit{authMiddlewareOwner} w odróżnieniu \textit{authMiddlewareUser}
 
 Jedynym argumentem, który przyjmuje funkcja \textit{authMiddlewareOwner} jest obiekt \textit{DBModel} typu \textit{Model<IOwnership  Document>} pochodzącego z biblioteki Mongoose, który służy do zarządzania wybranym rodzajem dokumentów w bazie danych MongoDB. Do funkcji może zostać przekazany jedynie taki model, który obsługuje dokumenty które są jednocześnie implementują interfejs \textit{Document}, który również pochodzi  z biblioteki Mongoose i reprezentuje pojedynczy dokument z bazy danych oraz \textit{IOwnership}, który wykorzystywany jest we wszystkich dokumentach, które mogą posiadać właścicieli, jak ma to miejsce przykładowo dla dokumentów przechowujących dane pojedynczej publikacji. 
 
-Interfejs \textit{IOwnership} został przedstawiony na Listingu 4.3:
+Interfejs \textit{IOwnership} został przedstawiony na Listingu 4.3.
 \begin{lstlisting}[caption=Interfejs IOwnership,label=code1,captionpos=b]
 interface IOwnership {
 	owners: UserType[]
@@ -431,7 +430,7 @@ interface IOwnership {
 \end{lstlisting}
 Interfejs ten jest bardzo prosty i posiada tylko jedno pole \textit{owners}, które jest tablicą użytkowników, będących właścicielami obiektu, który implementuje ten interfejs. Dzięki zastosowaniu tego interfejsu, nie ma potrzeba pisania osobnej obsługi rozpoznawania czy użytkownik jest właścicielem wybranego obiektu, dla każdego rodzaju dokumentów osobno. Z tej właśnie własności korzysta funkcja \textit{authMiddlewareOwner}.
 
-Uproszczony kod funkcji \textit{authMiddlewareOwner} został przedstawiony na Listingu 4.4:
+Uproszczony kod funkcji \textit{authMiddlewareOwner} został przedstawiony na Listingu 4.4.
 \begin{lstlisting}[caption=Sygnatura funkcji authMiddlewareOwner,label=code1,captionpos=b]
 const authMiddlewareOwner = (DbModel: Model<IOwnership & Document>) => (
   async (req: Request, res: Response, next: NextFunction) => {
@@ -448,7 +447,7 @@ const authMiddlewareOwner = (DbModel: Model<IOwnership & Document>) => (
 \end{lstlisting}
 
 Jej działanie opiera się o domknięcie - jako argument otrzymuje ona obiekt modelu, który później zostaje zawarty w środowisku zwracanej funkcji. Dzięki temu, że model ten musi implementować interfejs \textit{IOwnership}, dokumenty, które zostaną pobrane z bazy danych za jego pomocą muszą posiadać pole \textit{owners}, określające ich właścicieli.
-Zatem funkcja  \textit{authMiddlewareOwner} po wywołaniu zwraca inną funkcję, która jest już właściwą funkcją pośredniczącą, zawierającą dodatkowo w swoim środowisko odwołanie do obiektu modelu dokumentu z bazy danych. Sposób działania zwracanej funkcji wygląda następująco:
+Zatem funkcja  \textit{authMiddlewareOwner} po wywołaniu zwraca inną funkcję, która jest już właściwą funkcją pośredniczącą, zawierającą dodatkowo w swoim środowisku odwołanie do obiektu modelu dokumentu z bazy danych. 
 
 Wywołanie funkcji \verb|authMiddlewareOwner(Publication)|, zwróci funkcję pośredniczą, która pozwoli na wywołanie kolejnej metody obsługującej żądanie, tylko gdy użytkownik wywołujący żądanie, jest właścicielem obiektu typu \verb|Publication|, którego id została przekazane jako parametr w ścieżce żądania.
 
@@ -505,7 +504,7 @@ Pierwsze pięć wymienionych wyżej opiera się o zwykłe operacje CRUD przeprow
 
 \subsection{Definiowanie żądań}
 
-Przykładowa deklaracja obsługi żądania została przedstawiona na Listingu 4.5:
+Przykładowa deklaracja obsługi żądania została przedstawiona na Listingu 4.5.
 
 \begin{lstlisting}[caption=Deklaracja obsługi żądania,label=code1,captionpos=b]
 router.get(
@@ -521,7 +520,7 @@ Przedstawiony w powyższym fragmencie obiekt \verb|router|, służy do definiowa
 Proces ten polega na wyszukaniu w bazie danych tych dokumentów opisujących publikacje, których właścicielem jest użytkownik rozpoznany podczas procesu autoryzacji.
 \pagebreak
 
-Uproszczony kod funkcji został przedstawiony na Listingu 4.6:
+Uproszczony kod funkcji został przedstawiony na Listingu 4.6.
 \begin{lstlisting}[caption=Funkcja getPublication,label=code1,captionpos=b]
 const getPublication = () => {
 	const { _id as userId } = (<any>req).user;
@@ -544,7 +543,7 @@ Obsługa tego żądania jest niemal identyczna do obsługi pobierania dokumentu 
 \subsection{Przetwarzanie plików PDF}
 Funkcja przetwarzająca plik PDF jest wywoływana podczas obsługi żądania przetwarzania pliku PDF. Proces ten polega na przeszukaniu treści pliku oraz jego metadanych w celu odnalezienia identyfikatora DOI, który zostanie wykorzystany później w celu pobrania szczegółów dotyczących publikacji. Jeśli identyfikator DOI nie zostanie odnaleziony, następuje wtedy próba odczytania informacji o publikacji wprost z metadanych pliku PDF.
 
-W przypadku, gdy identyfikator DOI nie zostanie odnaleziony wśród metadanych pliku, jego poszukiwanie w treści pliku wykonywane jest przy użyciu wyrażenia regularnego, co przedstawione zostało Listingu 4.7:
+W przypadku, gdy identyfikator DOI nie zostanie odnaleziony wśród metadanych pliku, jego poszukiwanie w treści pliku wykonywane jest przy użyciu wyrażenia regularnego, co przedstawione zostało Listingu 4.7.
 
 \begin{lstlisting}[caption=Wykorzystanie wyrażenia regularnego do poszukiwania DOI,label=code1,captionpos=b]
 const regex = /\S+(doi.org)\S+/g;
@@ -593,14 +592,14 @@ W celu zwiększenia bezpieczeństwa oraz łatwiejszego odnajdowania błędów u�
 
 W swoim działania funkcja ta korzysta z biblioteki \textit{class-validator}, która umożliwia walidowanie obiektów wykorzystując zdefiniowane wcześniej do tego celu wzorce. Wykorzystuje ona również domknięcie, zwracając funkcję, która jest zgodna z interfejsem funkcji pośredniczącej.
 
-Sygnatura funkcji \textit{validationMiddleware} została zaprezentowana na Listingu 4.8: 
+Sygnatura funkcji \textit{validationMiddleware} została zaprezentowana na Listingu 4.8. 
 
 \begin{lstlisting}[caption=Sygnatura funkcji validationMiddleware,label=code1,captionpos=b]
 function validationMiddleware<T>(type: any): RequestHandler
 \end{lstlisting}
 Jej jedynym argumentem jest obiekt, będący definicją typu, z którym musi być zgodne ciało żądania, do którego obsługi wykorzystana została ta funkcja.
 
-Przykładowa definicja typu, który musi być zgodny z ciałem żądania dodającego publikację przedstawiona została na Listingu 4.9:
+Przykładowa definicja typu, który musi być zgodny z ciałem żądania dodającego publikację przedstawiona została na Listingu 4.9.
 \begin{lstlisting}[caption=Klasa AddPublicationDto,label=code1,captionpos=b]
 class AddPublicationDto {
 	@IsString()
@@ -621,7 +620,7 @@ class AddPublicationDto {
 \end{lstlisting} 
 \pagebreak
 
-Definiowanie warunków, które muszą zostać spełnione przez poszczególne pola ciała żądania definiowane są za pomocą dekoratorów. Znaczenie częśći z tych, które zostały wykorzystane w powyższym przykładzie jest następujące: 
+Definiowanie warunków, które muszą zostać spełnione przez poszczególne pola ciała żądania definiowane są za pomocą dekoratorów. Znaczenie części z tych, które zostały wykorzystane w powyższym przykładzie jest następujące: 
 \begin{itemize}
 	\item \verb|@IsString()| - sprawdza czy wartość danego pola jest ciągiem znaków;
 	\item \verb|@IsArray()| - sprawdza czy wartość danego pola jest tablicą; 
@@ -645,7 +644,7 @@ Dodatkowo została podzielona następujące podpakiety:
 Oprócz kodu napisanego w języku Kotlin, aplikacja składa się także z plików XML. Są one wykorzystywane do konfiguracji ustawień wymaganych przez system Android, a także do definiowania styli oraz układu poszczególnych elementów interfejsu użytkownika. 
 
 \section{LoginActivity}
-LoginActivity jest pierwszą aktywnością, która jest uruchamiana po włączeniu aplikacji. Zgodnie z nazwą, odpowiada ona za obsłużenie procesu logowania użytkownika, a także za sprawdzenie czy użytkownik nie zalogował się wcześniej do aplikacji. Jej sposób działania prezentuje się następująco: 
+LoginActivity jest pierwszą aktywnością, która jest uruchamiana po włączeniu aplikacji. Zgodnie z nazwą, odpowiada ona za obsłużenie procesu logowania użytkownika, a także za sprawdzenie czy użytkownik nie zalogował się wcześniej do aplikacji. Jej sposób działania zaprezentowany został na Rysunku 5.1.
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
@@ -654,10 +653,10 @@ LoginActivity jest pierwszą aktywnością, która jest uruchamiana po włączen
 	\caption{Diagram aktywności dla LoginActivity}
 	\label{diagramAktywnosciLoginActivity}
 \end{figure}
-
+\pagebreak
 Ze względu na stosunkową prostotę i jedynie jeden ekran, który należy do tej aktywności, nie została ona podzielona na fragmenty. Inna cechą tej aktywności jest fakt, że nie jest ona zapisywana na stosie cofania, dzięki czemu użytkownik po zalogowaniu, nie jest w stanie cofnąć się do tej aktywności przy użyciu klawisza cofnij.
 
- Ze względu na fakt wywoływania asynchroniczną naturę metod obsługujących żądania wysyłany do aplikacji serwerowej, klasa LoginActivity implementuje interfejs \textit{LoginObserver} służący do obsługi odpowiedzi na żądania logowania. Został on zaprezentowany na Listingu 5.1:
+ Ze względu na fakt wywoływania asynchroniczną naturę metod obsługujących żądania wysyłany do aplikacji serwerowej, klasa LoginActivity implementuje interfejs \textit{LoginObserver} służący do obsługi odpowiedzi na żądania logowania. Został on zaprezentowany na Listingu 5.1.
  \begin{lstlisting}[caption=Interfejs LoginObserver,label=code1,captionpos=b]
 interface LoginObserver {
 	fun onUserLoginSuccessful(userDTO: UserDTO)  
@@ -677,15 +676,15 @@ MainActivity jest główną aktywnością w aplikacji składającą się z dwóc
 	\item UserDetailsFragment - ekran powiązany z tym fragmentem przedstawia szczegóły zalogowanego użytkownika oraz zezwala na ich edycję.
 \end{enumerate}
 
-\subsection{PublicationsListFragment}
-Ekran reprezentujący \textit{PublicationsListFragment} składa się z przewijanej listy zawierającej odnośniki do poszczególnych publikacji należących do obecnie zalogowanego użytkownika. Za jej wyświetlenie odpowiedzialny jest komponent \textit{RecyclerView}. Jego największą zaletą jest fakt, iż w odróżnieniu od komponentu \textit{ScrollView} jest on w stanie wyświetlać bez większych spowolnień bardzo długie listy. 
+\subsection{Prezentacja listy publikacji}
+Klasa \textit{PublicationsListFragment} jest odpowiedzialna za wyświetlanie ekranu składającego się z przewijanej listy zawierającej odnośniki do poszczególnych publikacji należących do obecnie zalogowanego użytkownika. Za jej wyświetlenie odpowiedzialny jest komponent \textit{RecyclerView}. Jego największą zaletą jest fakt, iż w odróżnieniu od komponentu \textit{ScrollView} jest on w stanie wyświetlać bez większych spowolnień bardzo długie listy. 
 
 Przewaga komponentu \textit{RecyclerView} wynika z faktu, że zamiast trzymać w pamięci wszystkie elementy listy jak ma to miejsce w \textit{ScrollView}, przechowuje jedynie te, które są widoczne na ekranie. W momencie gdy dany element listy znika z pola widzenia, jest przesuwany na początek ze zmienioną zawartością, odpowiadającą kolejnemu elementowi listy. 
 
 Wadą komponentu \textit{RecyclerView} jest niewątpliwe stosunkowo skomplikowana obsługa w kodzie, gdyż aby móc z niego korzystać należy przygotować specjalną klasę będącą adapterem listy wejściowej na jej graficzną reprezentację.
 
 Za pobranie i aktualizację danych odpowiada klasa  \textit{PublicationsListViewModel}, stanowiąca warstwę viewmodelu.
-Jej sygnatura została zaprezentowana na Listingu 5.2:
+Jej sygnatura została zaprezentowana na Listingu 5.2.
 
  \begin{lstlisting}[caption=Sygnatura klasy PublicationsListViewModel,label=code1,captionpos=b]
 class PublicationsListViewModel : 
@@ -693,7 +692,7 @@ class PublicationsListViewModel :
 	RequestObserver<ArrayList<PublicationListItem>>   
 }
 \end{lstlisting} 
-Klasa \textit{PublicationsListViewModel} dziedziczy po klasie ViewModel, co pozwala w łatwy sposób połączyć ją klasą z warstwy View - w tym przypadku z klasą \textit{PublicationsListFragment}. Dodatkowo implementuje ona interfejs \textit{RequestObserver}, który umożliwia obsługę odpowiedzi na żądanie. Jest on zbliżony do interfejsu \textit{LoginObserver}, gdyż również posiada on dwie metody: jedną wywoływaną gdy żądanie zakończy się pomyślnie oraz drugą która uruchamiana jest gdy odpowiedź żądania będzie zawierała błąd. Jednak dzięki wprowadzeniu do niego typów generycznych, można go wykorzystywać do obsługi wielu typów odpowiedzi na żądania. Jego kod został zaprezentowany na Listingu 5.3:
+Klasa \textit{PublicationsListViewModel} dziedziczy po klasie ViewModel, co pozwala w łatwy sposób połączyć ją klasą z warstwy View - w tym przypadku z klasą \textit{PublicationsListFragment}. Dodatkowo implementuje ona interfejs \textit{RequestObserver}, który umożliwia obsługę odpowiedzi na żądanie. Jest on zbliżony do interfejsu \textit{LoginObserver}, gdyż również posiada on dwie metody: jedną wywoływaną gdy żądanie zakończy się pomyślnie oraz drugą która uruchamiana jest gdy odpowiedź żądania będzie zawierała błąd. Jednak dzięki wprowadzeniu do niego typów generycznych, można go wykorzystywać do obsługi wielu typów odpowiedzi na żądania. Jego kod został zaprezentowany na Listingu 5.3.
 
  \begin{lstlisting}[caption=Interfejs RequestObserver,label=code1,captionpos=b]
 interface RequestObserver<T> {
@@ -701,22 +700,42 @@ interface RequestObserver<T> {
 	fun onFail(errorResponse: ErrorResponse?, type: String)
 }
 \end{lstlisting} 
- Klasa \textit{PublicationsListViewModel} posiada jedno publiczne pole \textit{publications}, które jest typu \textit{LiveData<List<PublicationListItem>>}. Typ \textit{LiveData} ten daje możliwość obserwacji zmian wartości, dzięki czemu w warstwie widoku wystarczy zdefiniować obserwatora pola typu LiveData, który zostanie poinformowany o każdej zmianie wartości obserwowanego pola i pozwoli na dynamiczne odświeżenie prezentowanych informacji.
+ Klasa \textit{PublicationsListViewModel} posiada jedno publiczne pole \textit{publications}, które jest typu \textit{LiveData<List<PublicationListItem>>}. Typ \textit{LiveData} ten daje możliwość obserwacji zmian wartości, dzięki czemu w warstwie widoku wystarczy zdefiniować obserwatora pola typu LiveData, który zostanie poinformowany o każdej zmianie wartości obserwowanego pola i pozwoli na dynamiczne odświeżenie prezentowanych informacji. 
  
-Na Rysunku 5.2 przedstawione zostało w jaki współpracują między sobą klasy \textit{PublicationsListFragment}, \textit{PublicationsListViewModel}, a także klasa \textit{PublicationRepository}, odpowiedzialna za obsługę żądań dotyczących publikacji:
+ 
+Na Rysunku 5.2 przedstawione zostało w jaki współpracują między sobą klasy \textit{PublicationsListFragment}, \textit{PublicationsListViewModel}, a także klasa \textit{PublicationRepository}, odpowiedzialna za obsługę żądań dotyczących publikacji. Z uwagi na to, że platforma Android nie pozwala na wykonywanie połączeń sieciowych w sposób synchroniczny wykorzystując główny wąttek, żądanie pobrania informacji o publikacjach jest wywoływane asynchronicznie.
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=0.9]{\ImgPath/rys/diag_aktyw_mob_odsw_list_pub.pdf}
+		\includegraphics[scale=0.9]{\ImgPath/rys/diag_sek_viewmodel.pdf}
 	\end{center}
-	\caption{Diagram aktywności dla LoginActivity}
+	\caption{Diagram sekwencji dla ViewModelu}
 	\label{diagramAktywnosciLoginActivity}
 \end{figure}
 
-\subsection{UserDetailsFragment}
+\subsection{Wyświetlanie informacji o użytkowniku}
 Klasa \textit{UserDetailsFragment} jest odpowiedzialna za prezentowanie i edycję danych zalogowanego użytkownika. Prezentuje ona na ekranie pola tekstowe zawierające email użytkownika oraz jego pseudonim, a także dwa przyciski odpowiadające za zapisanie zmian oraz wylogowanie użytkownika. W celu aktualizacji danych prezentowanych w warstwie widoku, przygotowana została klasa UserDetailsViewModel.
 
 \section{PublicationDetailsActivity}
+\textit{PublicationDetailsActivity} jest aktywnością odpowiedzialna za wyświetlanie, edycję oraz dodawanie pojedynczych publikacji. Wykorzystuje ona jeden fragment o nazwie \textit{PublicationDetailsFragment}, który odpowiedzialny jest za wyświetlanie formularza zawierającego metadane publikacji oraz odnośnik do pliku PDF. 
+
+\subsection{Inicjalizacja fragmentu PublicationDetailsFragment}
+Ze względu na to, że \textit{PublicationDetailsFragment} jest odpowiedzialna za tworzenie nowych publikacji, ale także za wyświetlanie i edycję już istniejących, w momencie inicjalizacji tego fragmentu, należy odpowiednio dostosować działanie klasy \textit{PublicationDetailsViewModel}, aby była ona świadoma tego czy powinna pobrać wybraną publikację z aplikacji serwerowej, czy też wyświetlić całkowicie pusty formularz.
+
+Aby obiekt klasy \textit{PublicationDetailsViewModel} był świadom jaką publikację należy wyświetlić, należy do niego przekazać identyfikator publikacji. Ze względu na to, że obiekty ViewModelu są uzyskiwane w kodzie przy użyciu klasy \textit{ViewModelProvider}, nie ma możliwości bezpośredniego przekazania parametrów poprzez konstruktor. Dlatego też, przygotowana została dodatkowa klasa \textit{PublicationDetailsViewModelFactory}, która rozszerzając klasę \textit{ViewModelProvider.Factory}, pozwala na przekazywanie odpowiednich parametrów podczas tworzenia obiektów klasy  \textit{PublicationDetailsViewModel}.
+
+\subsection{Wyświetlanie szczegółów publikacji}
+Aby wyświetlić szczegóły wybranej publikacji, użytkownik musi nacisnąć na odpowiednią pozycję z listy dostępnej we fragmencie \textit{PublicationsListFragment}.
+
+\chapter{Testy}
+Aby zminimalizować ryzyko wystąpienia niepożądanych sytuacji podczas korzystania z aplikacji, powinna ona przejść testy sprawdzające wszystkie funkcje i sytuacje wyjątkowe, które powinny zostać obsłużone przez aplikację. Dlatego też cały system został poddany różnorodnym testom w celu sprawdzenia następujących funkcji: 
+
+\begin{enumerate}
+	\item Logowania i wylogowanie;
+	\item Przetwarzanie plików PDF, z których niektóre posiadają DOI w metadanych, inne posiadają DOI zaszyte w tekście, a pozostałe nie posiadają go wcale;
+	\item Dodawanie, edycja i usuwanie publikacji.
+\end{enumerate}
+
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}

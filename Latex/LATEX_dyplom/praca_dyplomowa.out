@@ -42,7 +42,10 @@
 \BOOKMARK [0][-]{chapter.5}{Szczeg\363\233y implementacyjne aplikacji klienckiej}{}% 42
 \BOOKMARK [1][-]{section.5.1}{LoginActivity}{chapter.5}% 43
 \BOOKMARK [1][-]{section.5.2}{MainActivity}{chapter.5}% 44
-\BOOKMARK [2][-]{subsection.5.2.1}{PublicationsListFragment}{section.5.2}% 45
-\BOOKMARK [2][-]{subsection.5.2.2}{UserDetailsFragment}{section.5.2}% 46
+\BOOKMARK [2][-]{subsection.5.2.1}{Prezentacja listy publikacji}{section.5.2}% 45
+\BOOKMARK [2][-]{subsection.5.2.2}{Wyswietlanie informacji o uzytkowniku}{section.5.2}% 46
 \BOOKMARK [1][-]{section.5.3}{PublicationDetailsActivity}{chapter.5}% 47
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 48
+\BOOKMARK [2][-]{subsection.5.3.1}{Inicjalizacja fragmentu PublicationDetailsFragment}{section.5.3}% 48
+\BOOKMARK [2][-]{subsection.5.3.2}{Wyswietlanie szczeg\363\233\363w publikacji}{section.5.3}% 49
+\BOOKMARK [0][-]{chapter.6}{Testy}{}% 50
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 51

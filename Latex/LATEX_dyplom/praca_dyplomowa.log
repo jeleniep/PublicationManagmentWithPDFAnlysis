@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.5)  20 JAN 2021 03:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.5)  21 JAN 2021 01:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -794,7 +794,7 @@ LaTeX Font Info:    Try loading font information for T1+phv on input line 108.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-<PWHead.png, id=196, 2015.53pt x 320.19624pt>
+<PWHead.png, id=209, 2015.53pt x 320.19624pt>
 File: PWHead.png Graphic file (type png)
 <use PWHead.png>
 Package pdftex.def Info: PWHead.png  used on input line 108.
@@ -804,7 +804,7 @@ Overfull \hbox (31.10086pt too wide) in paragraph at lines 108--108
 [] 
  []
 
-<inzhead.png, id=197, 1392.20125pt x 303.1325pt>
+<inzhead.png, id=210, 1392.20125pt x 303.1325pt>
 File: inzhead.png Graphic file (type png)
 <use inzhead.png>
 Package pdftex.def Info: inzhead.png  used on input line 108.
@@ -908,9 +908,9 @@ dzona zo-staªa szcze-
 [3
 
 ] [4] [5]
-Overfull \hbox (114.8777pt too wide) in paragraph at lines 186--186
-[][][][][]$\T1/cmtt/m/n/10 https : / / mobirank . pl / 2020 / 03 / 01 / ranking
--[]systemow-[]operacyjnych-[]i-[]przegladarek-[]w-[]polsce-[]1-[]2020/$[][]| 
+Underfull \hbox (badness 10000) in paragraph at lines 186--186
+[][][] \T1/cmr/m/n/10 Szcze-gó-ªowe wy-niki ba-da-nia: [][]$\T1/cmtt/m/n/10 htt
+ps : / / mobirank . pl / 2020 / 03 / 01 /
  []
 
 [6] [7]
@@ -921,13 +921,13 @@ Rozdzia\l  3.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_komp_ogolny.pdf): PDF inclus
 ion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_komp_ogolny.pdf, id=348, 293.095pt x 284.06125pt>
+<./rys/diag_komp_ogolny.pdf, id=367, 309.155pt x 286.06876pt>
 File: ./rys/diag_komp_ogolny.pdf Graphic file (type pdf)
 <use ./rys/diag_komp_ogolny.pdf>
 Package pdftex.def Info: ./rys/diag_komp_ogolny.pdf  used on input line 215.
-(pdftex.def)             Requested size: 351.71222pt x 340.87177pt.
+(pdftex.def)             Requested size: 370.98413pt x 343.28078pt.
 
-Underfull \vbox (badness 2384) has occurred while \output is active []
+Underfull \vbox (badness 1838) has occurred while \output is active []
 
  [9 <./rys/diag_komp_ogolny.pdf>] [10] [11] [12]
 Rozdzia\l  4.
@@ -935,7 +935,7 @@ Rozdzia\l  4.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_klas_serwer.pdf): PDF inclus
 ion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_klas_serwer.pdf, id=392, 290.08376pt x 233.87375pt>
+<./rys/diag_klas_serwer.pdf, id=411, 290.08376pt x 233.87375pt>
 File: ./rys/diag_klas_serwer.pdf Graphic file (type pdf)
 <use ./rys/diag_klas_serwer.pdf>
 Package pdftex.def Info: ./rys/diag_klas_serwer.pdf  used on input line 297.
@@ -952,47 +952,47 @@ stwa. Na-wet w przy-
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_rejestr.pdf): PDF incl
 usion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_rejestr.pdf, id=411, 419.5675pt x 493.845pt>
+<./rys/diag_aktyw_rejestr.pdf, id=431, 419.5675pt x 493.845pt>
 File: ./rys/diag_aktyw_rejestr.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_rejestr.pdf>
-Package pdftex.def Info: ./rys/diag_aktyw_rejestr.pdf  used on input line 336.
+Package pdftex.def Info: ./rys/diag_aktyw_rejestr.pdf  used on input line 335.
 (pdftex.def)             Requested size: 335.65445pt x 395.07652pt.
 [15 <./rys/diag_aktyw_rejestr.pdf>]
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_logowanie.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_logowanie.pdf, id=422, 358.33875pt x 500.87125pt>
+<./rys/diag_aktyw_logowanie.pdf, id=442, 358.33875pt x 500.87125pt>
 File: ./rys/diag_aktyw_logowanie.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_logowanie.pdf>
-Package pdftex.def Info: ./rys/diag_aktyw_logowanie.pdf  used on input line 350
+Package pdftex.def Info: ./rys/diag_aktyw_logowanie.pdf  used on input line 349
 .
 (pdftex.def)             Requested size: 329.67018pt x 460.79948pt.
 [16 <./rys/diag_aktyw_logowanie.pdf>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 375.
+nput line 374.
 
-Overfull \hbox (4.57983pt too wide) in paragraph at lines 392--393
+Overfull \hbox (4.57983pt too wide) in paragraph at lines 391--392
 []\T1/cmr/m/n/12 profileTypes - ta-blica za-wie-ra-j¡ca role u»yt-kow-ni-ków, k
 tó-rzy maj¡ prawo
  []
 
 [17] [18] [19]
-Overfull \hbox (54.49146pt too wide) in paragraph at lines 436--437
+Overfull \hbox (54.49146pt too wide) in paragraph at lines 435--436
 [][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (35.97098pt too wide) in paragraph at lines 438--439
+Overfull \hbox (35.97098pt too wide) in paragraph at lines 437--438
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (11.27701pt too wide) in paragraph at lines 442--443
+Overfull \hbox (11.27701pt too wide) in paragraph at lines 441--442
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (29.79749pt too wide) in paragraph at lines 444--445
+Overfull \hbox (29.79749pt too wide) in paragraph at lines 443--444
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -1000,7 +1000,7 @@ Overfull \hbox (29.79749pt too wide) in paragraph at lines 444--445
 Underfull \vbox (badness 2781) has occurred while \output is active []
 
  [23]
-Overfull \hbox (29.79749pt too wide) in paragraph at lines 529--530
+Overfull \hbox (29.79749pt too wide) in paragraph at lines 528--529
 [][][][][][][][][][][][][][][][][][][][][] 
  []
 
@@ -1009,21 +1009,21 @@ Overfull \hbox (29.79749pt too wide) in paragraph at lines 529--530
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_wstepne_przetwarzanie.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<./rys/diag_aktyw_wstepne_przetwarzanie.pdf, id=541, 307.1475pt x 446.66875pt>
+<./rys/diag_aktyw_wstepne_przetwarzanie.pdf, id=560, 307.1475pt x 446.66875pt>
 File: ./rys/diag_aktyw_wstepne_przetwarzanie.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_wstepne_przetwarzanie.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_wstepne_przetwarzanie.pdf  used on in
-put line 572.
+put line 571.
 (pdftex.def)             Requested size: 268.13943pt x 389.94135pt.
 
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_dodawanie_pub.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_dodawanie_pub.pdf, id=542, 307.1475pt x 392.46625pt>
+<./rys/diag_aktyw_dodawanie_pub.pdf, id=561, 307.1475pt x 392.46625pt>
 File: ./rys/diag_aktyw_dodawanie_pub.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_dodawanie_pub.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_dodawanie_pub.pdf  used on input line
- 582.
+ 581.
 (pdftex.def)             Requested size: 307.14674pt x 392.46527pt.
 [26 <./rys/diag_aktyw_wstepne_przetwarzanie.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1034,54 +1034,74 @@ Rozdzia\l  5.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_mob_log_aktyw.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_mob_log_aktyw.pdf, id=594, 284.06125pt x 412.54124pt>
+<./rys/diag_aktyw_mob_log_aktyw.pdf, id=613, 284.06125pt x 412.54124pt>
 File: ./rys/diag_aktyw_mob_log_aktyw.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_mob_log_aktyw.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_mob_log_aktyw.pdf  used on input line
- 652.
+ 651.
 (pdftex.def)             Requested size: 284.06053pt x 412.54024pt.
 [30
 
-] [31 <./rys/diag_aktyw_mob_log_aktyw.pdf>] [32] [33]
+] [31 <./rys/diag_aktyw_mob_log_aktyw.pdf>]
+Overfull \hbox (10.14381pt too wide) in paragraph at lines 680--681
+[]\T1/cmr/m/n/12 Klasa \T1/cmr/m/it/12 Pu-bli-ca-tion-sLi-st-Frag-ment \T1/cmr/
+m/n/12 jest od-po-wie-dzialna za wy-±wie-tla-nie ekranu
+ []
 
-pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_mob_odsw_list_pub.pdf)
-: PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_mob_odsw_list_pub.pdf, id=640, 401.5pt x 453.695pt>
-File: ./rys/diag_aktyw_mob_odsw_list_pub.pdf Graphic file (type pdf)
-<use ./rys/diag_aktyw_mob_odsw_list_pub.pdf>
-Package pdftex.def Info: ./rys/diag_aktyw_mob_odsw_list_pub.pdf  used on input 
-line 710.
-(pdftex.def)             Requested size: 361.34665pt x 408.32173pt.
-[34 <./rys/diag_aktyw_mob_odsw_list_pub.pdf>] [35] [36
+[32] [33]
 
-] (./opiniaopiekuna.tex)
-[37
+pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_sek_viewmodel.pdf): PDF incl
+usion: found PDF version <1.7>, but at most version <1.5> allowed
+<./rys/diag_sek_viewmodel.pdf, id=659, 452.69125pt x 231.86626pt>
+File: ./rys/diag_sek_viewmodel.pdf Graphic file (type pdf)
+<use ./rys/diag_sek_viewmodel.pdf>
+Package pdftex.def Info: ./rys/diag_sek_viewmodel.pdf  used on input line 710.
+(pdftex.def)             Requested size: 407.41835pt x 208.67769pt.
 
-] (./recenzja.tex [38])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 734.
- [39]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 734.
- (./praca_dyplomowa.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 734.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 734.
+Overfull \hbox (17.41835pt too wide) in paragraph at lines 710--711
+ [] 
+ []
+
+[34 <./rys/diag_sek_viewmodel.pdf>]
+Overfull \hbox (12.31981pt too wide) in paragraph at lines 722--722
+[]\T1/cmr/bx/n/14.4 Inicjalizacja frag-mentu Pu-bli-ca-tion-De-ta-ils-Frag-ment
+ 
+ []
+
+[35]
+Rozdzia\l  6.
+[36
+
+] [37
+
+] [38
+
+] (./opiniaopiekuna.tex) [39] (./recenzja.tex [40])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 753.
+ [41]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 753.
+
+(./praca_dyplomowa.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 753.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 753.
 Package rerunfilecheck Info: File `praca_dyplomowa.out' has not changed.
-(rerunfilecheck)             Checksum: 18A6151067357C8DD065658212EF0CD0;3601.
+(rerunfilecheck)             Checksum: AFD3D5D5840621CCA3D1698747FC68ED;3865.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 734.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 753.
  ) 
 Here is how much of TeX's memory you used:
- 9247 strings out of 494888
- 130708 string characters out of 6179866
- 216199 words of memory out of 5000000
- 12121 multiletter control sequences out of 15000+600000
+ 9258 strings out of 494888
+ 130781 string characters out of 6179866
+ 217197 words of memory out of 5000000
+ 12124 multiletter control sequences out of 15000+600000
  32262 words of font info for 67 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 28i,8n,32p,1370b,1788s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.6
-00pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti120
+ 28i,8n,32p,1370b,1033s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.6
+00pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt100
 0.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
 1000.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/e
 crm0700.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/e
@@ -1096,10 +1116,10 @@ four/jknappen/ec/ecrm1200.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk
 dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
 
-Output written on praca_dyplomowa.pdf (47 pages, 608965 bytes).
+Output written on praca_dyplomowa.pdf (49 pages, 609471 bytes).
 PDF statistics:
- 1283 PDF objects out of 1440 (max. 8388607)
- 703 compressed objects within 8 object streams
- 247 named destinations out of 1000 (max. 500000)
- 435 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1332 PDF objects out of 1440 (max. 8388607)
+ 733 compressed objects within 8 object streams
+ 255 named destinations out of 1000 (max. 500000)
+ 459 words of extra memory for PDF output out of 10000 (max. 10000000)
 
