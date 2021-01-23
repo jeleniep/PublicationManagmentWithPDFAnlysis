@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.5)  21 JAN 2021 01:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.5)  23 JAN 2021 04:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -710,6 +710,21 @@ LaTeX Warning: Label `code1' multiply defined.
 
 LaTeX Warning: Label `diagramAktywnosciLoginActivity' multiply defined.
 
+
+LaTeX Warning: Label `code1' multiply defined.
+
+
+LaTeX Warning: Label `diagramAktywnosciMobDodEdyt' multiply defined.
+
+
+LaTeX Warning: Label `zrzutLogowaniePoprawne' multiply defined.
+
+
+LaTeX Warning: Label `zrzutLogowaniePoprawne' multiply defined.
+
+
+LaTeX Warning: Label `diagramAktywnosciMobDodEdyt' multiply defined.
+
 )
 \openout1 = `praca_dyplomowa.aux'.
 
@@ -794,7 +809,7 @@ LaTeX Font Info:    Try loading font information for T1+phv on input line 108.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-<PWHead.png, id=209, 2015.53pt x 320.19624pt>
+<PWHead.png, id=249, 2015.53pt x 320.19624pt>
 File: PWHead.png Graphic file (type png)
 <use PWHead.png>
 Package pdftex.def Info: PWHead.png  used on input line 108.
@@ -804,7 +819,7 @@ Overfull \hbox (31.10086pt too wide) in paragraph at lines 108--108
 [] 
  []
 
-<inzhead.png, id=210, 1392.20125pt x 303.1325pt>
+<inzhead.png, id=250, 1392.20125pt x 303.1325pt>
 File: inzhead.png Graphic file (type png)
 <use inzhead.png>
 Package pdftex.def Info: inzhead.png  used on input line 108.
@@ -900,6 +915,9 @@ LaTeX Font Info:    External font `plex10' loaded for size
  [2]
 Rozdzia\l  2.
 
+LaTeX Warning: Citation `LOKI2' on page 3 undefined on input line 142.
+
+
 Overfull \hbox (3.85715pt too wide) in paragraph at lines 142--146
 []\T1/cmr/m/n/12 Przed roz-po-cz¦-ciem im-ple-men-ta-cji pro-jektu prze-pro-wa-
 dzona zo-staªa szcze-
@@ -921,7 +939,7 @@ Rozdzia\l  3.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_komp_ogolny.pdf): PDF inclus
 ion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_komp_ogolny.pdf, id=367, 309.155pt x 286.06876pt>
+<./rys/diag_komp_ogolny.pdf, id=416, 309.155pt x 286.06876pt>
 File: ./rys/diag_komp_ogolny.pdf Graphic file (type pdf)
 <use ./rys/diag_komp_ogolny.pdf>
 Package pdftex.def Info: ./rys/diag_komp_ogolny.pdf  used on input line 215.
@@ -935,7 +953,7 @@ Rozdzia\l  4.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_klas_serwer.pdf): PDF inclus
 ion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_klas_serwer.pdf, id=411, 290.08376pt x 233.87375pt>
+<./rys/diag_klas_serwer.pdf, id=461, 290.08376pt x 233.87375pt>
 File: ./rys/diag_klas_serwer.pdf Graphic file (type pdf)
 <use ./rys/diag_klas_serwer.pdf>
 Package pdftex.def Info: ./rys/diag_klas_serwer.pdf  used on input line 297.
@@ -952,7 +970,7 @@ stwa. Na-wet w przy-
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_rejestr.pdf): PDF incl
 usion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_rejestr.pdf, id=431, 419.5675pt x 493.845pt>
+<./rys/diag_aktyw_rejestr.pdf, id=480, 419.5675pt x 493.845pt>
 File: ./rys/diag_aktyw_rejestr.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_rejestr.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_rejestr.pdf  used on input line 335.
@@ -961,7 +979,7 @@ Package pdftex.def Info: ./rys/diag_aktyw_rejestr.pdf  used on input line 335.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_logowanie.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_logowanie.pdf, id=442, 358.33875pt x 500.87125pt>
+<./rys/diag_aktyw_logowanie.pdf, id=491, 358.33875pt x 500.87125pt>
 File: ./rys/diag_aktyw_logowanie.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_logowanie.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_logowanie.pdf  used on input line 349
@@ -1009,7 +1027,7 @@ Overfull \hbox (29.79749pt too wide) in paragraph at lines 528--529
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_wstepne_przetwarzanie.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<./rys/diag_aktyw_wstepne_przetwarzanie.pdf, id=560, 307.1475pt x 446.66875pt>
+<./rys/diag_aktyw_wstepne_przetwarzanie.pdf, id=609, 307.1475pt x 446.66875pt>
 File: ./rys/diag_aktyw_wstepne_przetwarzanie.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_wstepne_przetwarzanie.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_wstepne_przetwarzanie.pdf  used on in
@@ -1019,7 +1037,7 @@ put line 571.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_dodawanie_pub.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_dodawanie_pub.pdf, id=561, 307.1475pt x 392.46625pt>
+<./rys/diag_aktyw_dodawanie_pub.pdf, id=610, 307.1475pt x 392.46625pt>
 File: ./rys/diag_aktyw_dodawanie_pub.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_dodawanie_pub.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_dodawanie_pub.pdf  used on input line
@@ -1034,7 +1052,7 @@ Rozdzia\l  5.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_mob_log_aktyw.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_aktyw_mob_log_aktyw.pdf, id=613, 284.06125pt x 412.54124pt>
+<./rys/diag_aktyw_mob_log_aktyw.pdf, id=663, 284.06125pt x 412.54124pt>
 File: ./rys/diag_aktyw_mob_log_aktyw.pdf Graphic file (type pdf)
 <use ./rys/diag_aktyw_mob_log_aktyw.pdf>
 Package pdftex.def Info: ./rys/diag_aktyw_mob_log_aktyw.pdf  used on input line
@@ -1052,7 +1070,7 @@ m/n/12 jest od-po-wie-dzialna za wy-±wie-tla-nie ekranu
 
 pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_sek_viewmodel.pdf): PDF incl
 usion: found PDF version <1.7>, but at most version <1.5> allowed
-<./rys/diag_sek_viewmodel.pdf, id=659, 452.69125pt x 231.86626pt>
+<./rys/diag_sek_viewmodel.pdf, id=708, 452.69125pt x 231.86626pt>
 File: ./rys/diag_sek_viewmodel.pdf Graphic file (type pdf)
 <use ./rys/diag_sek_viewmodel.pdf>
 Package pdftex.def Info: ./rys/diag_sek_viewmodel.pdf  used on input line 710.
@@ -1063,43 +1081,120 @@ Overfull \hbox (17.41835pt too wide) in paragraph at lines 710--711
  []
 
 [34 <./rys/diag_sek_viewmodel.pdf>]
-Overfull \hbox (12.31981pt too wide) in paragraph at lines 722--722
+Overfull \hbox (12.31981pt too wide) in paragraph at lines 735--735
 []\T1/cmr/bx/n/14.4 Inicjalizacja frag-mentu Pu-bli-ca-tion-De-ta-ils-Frag-ment
  
  []
 
-[35]
+
+
+pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_mob_dod_edyt.pdf): PDF
+ inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<./rys/diag_aktyw_mob_dod_edyt.pdf, id=720, 305.14pt x 532.99126pt>
+File: ./rys/diag_aktyw_mob_dod_edyt.pdf Graphic file (type pdf)
+<use ./rys/diag_aktyw_mob_dod_edyt.pdf>
+Package pdftex.def Info: ./rys/diag_aktyw_mob_dod_edyt.pdf  used on input line 
+741.
+(pdftex.def)             Requested size: 305.13924pt x 532.98996pt.
+[35] [36 <./rys/diag_aktyw_mob_dod_edyt.pdf>] [37]
+
+pdfTeX warning: /usr/bin/pdflatex (file ./rys/diag_aktyw_mob_dodawanie_pub.pdf)
+: PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<./rys/diag_aktyw_mob_dodawanie_pub.pdf, id=748, 297.11pt x 554.07pt>
+File: ./rys/diag_aktyw_mob_dodawanie_pub.pdf Graphic file (type pdf)
+<use ./rys/diag_aktyw_mob_dodawanie_pub.pdf>
+Package pdftex.def Info: ./rys/diag_aktyw_mob_dodawanie_pub.pdf  used on input 
+line 766.
+(pdftex.def)             Requested size: 265.32016pt x 494.78627pt.
+[38 <./rys/diag_aktyw_mob_dodawanie_pub.pdf>]
 Rozdzia\l  6.
-[36
+[39
 
-] [37
+]
+<./rys/screenshots/email-not-exist.png, id=766, 1927.2pt x 1084.05pt>
+File: ./rys/screenshots/email-not-exist.png Graphic file (type png)
+<use ./rys/screenshots/email-not-exist.png>
+Package pdftex.def Info: ./rys/screenshots/email-not-exist.png  used on input l
+ine 797.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
 
-] [38
+Underfull \vbox (badness 5908) has occurred while \output is active []
 
-] (./opiniaopiekuna.tex) [39] (./recenzja.tex [40])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 753.
- [41]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 753.
+ [40 <./rys/screenshots/email-not-exist.png>]
+<./rys/screenshots/password-incorrect.png, id=775, 1927.2pt x 1084.05pt>
+File: ./rys/screenshots/password-incorrect.png Graphic file (type png)
+<use ./rys/screenshots/password-incorrect.png>
+Package pdftex.def Info: ./rys/screenshots/password-incorrect.png  used on inpu
+t line 811.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
 
-(./praca_dyplomowa.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 753.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 753.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [41 <./rys/screenshots/password-incorrect.png>]
+<./rys/screenshots/login.png, id=783, 1927.2pt x 1084.05pt>
+File: ./rys/screenshots/login.png Graphic file (type png)
+<use ./rys/screenshots/login.png>
+Package pdftex.def Info: ./rys/screenshots/login.png  used on input line 825.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
+<./rys/screenshots/after-login.png, id=784, 1927.2pt x 1084.05pt>
+File: ./rys/screenshots/after-login.png Graphic file (type png)
+<use ./rys/screenshots/after-login.png>
+Package pdftex.def Info: ./rys/screenshots/after-login.png  used on input line 
+834.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
+
+Underfull \vbox (badness 4940) has occurred while \output is active []
+
+ [42 <./rys/screenshots/login.png> <./rys/screenshots/after-login.png>]
+File: ./rys/screenshots/login.png Graphic file (type png)
+<use ./rys/screenshots/login.png>
+Package pdftex.def Info: ./rys/screenshots/login.png  used on input line 847.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [43]
+File: ./rys/screenshots/login.png Graphic file (type png)
+<use ./rys/screenshots/login.png>
+Package pdftex.def Info: ./rys/screenshots/login.png  used on input line 860.
+(pdftex.def)             Requested size: 385.43318pt x 216.80615pt.
+
+[44] [45]
+Underfull \hbox (badness 10000) in paragraph at lines 881--882
+[][]$\T1/cmtt/m/n/12 https : / / developer . android . com / reference / androi
+d / content /
+ []
+
+[46
+
+] (./opiniaopiekuna.tex) [47
+
+] (./recenzja.tex)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 889.
+ [48]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 889.
+ (./praca_dyplomowa.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 889.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 889.
 Package rerunfilecheck Info: File `praca_dyplomowa.out' has not changed.
-(rerunfilecheck)             Checksum: AFD3D5D5840621CCA3D1698747FC68ED;3865.
+(rerunfilecheck)             Checksum: 0613976F46CA8FC32D4205D85244B9D2;4745.
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 753.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 889.
  ) 
 Here is how much of TeX's memory you used:
- 9258 strings out of 494888
- 130781 string characters out of 6179866
- 217197 words of memory out of 5000000
- 12124 multiletter control sequences out of 15000+600000
+ 9339 strings out of 494888
+ 132611 string characters out of 6179866
+ 216494 words of memory out of 5000000
+ 12162 multiletter control sequences out of 15000+600000
  32262 words of font info for 67 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 28i,8n,32p,1370b,1033s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,32p,1370b,1048s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.6
 00pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt100
 0.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
@@ -1116,10 +1211,10 @@ four/jknappen/ec/ecrm1200.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk
 dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
 
-Output written on praca_dyplomowa.pdf (49 pages, 609471 bytes).
+Output written on praca_dyplomowa.pdf (56 pages, 852468 bytes).
 PDF statistics:
- 1332 PDF objects out of 1440 (max. 8388607)
- 733 compressed objects within 8 object streams
- 255 named destinations out of 1000 (max. 500000)
- 459 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1461 PDF objects out of 1728 (max. 8388607)
+ 841 compressed objects within 9 object streams
+ 291 named destinations out of 1000 (max. 500000)
+ 569 words of extra memory for PDF output out of 10000 (max. 10000000)
 

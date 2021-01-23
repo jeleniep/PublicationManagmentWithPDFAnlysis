@@ -632,8 +632,8 @@ Definiowanie warunków, które muszą zostać spełnione przez poszczególne pol
 
 Aplikacja kliencka przygotowana w ramach tego projektu, została napisana w celu działania na urządzeniach mobilnych wyposażonych w system Android. Zgodnie z informacjami zawartymi w poprzednich rozdziałach, będzie ona wykorzystywać wzorzec Model-View-Viewmodel(MVVM) oraz do jej stworzenia wykorzystany został język Kotlin. 
 
-Najważniejsze klasy definiujące trzy aktywności, z których składa się aplikacja kliencka należą do podstawowego pakietu publicationManager
-Dodatkowo została podzielona następujące podpakiety:
+Najważniejsze klasy definiujące trzy aktywności, z których składa się aplikacja kliencka należą do podstawowego pakietu publicationManager.
+Dodatkowo aplikacja została podzielona następujące podpakiety:
 \begin{enumerate}
  	\item network - zawiera wszystkie klasy odpowiedzialne za wymianę danych z aplikacją serwerową, przy użyciu żądań wysyłanych za pomocą protokołu HTTP
  	\item ui - składa się z klas odpowiedzialnych za obsługę interfejsu użytkownika.
@@ -719,30 +719,166 @@ Klasa \textit{UserDetailsFragment} jest odpowiedzialna za prezentowanie i edycj�
 \section{PublicationDetailsActivity}
 \textit{PublicationDetailsActivity} jest aktywnością odpowiedzialna za wyświetlanie, edycję oraz dodawanie pojedynczych publikacji. Wykorzystuje ona jeden fragment o nazwie \textit{PublicationDetailsFragment}, który odpowiedzialny jest za wyświetlanie formularza zawierającego metadane publikacji oraz odnośnik do pliku PDF. 
 
+\subsection{Przełączanie się pomiędzy aktywnościami}
+Aktywność \textit{PublicationDetailsActivity} jest zawsze uruchamiana z poziomu aktywności \textit{MainActivity} poprzez wybranie konkretnej publikacji z listy, bądź też w wyniku naciśnięcia na przycisk dodawania nowej publikacji. W systemie Android przełączanie się pomiędzy aktywnościami realizowane jest przy użyciu klasy intencji \textit{Intent}. Zgodnie z dokumentacją \cite{INTENT} jest ona abstrakcyjnym opisem operacji, która powinna zostać wykonana. Dlatego też w celu przełączenia się z jednej aktywności do drugiej, należy podczas tworzenia intencji podać kontekst operacji, w tym przypadku będzie to obecna aktywności oraz klasy aktywności, która ma zostać uruchomiona. Następnie do obiektu intencji można za pomocą metody \textit{putExtra} przekazać wartości, które potem będą mogły być odczytane w uruchamianej aktywności. Na sam koniec należy przekazać nowo utworzony obiektu intencji do metody \textit{startActivity}, co spowoduje uruchomienie nowej aktywności. Cały proces prezentuje Listing 5.4.
+
+\begin{lstlisting}[caption=Przełączanie się pomiędzy aktywnościami,label=code1,captionpos=b]
+val intent = Intent(this.activity,
+    PublicationDetailsActivity::class.java)
+    .apply {
+        putExtra(MESSAGE_FROM_LIST_FRAGMENT, message)
+    }
+startActivity(intent)
+    
+\end{lstlisting} 
+
 \subsection{Inicjalizacja fragmentu PublicationDetailsFragment}
-Ze względu na to, że \textit{PublicationDetailsFragment} jest odpowiedzialna za tworzenie nowych publikacji, ale także za wyświetlanie i edycję już istniejących, w momencie inicjalizacji tego fragmentu, należy odpowiednio dostosować działanie klasy \textit{PublicationDetailsViewModel}, aby była ona świadoma tego czy powinna pobrać wybraną publikację z aplikacji serwerowej, czy też wyświetlić całkowicie pusty formularz.
+Ze względu na to, że \textit{PublicationDetailsFragment} jest odpowiedzialna za tworzenie nowych publikacji, ale także za wyświetlanie i edycję już istniejących, w momencie inicjalizacji tego fragmentu, należy odpowiednio dostosować działanie klasy \textit{PublicationDetailsViewModel}, aby była ona świadoma tego czy powinna pobrać wybraną publikację z aplikacji serwerowej, czy też wyświetlić całkowicie pusty formularz. Proces ten przedstawia Rysunek 5.3.
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_mob_dod_edyt.pdf}
+	\end{center}
+	\caption{Proces wyświetlania ekranu ze szczegółami publikacji}
+	\label{diagramAktywnosciMobDodEdyt}
+\end{figure}
+
 
 Aby obiekt klasy \textit{PublicationDetailsViewModel} był świadom jaką publikację należy wyświetlić, należy do niego przekazać identyfikator publikacji. Ze względu na to, że obiekty ViewModelu są uzyskiwane w kodzie przy użyciu klasy \textit{ViewModelProvider}, nie ma możliwości bezpośredniego przekazania parametrów poprzez konstruktor. Dlatego też, przygotowana została dodatkowa klasa \textit{PublicationDetailsViewModelFactory}, która rozszerzając klasę \textit{ViewModelProvider.Factory}, pozwala na przekazywanie odpowiednich parametrów podczas tworzenia obiektów klasy  \textit{PublicationDetailsViewModel}.
 
+
+
 \subsection{Wyświetlanie szczegółów publikacji}
-Aby wyświetlić szczegóły wybranej publikacji, użytkownik musi nacisnąć na odpowiednią pozycję z listy dostępnej we fragmencie \textit{PublicationsListFragment}.
+Aby wyświetlić szczegóły wybranej publikacji, użytkownik musi nacisnąć na odpowiednią pozycję z listy dostępnej we fragmencie \textit{PublicationsListFragment}, należącym do \textit{MainActivity}.  Następnie dochodzi do uruchomienia aktywności \textit{PublicationDetailsActivity}, wraz z przekazaniem do niej identyfikatora publikacji poprzez intencję. Następnie zgodnie z procesem zawartym na Rysunku 5.4 dochodzi do pobrania danych publikacji oraz ich wyświetlenia w interfejsie.
+
+\subsection{Edycja metadanych publikacji}
+W celu edycji publikacji, musi zostać ona najpierw wyświetlona zgodnie z procedurami opisanymi powyżej. Następnie użytkownik edytuje wybrane metadane, po czym naciska na przycisk \textit{Save}, co powoduje wysłanie żądanie edycji publikacji.
+
+\subsection{Dodanie nowej publikacji}
+Proces tworzenia nowej publikacji rozpoczyna się od naciśnięcia przez użytkownika przycisku dodawania publikacji we fragmencie \textit{PublicationsListFragment}, należącym do \textit{MainActivity}, które to powoduje uruchomienie aktywności \textit{PublicationDetailsActivity}. Jednakże w odróżnieniu od procesu wyświetlania, do intencji nie trafia identyfikator żadnej publikacji. Skutkuje to innym zachowaniem klasy \textit{PublicationDetailsViewModel}, która nie pobiera danych żadnej publikacji, inicjalizując jedynie dane ViewModelu bez wprowadzania żadnych wartości. 
+
+Następnie użytkownik dodaje za pomocą przycisku \textit{Select PDF}, wybiera z pamięci telefonu plik PDF zawierający publikację. Plik zostaje przesłany do aplikacji serwerowej w celu przetworzenia. Kiedy serwer zwróci odczytane informacje zostaję wprowadzone do ViewModelu i automatycznie są wyświetlane użytkownikowi, który może teraz dokonać ich uzupełnienia. Następnie użytkownik naciska na przycisk \textit{Save} co powoduje wysłanie żądania dodania nowej publikacji. Proces przedstawiony został na Rysunku 5.5.
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.893]{\ImgPath/rys/diag_aktyw_mob_dodawanie_pub.pdf}
+	\end{center}
+	\caption{Proces dodawania nowej publikacji z poziomu aplikacji klienckiej}
+	\label{diagramAktywnosciMobDodEdyt}
+\end{figure}
+
+
 
 \chapter{Testy}
-Aby zminimalizować ryzyko wystąpienia niepożądanych sytuacji podczas korzystania z aplikacji, powinna ona przejść testy sprawdzające wszystkie funkcje i sytuacje wyjątkowe, które powinny zostać obsłużone przez aplikację. Dlatego też cały system został poddany różnorodnym testom w celu sprawdzenia następujących funkcji: 
+Przed przekazaniem aplikacji użytkownikom, należy wykonać przeprowadzić testy. Mają one na celu zminimalizować ryzyko wystąpienia niepożądanych sytuacji podczas korzystania z aplikacji, powinna ona przejść testy sprawdzające wszystkie funkcje i sytuacje wyjątkowe, które powinny zostać obsłużone przez aplikację. Dlatego też cały system został poddany różnorodnym testom w celu sprawdzenia następujących funkcji: 
 
 \begin{enumerate}
-	\item Logowania i wylogowanie;
+	\item Logowanie i wylogowanie;
 	\item Przetwarzanie plików PDF, z których niektóre posiadają DOI w metadanych, inne posiadają DOI zaszyte w tekście, a pozostałe nie posiadają go wcale;
 	\item Dodawanie, edycja i usuwanie publikacji.
 \end{enumerate}
 
+Dla każdej z funkcji zostanie przeprowadzone kilka testów, aby sprawdzić jak dana funkcja zachowuje się w przypadku gdy wszystko dzieje się zgodnie z założeniami, ale także jak obsługiwane są sytuacje mniej spodziewane oraz błędy. 
+
+\section{Logowania i wylogowanie}
+Dla funkcji logowania zostaną przeprowadzone testy przy użyciu poprawnych danych logowania, które powinny pozwolić na zalogowanie użytkownika ale także takich, które zawierają niepoprawny adres email lub hasło. Oprócz tego sprawdzone zostało czy aplikacja poprawnie obsługuje sytuację gdy użytkownik otwiera aplikację, do której zalogował się wcześniej.
+
+
+\pagebreak
+
+
+\subsection{Próba logowania na nieistniejące konto}
+Na Rysunku 6.1 zostało przedstawione zachowanie aplikacji w przypadku, próby zalogowania się za pomocą adresu email, do którego nie jest przypisany żaden użytkownik. Zgodnie z oczekiwaniami logowanie zakończyło się błędem, mówiącym o braku konta powiązanego z danym adresem email. Treść tego błędu została wyświetlona użytkownikowi, w formie komunikatu typu Toast.
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/email-not-exist.png}
+	\end{center}
+	\caption{Logowanie na nieistniejące konto}
+	\label{zrzutLogowaniePoprawne}
+\end{figure}
+
+\subsection{Próba zalogowania przy użyciu błędnego hasła}
+Rysunek 6.2  przedstawiona zachowanie aplikacji w przypadku, próby zalogowania się za pomocą adresu email, który jest przypisany do jednego z użytkowników oraz hasła, które jednak nie jest prawidłowym hasłem tego użytkownika. Zgodnie z oczekiwaniami logowanie zakończyło się błędem, mówiącym niepoprawnym haśle. Treść tego błędu została wyświetlona użytkownikowi, w formie komunikatu typu Toast.
+
+\pagebreak
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/password-incorrect.png}
+	\end{center}
+	\caption{Logowanie przy użyciu niepoprawnego hasła}
+	\label{zrzutLogowaniePoprawne}
+\end{figure}
+
+\subsection{Próba zalogowania przy użyciu poprawnych danych}
+Rysunek 6.3  przedstawiona zachowanie aplikacji w przypadku, próby zalogowania się za pomocą prawidłowych danych logowania, to jest adres email, który jest przypisany do jednego z użytkowników oraz hasła, które jest prawidłowym hasłem tego użytkownika. Zgodnie z oczekiwaniami logowanie zakończyło się sukcesem, w efekcie czego, aplikacja wyświetliła ekran z listą publikacji(przedstawiony na Rysunku 6.4) należących do użytkownika, który właśnie się zalogował. 
+
+\pagebreak
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/login.png}
+	\end{center}
+	\caption{Logowanie prawidłowe}
+	\label{zrzutLogowaniePoprawne}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/after-login.png}
+	\end{center}
+	\caption{Lista publikacji użytkownika, wyświetlona po zalogowaniu}
+	\label{diagramAktywnosciMobDodEdyt}
+\end{figure}
+
+\subsection{Wylogowanie}
+Rysunek 6.5  przedstawiona ekran zawierający szczegóły dotyczące zalogowanego użytkownika, na którym znajduje się także przycisk umożliwiający wylogowanie. Po jego naciśnięciu użytkownik, zgodnie z oczekiwaniami, został przekierowany do ekranu logowania(przedstawiony na Rysunku 6.6). Również po ponownym otwarciu aplikacji użytkownik został przeniesiony nie do listy publikacji a do ekranu logowania, co oznacza że został poprawnie wylogowany.
+
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/login.png}
+	\end{center}
+	\caption{Ekran szczegółów użytkownika z przyciskiem wylogowania}
+	\label{zrzutLogowanieEkranUserDetails}
+\end{figure}
+
+
+\pagebreak
+
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/login.png}
+	\end{center}
+	\caption{Ekran logowania wyświetlony po poprawnym wylogowaniu}
+	\label{zrzutLogowaniePoWylogowaniu}
+\end{figure}
+
+\subsection{Ponowne otwarcie aplikacji po wcześniejszym zalogowaniu}
+W przypadku gdy użytkownik zalogował się, zamknął aplikację, a następnie otworzył ją ponownie przed upływem ważności sesji(w tym przypadku okres ten wynosi tydzień), aplikacja nie powinna wymagać ponownego logowania, tylko przynieść użytkownika, po wcześniejszym zweryfikowaniu ważności sesji do ekrany listy publikacji, który został przedstawiony na Rysunku 6.4. Test odzwierciedlający powyższy proces został przeprowadzony i jego wynik jest zgodny z oczekiwaniami.
+
+\section{Przetwarzanie plików PDF}
+W tej sekcji zostaną przedstawione wyniki testów aplikacji, polegających na sprawdzeniu poprawności działania przetwarzania plików PDF. Do tego celu wykorzystane zostaną pliki o następujących cechach:
+\begin{enumerate}
+	\item Plik zawierający w metadanych pliku tylko numer DOI 
+	\item Plik zawierający numer DOI wewnątrz treści pliku
+	\item Plik zawierający w metadanych pliku informacje takie jak tytuł oraz autorzy ale także numer DOI 
+	\item Plik zawierający w metadanych pliku tylko tytuł oraz autorów
+	\item Plik nie zawierający żadnych metadanych oraz numeru DOI
+\end{enumerate}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
-\bibitem{LOKI2}{daemon9, ,,LOKI2'', Phrack Magazine, Issue 51. 
-\url{http://phrack.org}}
-\bibitem{RWWWS}{van Hauser, Reverse WWW Shell,  THC, The Hacker's 
-Choice.\newline \url{www.thc.org}}
+\bibitem{INTENT}{Android Developers, Documentation for app, Intent\newline \url{https://developer.android.com/reference/android/content/Intent}}
 
 
 

@@ -2,8 +2,11 @@ package com.jeleniep.publicationManager.network.users
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.jeleniep.PublicationManagerApplication
 import com.jeleniep.publicationManager.interfaces.LoginObserver
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
 import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,12 +26,19 @@ object UserRepository {
                 call: Call<UserDTO>,
                 response: Response<UserDTO>
             ) {
-                if (response.code() == 200) {
+                if (response.isSuccessful) {
                     val userResponse = response.body()!!
                     Log.d("debug123a", userResponse!!.authToken)
                     userData = userResponse!!
                     loginObserver.onUserLoginSuccessful(userData)
+                } else {
+                    val gson = Gson()
+                    val type = object : TypeToken<ErrorResponse>() {}.type
+                    var errorResponse: ErrorResponse? =
+                        gson.fromJson(response.errorBody()!!.charStream(), type)
+                    loginObserver.onUserLoginFailure(errorResponse)
                 }
+
             }
 
             override fun onFailure(call: Call<UserDTO>, t: Throwable) {

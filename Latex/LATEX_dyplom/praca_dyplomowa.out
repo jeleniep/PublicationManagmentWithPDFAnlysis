@@ -45,7 +45,17 @@
 \BOOKMARK [2][-]{subsection.5.2.1}{Prezentacja listy publikacji}{section.5.2}% 45
 \BOOKMARK [2][-]{subsection.5.2.2}{Wyswietlanie informacji o uzytkowniku}{section.5.2}% 46
 \BOOKMARK [1][-]{section.5.3}{PublicationDetailsActivity}{chapter.5}% 47
-\BOOKMARK [2][-]{subsection.5.3.1}{Inicjalizacja fragmentu PublicationDetailsFragment}{section.5.3}% 48
-\BOOKMARK [2][-]{subsection.5.3.2}{Wyswietlanie szczeg\363\233\363w publikacji}{section.5.3}% 49
-\BOOKMARK [0][-]{chapter.6}{Testy}{}% 50
-\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 51
+\BOOKMARK [2][-]{subsection.5.3.1}{Prze\233aczanie sie pomiedzy aktywnosciami}{section.5.3}% 48
+\BOOKMARK [2][-]{subsection.5.3.2}{Inicjalizacja fragmentu PublicationDetailsFragment}{section.5.3}% 49
+\BOOKMARK [2][-]{subsection.5.3.3}{Wyswietlanie szczeg\363\233\363w publikacji}{section.5.3}% 50
+\BOOKMARK [2][-]{subsection.5.3.4}{Edycja metadanych publikacji}{section.5.3}% 51
+\BOOKMARK [2][-]{subsection.5.3.5}{Dodanie nowej publikacji}{section.5.3}% 52
+\BOOKMARK [0][-]{chapter.6}{Testy}{}% 53
+\BOOKMARK [1][-]{section.6.1}{Logowania i wylogowanie}{chapter.6}% 54
+\BOOKMARK [2][-]{subsection.6.1.1}{Pr\363ba logowania na nieistniejace konto}{section.6.1}% 55
+\BOOKMARK [2][-]{subsection.6.1.2}{Pr\363ba zalogowania przy uzyciu b\233ednego has\233a}{section.6.1}% 56
+\BOOKMARK [2][-]{subsection.6.1.3}{Pr\363ba zalogowania przy uzyciu poprawnych danych}{section.6.1}% 57
+\BOOKMARK [2][-]{subsection.6.1.4}{Wylogowanie}{section.6.1}% 58
+\BOOKMARK [2][-]{subsection.6.1.5}{Ponowne otwarcie aplikacji po wczesniejszym zalogowaniu}{section.6.1}% 59
+\BOOKMARK [1][-]{section.6.2}{Przetwarzanie plik\363w PDF}{chapter.6}% 60
+\BOOKMARK [0][-]{chapter*.4}{Bibliografia}{}% 61

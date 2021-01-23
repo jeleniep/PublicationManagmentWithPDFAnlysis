@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.jeleniep.PublicationManagerApplication
 import com.jeleniep.publicationManager.interfaces.LoginObserver
+import com.jeleniep.publicationManager.network.errors.ErrorResponse
 import com.jeleniep.publicationManager.network.users.UserDTO
 import com.jeleniep.publicationManager.network.users.UserRepository
 import com.jeleniep.publicationManager.utils.SharedPreferencesHelper
@@ -72,5 +74,15 @@ class LoginActivity : AppCompatActivity(), LoginObserver {
             startActivity(intent)
         }
     }
+
+    override fun onUserLoginFailure(errorResponse: ErrorResponse?) {
+        if (errorResponse != null) {
+            val toast = Toast.makeText(
+                this,
+                errorResponse.message,
+                Toast.LENGTH_LONG
+            )
+            toast.show()
+        }    }
 
 }

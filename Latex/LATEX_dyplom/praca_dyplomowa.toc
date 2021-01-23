@@ -46,7 +46,17 @@
 \contentsline {subsection}{\numberline {5.2.1}Prezentacja listy publikacji}{32}{subsection.5.2.1}
 \contentsline {subsection}{\numberline {5.2.2}Wy\IeC {\'s}wietlanie informacji o u\IeC {\.z}ytkowniku}{34}{subsection.5.2.2}
 \contentsline {section}{\numberline {5.3}PublicationDetailsActivity}{35}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Inicjalizacja fragmentu PublicationDetailsFragment}{35}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Wy\IeC {\'s}wietlanie szczeg\IeC {\'o}\IeC {\l }\IeC {\'o}w publikacji}{35}{subsection.5.3.2}
-\contentsline {chapter}{\numberline {6}Testy}{36}{chapter.6}
-\contentsline {chapter}{Bibliografia}{37}{chapter*.4}
+\contentsline {subsection}{\numberline {5.3.1}Prze\IeC {\l }\IeC {\k a}czanie si\IeC {\k e} pomi\IeC {\k e}dzy aktywno\IeC {\'s}ciami}{35}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Inicjalizacja fragmentu PublicationDetailsFragment}{35}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Wy\IeC {\'s}wietlanie szczeg\IeC {\'o}\IeC {\l }\IeC {\'o}w publikacji}{37}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Edycja metadanych publikacji}{37}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {5.3.5}Dodanie nowej publikacji}{37}{subsection.5.3.5}
+\contentsline {chapter}{\numberline {6}Testy}{39}{chapter.6}
+\contentsline {section}{\numberline {6.1}Logowania i wylogowanie}{39}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Pr\IeC {\'o}ba logowania na nieistniej\IeC {\k a}ce konto}{40}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Pr\IeC {\'o}ba zalogowania przy u\IeC {\.z}yciu b\IeC {\l }\IeC {\k e}dnego has\IeC {\l }a}{40}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Pr\IeC {\'o}ba zalogowania przy u\IeC {\.z}yciu poprawnych danych}{41}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Wylogowanie}{43}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.5}Ponowne otwarcie aplikacji po wcze\IeC {\'s}niejszym zalogowaniu}{44}{subsection.6.1.5}
+\contentsline {section}{\numberline {6.2}Przetwarzanie plik\IeC {\'o}w PDF}{44}{section.6.2}
+\contentsline {chapter}{Bibliografia}{46}{chapter*.4}
