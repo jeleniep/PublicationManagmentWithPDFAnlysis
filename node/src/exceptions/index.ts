@@ -8,8 +8,9 @@ import NoAccessTokenException from './NoAccessTokenException';
 import NotEnoughPermissionsException from './NotEnoughPermissionsException';
 import UserAccountNotExist from './UserAccountNotExist';
 import UserUnauthorizedException from './UserUnauthorizedException';
-import TokenNotFoundException from './TokenNotFoundException'
-import PublicationNotExist from './PublicationNotExist'
+import TokenNotFoundException from './TokenNotFoundException';
+import PublicationNotExist from './PublicationNotExist';
+import PublicationPDFNotFound from './PublicationPDFNotFound';
 
 
 export {
@@ -24,5 +25,6 @@ export {
     UserAccountNotExist,
     UserUnauthorizedException,
     TokenNotFoundException,
-    PublicationNotExist
+    PublicationNotExist,
+    PublicationPDFNotFound
 };

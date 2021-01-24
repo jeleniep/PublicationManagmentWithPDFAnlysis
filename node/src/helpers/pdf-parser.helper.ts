@@ -34,7 +34,7 @@ export default class PdfParserHelper {
             doi = _.get(pdfData, ['metadata', '_metadata', 'pdfx:doi']);
             console.log(pdfData)
             if (doi) {
-                console.log("1")
+                console.log("Doi Meta")
                 return doi;
             }
         }
@@ -45,6 +45,8 @@ export default class PdfParserHelper {
             if (found) {
                 const temp = found[0].split("/")
                 if (temp.length >= 2) {
+                    console.log("Doi TEXT")
+
                     doi = `${temp[temp.length - 2]}/${temp[temp.length - 1]}`;
                 }
             }
@@ -70,7 +72,7 @@ export default class PdfParserHelper {
             return undefined;
         }
         if (responseData.message) {
-            console.log(response.data)
+            // console.log(response.data)
             details.name = response.data.message.title.join(' ');
             return details;
         }

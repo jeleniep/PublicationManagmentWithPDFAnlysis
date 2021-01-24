@@ -7,8 +7,8 @@ const editPublication = async (req: Request, res: Response, next: NextFunction) 
     const publication = await Publication.findById(id);
     publication.name = name || publication.name;
     publication.authors = authors || publication.authors;
-    publication.description = description || publication.description;
-    publication.tags = tags || publication.tags;
+    publication.description = description !== undefined ? description : publication.description;
+    publication.tags = tags !== undefined ? tags : publication.tags;
 
     await publication.save();
     res.json(publication);

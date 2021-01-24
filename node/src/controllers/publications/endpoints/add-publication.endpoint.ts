@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Publication from '../publication.model';
 import User, { UserType } from '../../users/user.model';
-import { UserAccountNotExist, HttpException, ForbiddenException } from '../../../exceptions';
+import { UserAccountNotExist, HttpException, ForbiddenException, PublicationPDFNotFound } from '../../../exceptions';
 import { moveFile } from '../../../helpers'
 import { PATH_TO_PDF } from '../../../config';
 
@@ -30,8 +30,9 @@ const addPublication = async (req: Request, res: Response, next: NextFunction) =
         publication.file = newPath;
         await publication.save();
         return res.json(publication);
+    } else {
+        return next(new PublicationPDFNotFound());
     }
-    return next(new ForbiddenException());
 }
 
 export default addPublication;

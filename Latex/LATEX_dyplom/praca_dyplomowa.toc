@@ -52,11 +52,24 @@
 \contentsline {subsection}{\numberline {5.3.4}Edycja metadanych publikacji}{37}{subsection.5.3.4}
 \contentsline {subsection}{\numberline {5.3.5}Dodanie nowej publikacji}{37}{subsection.5.3.5}
 \contentsline {chapter}{\numberline {6}Testy}{39}{chapter.6}
-\contentsline {section}{\numberline {6.1}Logowania i wylogowanie}{39}{section.6.1}
+\contentsline {section}{\numberline {6.1}Rejestracja, logowania i wylogowanie}{39}{section.6.1}
 \contentsline {subsection}{\numberline {6.1.1}Pr\IeC {\'o}ba logowania na nieistniej\IeC {\k a}ce konto}{40}{subsection.6.1.1}
 \contentsline {subsection}{\numberline {6.1.2}Pr\IeC {\'o}ba zalogowania przy u\IeC {\.z}yciu b\IeC {\l }\IeC {\k e}dnego has\IeC {\l }a}{40}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}Pr\IeC {\'o}ba zalogowania przy u\IeC {\.z}yciu poprawnych danych}{41}{subsection.6.1.3}
-\contentsline {subsection}{\numberline {6.1.4}Wylogowanie}{43}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.3}Pr\IeC {\'o}ba zalogowania na nowo utworzone konto}{42}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Wylogowanie}{42}{subsection.6.1.4}
 \contentsline {subsection}{\numberline {6.1.5}Ponowne otwarcie aplikacji po wcze\IeC {\'s}niejszym zalogowaniu}{44}{subsection.6.1.5}
 \contentsline {section}{\numberline {6.2}Przetwarzanie plik\IeC {\'o}w PDF}{44}{section.6.2}
-\contentsline {chapter}{Bibliografia}{46}{chapter*.4}
+\contentsline {subsection}{\numberline {6.2.1}Plik zawieraj\IeC {\k a}cy w metadanych pliku informacje takie jak tytu\IeC {\l } oraz autorzy ale tak\IeC {\.z}e numer DOI}{44}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Plik zawieraj\IeC {\k a}cy numer DOI wewn\IeC {\k a}trz tre\IeC {\'s}ci pliku}{45}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Plik zawieraj\IeC {\k a}cy w metadanych pliku tylko tytu\IeC {\l } oraz autor\IeC {\'o}w}{45}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Plik nie zawieraj\IeC {\k a}cy \IeC {\.z}adnych metadanych oraz numeru DOI}{47}{subsection.6.2.4}
+\contentsline {section}{\numberline {6.3}Dodawanie, edycja i usuwanie publikacji.}{47}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Dodawanie publikacji bez dodania pliku PDF}{48}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Pe\IeC {\l }en proces dodawania publikacji}{48}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Edycja publikacji poprzez usuni\IeC {\k e}cie tytu\IeC {\l }u}{51}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}Edycja publikacji poprzez zmian\IeC {\k e} danych}{51}{subsection.6.3.4}
+\contentsline {subsection}{\numberline {6.3.5}Usuni\IeC {\k e}cie publikacji}{51}{subsection.6.3.5}
+\contentsline {chapter}{\numberline {7}Podsumowanie}{53}{chapter.7}
+\contentsline {section}{\numberline {7.1}Wnioski}{54}{section.7.1}
+\contentsline {section}{\numberline {7.2}Plany na przysz\IeC {\l }o\IeC {\'s}\IeC {\'c}}{54}{section.7.2}
+\contentsline {chapter}{Bibliografia}{56}{chapter*.4}

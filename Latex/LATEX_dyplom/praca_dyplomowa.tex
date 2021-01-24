@@ -214,7 +214,7 @@ Ogólny schemat struktury całego systemu przedstawia Rysunek 3.1.
  		\centering
  		\includegraphics[scale=1.2]{\ImgPath/rys/diag_komp_ogolny.pdf}
  	\end{center}
- 	\caption{Ogólna architektura systemu}
+ 	\caption{Ogólna architektura systemu.}
  	\label{ogolnaArchitektura}
  \end{figure}
  Przedstawiona na powyższym diagramie aplikacja serwerowa oraz baza danych MongoDB będę uruchamiana jako kontenery Dockera, natomiast aplikacja kliencka będzie pracowała na urządzeniach z systemem Android. Wymiana danych pomiędzy tymi aplikacjami będzie odbywała się za pomocą interfejsu programistycznego(API), w sposób szyfrowany przy wykorzystaniu protokółu HTTPS.
@@ -296,7 +296,7 @@ Zgodnie z przedstawioną w poprzednim rozdziale architekturą aplikacji serwerow
 		\centering
 		\includegraphics[scale=0.91]{\ImgPath/rys/diag_klas_serwer.pdf}
 	\end{center}
-	\caption{Diagram klas}
+	\caption{Diagram klas.}
 	\label{diagramKlas}
 \end{figure}
 \subsection{Opis podstawowych klas}
@@ -334,7 +334,7 @@ Proces rejestracji użytkownika został przedstawiony na Rysunku 4.2:
 		\centering
 		\includegraphics[scale=0.8]{\ImgPath/rys/diag_aktyw_rejestr.pdf}
 	\end{center}
-	\caption{Diagram aktywności dla procesu rejestracji}
+	\caption{Diagram aktywności dla procesu rejestracji.}
 	\label{diagramAktywnosciRejstracja}
 \end{figure}
 \newpage
@@ -348,7 +348,7 @@ Po pomyślnym przejściu procesu rejestracji, użytkownik nabywa możliwość za
 		\centering
 		\includegraphics[scale=0.92]{\ImgPath/rys/diag_aktyw_logowanie.pdf}
 	\end{center}
-	\caption{Diagram aktywności dla procesu logowania}
+	\caption{Diagram aktywności dla procesu logowania.}
 	\label{diagramAktywnosciLogowanie}
 \end{figure}
 \newpage
@@ -570,7 +570,7 @@ Cały proces składa się także z dwóch osobnych żądań:
 			\centering
 			\includegraphics[scale=0.873]{\ImgPath/rys/diag_aktyw_wstepne_przetwarzanie.pdf}
 		\end{center}
-		\caption{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF}
+		\caption{Diagram aktywności dla obsługi żądania przetwarzania pliku PDF.}
 		\label{diagramAktywnosciDodawanie}
 	\end{figure}
 	
@@ -580,7 +580,7 @@ Cały proces składa się także z dwóch osobnych żądań:
 			\centering
 			\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_dodawanie_pub.pdf}
 		\end{center}
-		\caption{Diagram aktywności dla procesu dodawania publikacji}
+		\caption{Diagram aktywności dla procesu dodawania publikacji.}
 		\label{diagramAktywnosciDodawanie}
 	\end{figure}
 	
@@ -650,7 +650,7 @@ LoginActivity jest pierwszą aktywnością, która jest uruchamiana po włączen
 		\centering
 		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_mob_log_aktyw.pdf}
 	\end{center}
-	\caption{Diagram aktywności dla LoginActivity}
+	\caption{Diagram aktywności dla LoginActivity.}
 	\label{diagramAktywnosciLoginActivity}
 \end{figure}
 \pagebreak
@@ -709,7 +709,7 @@ Na Rysunku 5.2 przedstawione zostało w jaki współpracują między sobą klasy
 		\centering
 		\includegraphics[scale=0.9]{\ImgPath/rys/diag_sek_viewmodel.pdf}
 	\end{center}
-	\caption{Diagram sekwencji dla ViewModelu}
+	\caption{Diagram sekwencji dla ViewModelu.}
 	\label{diagramAktywnosciLoginActivity}
 \end{figure}
 
@@ -740,7 +740,7 @@ Ze względu na to, że \textit{PublicationDetailsFragment} jest odpowiedzialna z
 		\centering
 		\includegraphics[scale=1]{\ImgPath/rys/diag_aktyw_mob_dod_edyt.pdf}
 	\end{center}
-	\caption{Proces wyświetlania ekranu ze szczegółami publikacji}
+	\caption{Proces wyświetlania ekranu ze szczegółami publikacji.}
 	\label{diagramAktywnosciMobDodEdyt}
 \end{figure}
 
@@ -765,7 +765,7 @@ Następnie użytkownik dodaje za pomocą przycisku \textit{Select PDF}, wybiera 
 		\centering
 		\includegraphics[scale=0.893]{\ImgPath/rys/diag_aktyw_mob_dodawanie_pub.pdf}
 	\end{center}
-	\caption{Proces dodawania nowej publikacji z poziomu aplikacji klienckiej}
+	\caption{Proces dodawania nowej publikacji z poziomu aplikacji klienckiej.}
 	\label{diagramAktywnosciMobDodEdyt}
 \end{figure}
 
@@ -776,27 +776,29 @@ Przed przekazaniem aplikacji użytkownikom, należy wykonać przeprowadzić test
 
 \begin{enumerate}
 	\item Logowanie i wylogowanie;
-	\item Przetwarzanie plików PDF, z których niektóre posiadają DOI w metadanych, inne posiadają DOI zaszyte w tekście, a pozostałe nie posiadają go wcale;
+	\item Przetwarzanie plików PDF
 	\item Dodawanie, edycja i usuwanie publikacji.
 \end{enumerate}
 
 Dla każdej z funkcji zostanie przeprowadzone kilka testów, aby sprawdzić jak dana funkcja zachowuje się w przypadku gdy wszystko dzieje się zgodnie z założeniami, ale także jak obsługiwane są sytuacje mniej spodziewane oraz błędy. 
 
-\section{Logowania i wylogowanie}
-Dla funkcji logowania zostaną przeprowadzone testy przy użyciu poprawnych danych logowania, które powinny pozwolić na zalogowanie użytkownika ale także takich, które zawierają niepoprawny adres email lub hasło. Oprócz tego sprawdzone zostało czy aplikacja poprawnie obsługuje sytuację gdy użytkownik otwiera aplikację, do której zalogował się wcześniej.
+\section{Rejestracja, logowania i wylogowanie}
+Test funkcji rejestracji wymaga utworzenia konta użytkownika, a następnie zalogowania przy użyciu tego konta, przez co testy logowania, zostały wykorzystane w celu zweryfikowania efektów rejestracji.  
+
+Dla funkcji logowania zostaną przeprowadzone testy przy użyciu poprawnych danych logowania, które powinny pozwolić na zalogowanie użytkownika ale także takich, które zawierają niepoprawny adres email (Test ten jest częścią testu rejestracji) lub hasło. Oprócz tego sprawdzone zostało czy aplikacja poprawnie obsługuje sytuację gdy użytkownik otwiera aplikację, do której zalogował się wcześniej.
 
 
 \pagebreak
 
 
 \subsection{Próba logowania na nieistniejące konto}
-Na Rysunku 6.1 zostało przedstawione zachowanie aplikacji w przypadku, próby zalogowania się za pomocą adresu email, do którego nie jest przypisany żaden użytkownik. Zgodnie z oczekiwaniami logowanie zakończyło się błędem, mówiącym o braku konta powiązanego z danym adresem email. Treść tego błędu została wyświetlona użytkownikowi, w formie komunikatu typu Toast.
+Na Rysunku 6.1 zostało przedstawione zachowanie aplikacji w przypadku, próby zalogowania się za pomocą adresu email \textit{pje@test.co}, do którego nie jest przypisany żaden użytkownik. Zgodnie z oczekiwaniami logowanie zakończyło się błędem, mówiącym o braku konta powiązanego z danym adresem email. Treść tego błędu została wyświetlona użytkownikowi, w formie komunikatu typu Toast.
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/email-not-exist.png}
+		\includegraphics[scale=0.27]{\ImgPath/rys/screenshots/email-not-exist.png}
 	\end{center}
-	\caption{Logowanie na nieistniejące konto}
+	\caption{Logowanie na nieistniejące konto.}
 	\label{zrzutLogowaniePoprawne}
 \end{figure}
 
@@ -810,43 +812,45 @@ Rysunek 6.2  przedstawiona zachowanie aplikacji w przypadku, próby zalogowania 
 		\centering
 		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/password-incorrect.png}
 	\end{center}
-	\caption{Logowanie przy użyciu niepoprawnego hasła}
+	\caption{Logowanie przy użyciu niepoprawnego hasła.}
 	\label{zrzutLogowaniePoprawne}
 \end{figure}
-
-\subsection{Próba zalogowania przy użyciu poprawnych danych}
-Rysunek 6.3  przedstawiona zachowanie aplikacji w przypadku, próby zalogowania się za pomocą prawidłowych danych logowania, to jest adres email, który jest przypisany do jednego z użytkowników oraz hasła, które jest prawidłowym hasłem tego użytkownika. Zgodnie z oczekiwaniami logowanie zakończyło się sukcesem, w efekcie czego, aplikacja wyświetliła ekran z listą publikacji(przedstawiony na Rysunku 6.4) należących do użytkownika, który właśnie się zalogował. 
-
-\pagebreak
 
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
 		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/login.png}
 	\end{center}
-	\caption{Logowanie prawidłowe}
+	\caption{Logowanie prawidłowe.}
 	\label{zrzutLogowaniePoprawne}
 \end{figure}
+
+
+\subsection{Próba zalogowania na nowo utworzone konto}
+Rysunek 6.3  przedstawiona zachowanie aplikacji w przypadku, próby zalogowania się za pomocą danych logowania, to jest adresu email oraz hasła które są przypisany do nowo utworzonego konta użytkownika. Zgodnie z oczekiwaniami logowanie zakończyło się sukcesem, w efekcie czego, aplikacja wyświetliła ekran z listą publikacji(przedstawiony na Rysunku 6.4) należących do użytkownika, który właśnie się zalogował. 
+
+
+
 
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/after-login.png}
+		\includegraphics[scale=0.27]{\ImgPath/rys/screenshots/after-login.png}
 	\end{center}
-	\caption{Lista publikacji użytkownika, wyświetlona po zalogowaniu}
+	\caption{Lista publikacji użytkownika, wyświetlona po zalogowaniu.}
 	\label{diagramAktywnosciMobDodEdyt}
 \end{figure}
 
 \subsection{Wylogowanie}
-Rysunek 6.5  przedstawiona ekran zawierający szczegóły dotyczące zalogowanego użytkownika, na którym znajduje się także przycisk umożliwiający wylogowanie. Po jego naciśnięciu użytkownik, zgodnie z oczekiwaniami, został przekierowany do ekranu logowania(przedstawiony na Rysunku 6.6). Również po ponownym otwarciu aplikacji użytkownik został przeniesiony nie do listy publikacji a do ekranu logowania, co oznacza że został poprawnie wylogowany.
+Na Rysunku 6.5 został przedstawiony ekran zawierający szczegóły dotyczące zalogowanego użytkownika, na którym znajduje się także przycisk umożliwiający wylogowanie. Po jego naciśnięciu użytkownik, zgodnie z oczekiwaniami, został przekierowany do ekranu logowania(przedstawiony na Rysunku 6.6). Nie możliwy jest także powrót do ekranu szczegółów użytkownika poprzez naciśnięcie klawisza powrotu. Również po ponownym otwarciu aplikacji użytkownik został przeniesiony nie do listy publikacji a do ekranu logowania, co oznacza że został poprawnie wylogowany.
 
 
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/login.png}
+		\includegraphics[scale=0.27]{\ImgPath/rys/screenshots/before-logout.png}
 	\end{center}
-	\caption{Ekran szczegółów użytkownika z przyciskiem wylogowania}
+	\caption{Ekran szczegółów użytkownika z przyciskiem wylogowania.}
 	\label{zrzutLogowanieEkranUserDetails}
 \end{figure}
 
@@ -857,9 +861,9 @@ Rysunek 6.5  przedstawiona ekran zawierający szczegóły dotyczące zalogowaneg
 \begin{figure}[!htbp]
 	\begin{center}
 		\centering
-		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/login.png}
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/logout.png}
 	\end{center}
-	\caption{Ekran logowania wyświetlony po poprawnym wylogowaniu}
+	\caption{Ekran logowania wyświetlony po poprawnym wylogowaniu.}
 	\label{zrzutLogowaniePoWylogowaniu}
 \end{figure}
 
@@ -869,16 +873,235 @@ W przypadku gdy użytkownik zalogował się, zamknął aplikację, a następnie 
 \section{Przetwarzanie plików PDF}
 W tej sekcji zostaną przedstawione wyniki testów aplikacji, polegających na sprawdzeniu poprawności działania przetwarzania plików PDF. Do tego celu wykorzystane zostaną pliki o następujących cechach:
 \begin{enumerate}
-	\item Plik zawierający w metadanych pliku tylko numer DOI 
-	\item Plik zawierający numer DOI wewnątrz treści pliku
-	\item Plik zawierający w metadanych pliku informacje takie jak tytuł oraz autorzy ale także numer DOI 
-	\item Plik zawierający w metadanych pliku tylko tytuł oraz autorów
-	\item Plik nie zawierający żadnych metadanych oraz numeru DOI
+	\item Plik zawierający w metadanych pliku informacje takie jak tytuł oraz autorzy ale także numer DOI;
+	\item Plik zawierający numer DOI wewnątrz treści pliku;
+	\item Plik zawierający w metadanych pliku tylko tytuł oraz autorów;
+	\item Plik nie zawierający żadnych metadanych oraz numeru DOI.
 \end{enumerate}
+
+\subsection{Plik zawierający w metadanych pliku informacje takie jak tytuł oraz autorzy ale także numer DOI}
+Efekt przetwarzania pliku PDF oparta o identyfikator DOI oraz pozostałe informacje zawarte w metadanych został przedstawiony na Rysunku 6.7. Ekran zawierający szczegóły publikacji prezentuje dane uzyskane z bazy danych DOI oraz bezpośrednio w pliku -- tytuł publikacji został ustalony na podstawie API\footnote{Adres API: \url{https://api.crossref.org/works/}} zezwalającego na pobieranie informacji na temat publikacji na podstawie DOI, natomiast autor został odczytany bezpośrednio z metadanych pliku PDF. Obie te wartości zgadzają się z informacjami zawartymi w treści pliku.
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/title_auth_doi_metadata.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji po przetworzeniu dokumentu z DOI i metadanymi.}
+	\label{zrzutPrzetwarzanieFull}
+\end{figure}
+
+\pagebreak
+
+\subsection{Plik zawierający numer DOI wewnątrz treści pliku}
+Rysunek 6.8  przedstawia ekran zawierający szczegóły publikacji odczytane z pliku PDF zawierającego identyfikator DOI w treści pliku, ale nie posiadającym żadnych dodatkowych informacji w metadanych pliku. Proces odczytywania tytułu przebiegł pomyślnie, gdyż jest zgodny z tytułem publikacji zawartej wewnątrz pliku, który brzmi: \textit{,,Revision of the instructions to authors to require a structured
+abstract, digital object identifier of each reference, and author’s
+voice recording may increase journal access''}.
+
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/doi_text.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji po przetworzeniu dokumentu zawierającego DOI w tekście pliku.}
+	\label{zrzutPrzetwarzanieDOIText}
+\end{figure}
+
+\subsection{Plik zawierający w metadanych pliku tylko tytuł oraz autorów}
+Rysunek 6.9 przedstawiona ekran zawierający szczegóły publikacji odczytane z pliku PDF nie posiadającego DOI, a jedynie metadane w postaci tytułu i autorów. Plik który został użyty w teście zawiera rozkład jazdy pociągów PKP dla stacji Suwałki.
+
+
+
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/metadane.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji po przetworzeniu dokumentu zawierającego informacje w metadanych pliku.}
+	\label{zrzutPrzetwarzanieMetadane}
+\end{figure}
+
+\subsection{Plik nie zawierający żadnych metadanych oraz numeru DOI}
+W efekcie przetwarzania pliku, który nie posiada żadnych metadanych oraz numeru DOI nie uzyskano żadnych informacji dotyczących danej publikacji. W efekcie ekran szczegółów publikacji przedstawiony na Rysunku 6.10 nie zawiera żadnych informacji. Aby publikacja mogła zostać dodana do bazy danych, użytkownik musi wprowadzić te dane ręcznie.
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/no_info_pdf.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji po przetworzeniu dokumentu nie zawierającego żadnych metadanych.}
+	\label{zrzutPrzetwarzaniePusty}
+\end{figure}
+
+
+
+
+\section{Dodawanie, edycja i usuwanie publikacji.}
+
+Ostatnia grupa testów będzie skupiać na podstawowych operacjach przeprowadzanych na przechowywanych publikacjach takich jak ich dodawanie, edycja oraz usuwanie. Sprawdzona zostanie także walidacja poprawności danych zapisywanych w ramach metadanych publikacji. Testy będą miały na celu przede wszystkim zweryfikować czy aplikacja kliencka poprawnie odczytuje i wysyła dane z aplikacji serwerowej, a także czy aplikacja serwerowa prawidłowo obsługuje żądania wysłane z aplikacji klienckiej.
+
+\subsection{Dodawanie publikacji bez dodania pliku PDF}
+Zgodnie z założeniami całego systemu, publikacja naukowa powinna być przechowywana w systemie jako plik PDF, dlatego też aplikacja nie powinna umożliwiać dodania publikacji, która nie posiada załączonego pliku PDF. Rysunek 6.11 przedstawia, że próba dodania publikacji bez pliku PDF zakończy się niepowodzeniem i wyświetleniem stosownego komunikatu.
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/addEditDelete/no-pdf.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji z komunikatem o konieczności wyboru pliku PDF.}
+	\label{zrzutPrzetwarzaniePusty}
+\end{figure}
+
+\subsection{Pełen proces dodawania publikacji}
+Proces dodawania publikacji polega na wybraniu pliku PDF, a następnie na zredagowaniu odczytanych podczas przetwarzania pliku informacji dotyczących tytułu oraz autorów, a także na dodaniu opisu publikacji(przykład pokazany został na Rysunku 6.12). Następnie po przyciśnięciu przycisku \textit{Save} publikacja powinna zostać zapisana. Efekt tego procesu przedstawia Rysunek 6.13, co świadczy o poprawnym zakończeniu testu.
+
+\pagebreak
+
+
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/addEditDelete/add.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji przedstawiający uzupełnione pola nowej publikacji.}
+	\label{zrzutSzczegolyPubPrzedDodaniem}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/addEditDelete/after-add.png}
+	\end{center}
+	\caption{Ekran listy publikacji użytkownika prezentujący nowo dodaną publikację.}
+	\label{zrzutListaPoDodaniu}
+\end{figure}
+
+
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/addEditDelete/edit-no-title.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji po przetworzeniu dokumentu nie zawierającego żadnych metadanych.}
+	\label{zrzutPrzetwarzaniePusty}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/addEditDelete/after-edit-no-title.png}
+	\end{center}
+	\caption{Ekran listy publikacji użytkownika prezentujący zachowany tytuł publikacji.}
+	\label{zrzutNieUsunietyTytul}
+\end{figure}
+
+\subsection{Edycja publikacji poprzez usunięcie tytułu}
+Ze względu na to, że pole name jest obowiązkowe, w przypadku operacji usunięcia tytułu z publikacji, tytuł publikacji powinien zostać przywrócony do ostatniej postaci. Takie działanie zostało odnotowane i zaprezentowane na Rysunku 6.14, gdzie usunięty został tytuł publikacji \textit{,,Rozkład jazdy--Suwałki--2020--08--30-- 2020--11--07''}, a także na Rysunku 6.15 przedstawiającym  przywrócony tytuł edytowanej publikacji.
+
+\subsection{Edycja publikacji poprzez zmianę danych}
+W przypadku wprowadzania zmian w tytule, liście autorów lub w opisie publikacji, aplikacji powinna uaktualnić wartości, które zostały zmienione. Proces ten został przedstawiony gdzie na Rysunku 6.16 zapPrzetwarzaniePustyrezentowana została zedytowana publikacja, której stan pierwotny prezentuje Rysunek 6.12.
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.2]{\ImgPath/rys/screenshots/addEditDelete/after-edit.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji po przeprowadzeniu edycji publikacji.}
+	\label{zrzutPoEdycji}
+\end{figure}
+
+
+
+\subsection{Usunięcie publikacji}
+Proces usuwania publikacji wymaga wciśnięcia ikony z symbolem \textit{X}, która znajduje się w prawym górnym ekranu szczegółów aplikacji (Rysunek 6.17). Test usuwania zakończył się pomyślnie, co przedstawia pusta lista publikacji, a także stosowny komunikat przedstawiony na Rysunku 6.18
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.19]{\ImgPath/rys/screenshots/addEditDelete/before-delete.png}
+	\end{center}
+	\caption{Ekran szczegółów publikacji z przyciskiem do usuwania publikacji w prawym górnym rogu.}
+	\label{zrzutUsuwaniePrzycisk}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\centering
+		\includegraphics[scale=0.19]{\ImgPath/rys/screenshots/addEditDelete/after-delete.png}
+	\end{center}
+	\caption{Ekran z pustą listą publikacji użytkownika oraz komunikatem o pomyślnym usunięciu publikacji.}
+	\label{zrzutUsuwanieLista}
+\end{figure}
+
+
+
+\chapter{Podsumowanie}
+Celem projektu opisywanego w tej pracy było stworzenie systemu do zarządzania publikacjami naukowymi, którego główną funkcją będzie uzyskiwanie informacji dotyczących publikacji podczas procesu przetwarzania pliku. W tej pracy zaprezentowane zostały informacje dotyczące założeńm funkcji ale także szczegółów implementacyjnych aplikacji, która została wykonana. W pierwszym rozdziale tej pracy zostały zaprezentowane najważniejsze założenia całego systemu, które zostały w pełni spełnione:
+
+\begin{enumerate}
+	\item Aplikacja serwerowa została napisana przy użyciu Node.js oraz języka TypeScript;
+	\item Baza danych wraz z aplikacją serwerową zostały skonteneryzowane w kontenery Dockera i są uruchamiane przy użyciu Docker--compose;
+	\item Aplikacja kliencka uruchamiana jest na systemie Android i była testowana zarówno na urządzenia fizycznych, a także na emulatorze wbudowanym w środowisko Android Studio;
+	\item Dla systemu został przygotowany autorski system rejestracji oraz logowania użytkowników;
+	\item Podczas przetwarzania plików PDF, jeśli identyfikator DOI zostanie odnalezione, informacje dotyczące publikacji pobierane są z zewnętrznego API;
+	\item Zarówno aplikacja serwerowa jaki i kliencka, zostały podzielone na moduły o jak największej niezależności, co pozwala na ich rozbudowę;
+	\item W trakcie tworzenia aplikacji klienckiej, wykorzystywany był wzorzec Model--View--ViewModel(MVVM), który jest obecnie jedynym z najbardziej zalecanych w kontekście aplikacji mobilnych na system Android.
+\end{enumerate}
+
+\section{Wnioski}
+W trakcie powstawania systemu udało się wykonać w pełni funkcjonalny system obsługi publikacji, pomimo jego kształt zmieniał się pod wpływem trudności napotykanych podczas implementacji. Bardzo ważnym etapem projektu, było dogłębne przeanalizowanie projektu oraz analiza i ocena funkcji, które powinny zostać zaimplementowane w systemie. Dzięki dogłębnemu przeanalizowaniu stuktury metadanych plików PDF, ale także ich treści udało się ustalić pewne wzorce, które pozwoliły odczytywanie istotnych informacji zawartych w plikach. Ważny był także dobry dobór technologii -- struktura publikacji przechowywanych w bazie danych ulegała wielokrotnym zmianom, co jednak nie okazało się być dużą przeszkodą w trakcie implementacji, dzięki zastosowaniu nierelacyjnej bazy danych, która pozwalała na łatwą modyfikację struktury przechowywanych dokumentów.
+
+Niezwykle istotna i pomocna okazała się także bardzo dobra dokumentacja systemy Android, która w pełni wspierała wykorzystywany w projekcie język Kotlin. Ta obserwacja wskazała, że jednym z najistotniejszych kryteriów wyboru technologii, powinna być właśnie jakość dokumentacji. Równie ważna okazała się sama popularność systemy Android oraz platformy Node.js, ponieważ skutkuje to znacznie szerszym wsparciem społeczności internetowej w trakcie rozwiązywanie problemów implementacyjnych. 
+
+Bardzo ważną rzeczą było także tworzenie komponentów w sposób by były od siebie jak najbardziej niezależne i jak najbardziej uniwersalne. Dzięki temu znacznie łatwiej udało wprowadzać się zmiany, ale także ograniczyć ilość kodu, jak miało to miejsce podczas tworzenia modułu autoryzacji użytkowników, dzięki wykorzystaniu interfejsu \textit{IOwnership}, który pozwolił na pisanie znacznie ogólniejszych i bardziej uniwersalnych funkcji nadzorujących dostęp użytkowników do zasobów aplikacji. 
+
+\section{Plany na przyszłość}
+W trakcie realizacji systemu, dzięki coraz lepszemu rozpoznaniu problemu, zaczęły pojawiać się nowe pomysły na funkcje, które mogłyby zostać udostępnione użytkownikom. Część z nich pomimo tego, że zostały częściowo zaimplementowane nie znalazły się w finalnej wersji systemu, ze względu na ograniczenia czasowe. Między innymi były to:
+\begin{itemize}
+	\item Wprowadzenie publikacji publicznych, które mogę być przeglądane przez wszystkich użytkowników systemu. Obecnie publikacje mogą być przeglądane jedynie przez właścicieli;
+	\item Możliwość współdzielenia publikacji prywatnych z innymi użytkownikowi. Funkcja ta została w pełni przygotowana po stronie aplikacji serwerowej, lecz ze względu na ograniczenia czasowe, nie została obsłużona w aplikacji klienckiej;
+	\item Komentowanie publikacji współdzielonych z innymi użytkownikami. Podobnie jak wyżej wymieniona funkcja została zaimplementowana jedynie po stronie aplikacji serwerowej;
+	\item Obserwowanie innych użytkowników i otrzymywanie powiadomień na temat nowych publikacji dodanych przez obserwowanych użytkowników;
+	\item Rozszerzenie przetwarzania plików PDF o próbę odczytu metadanych publikacji bezpośrednio z treści pliku PDF.
+\end{itemize}
+
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
-\bibitem{INTENT}{Android Developers, Documentation for app, Intent\newline \url{https://developer.android.com/reference/android/content/Intent}}
+
+\bibitem{NOSQL}{Krzysztof Waszkiewicz, \textit{Bazy danych nosql -- czym są? Nierelacyjna baza danych – jak ją wykorzystać?}, dostęp Listopad 2020 \url{https://itwiz.pl/czym-jest-nosql-jak-wykorzystac-nierelacyjne-bazy-danych/}}
+
+\bibitem{MongoDBQueryNested}{MongoDB Developers, \textit{Query on Embedded/Nested Documents}, dostęp Listopad 2020\newline \url{https://docs.mongodb.com/manual/tutorial/query-embedded-documents/}}
+
+\bibitem{MoongooseSubDocs}{Moongoose Developers, \textit{Query on Embedded/Nested Documents}, dostęp Listopad 2020\newline \url{https://mongoosejs.com/docs/subdocs.html}}
+
+\bibitem{RedisDocs}{Node.js Redis Developers, \textit{Redis for Node.js}, dostęp Listopad 2020\newline \url{https://www.npmjs.com/package/redis}}
+
+\bibitem{DockerIntro}{Wojciech Paciorkowski, \textit{Docker dla programistów, co to jest?}, dostęp Styczeń 2021\newline \url{https://sii.pl/blog/docker-dla-programistow-co-to-jest/}}
+
+\bibitem{DockerComposeDocs}{Docker Developers, \textit{Get started with Docker Compose}, dostęp Listopad 2020\newline \url{https://docs.docker.com/compose/gettingstarted/}}
+
+\bibitem{Bcrypt}{Bcrypt for Node.js Developers, \textit{Bcrypt for Node.js}, dostęp Listopad 2020\newline \url{https://www.npmjs.com/package/bcrypt}}
+
+\bibitem{TokenAuthJWT}{Macy Ngan, \textit{Modern Token Authentication in Node with Express}, dostęp Listopad 2020\newline \url{https://developer.okta.com/blog/2019/02/14/modern-token-authentication-in-node-with-express}}
+
+\bibitem{KotlinForAndroid}{Kotlin Developers, \textit{Using Kotlin for Android Development}, dostęp Grudzień 2020\newline \url{https://kotlinlang.org/docs/reference/android-overview.html}}
+
+\bibitem{MVVM}{Jerzy Piechowiak, \textit{MVVM — wprowadzenie do wzorca}, dostęp Styczeń 2021\newline \url{https://blog.helion.pl/mvvm-wprowadzenie-wzorca/}}
+
+\bibitem{AndroidBasicsKotlin}{Android Developers, \textit{Android basics in kotlin}, dostęp Listopad 2020 \newline \url{https://developer.android.com/courses/android-basics-kotlin}}
+
+
+\bibitem{ACTIVITY}{Android Developers, \textit{Activity}, dostęp Styczeń 2021\newline \url{https://developer.android.com/jetpack/guide}}
+
+
+\bibitem{AndroidAppAcrchitecture}{Android Developers, \textit{Guide to app architecture}, dostęp Styczeń 2021\newline \url{https://developer.android.com/reference/android/app/Activity}}
+
+\bibitem{INTENT}{Android Developers, \textit{Intent}, dostęp Grudzień 2020\newline \url{https://developer.android.com/reference/android/content/Intent}}
 
 
 
