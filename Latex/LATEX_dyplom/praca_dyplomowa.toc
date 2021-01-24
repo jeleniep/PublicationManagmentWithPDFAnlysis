@@ -6,7 +6,7 @@
 \contentsline {subsection}{\numberline {2.1.1}\IeC {\'S}rodowisko uruchomieniowe}{4}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}J\IeC {\k e}zyk}{4}{subsection.2.1.2}
 \contentsline {subsection}{\numberline {2.1.3}Baza danych}{5}{subsection.2.1.3}
-\contentsline {subsection}{\numberline {2.1.4}Baza danych typu klucz-warto\IeC {\'s}\IeC {\'c}}{5}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.4}Baza danych typu klucz--warto\IeC {\'s}\IeC {\'c}}{5}{subsection.2.1.4}
 \contentsline {subsection}{\numberline {2.1.5}Konteneryzacja}{5}{subsection.2.1.5}
 \contentsline {section}{\numberline {2.2}Aplikacja kliencka}{6}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Android}{6}{subsection.2.2.1}
