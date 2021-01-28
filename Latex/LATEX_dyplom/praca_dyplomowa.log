@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.5)  27 JAN 2021 21:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.5)  28 JAN 2021 09:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -924,9 +924,6 @@ LaTeX Font Info:    External font `plex10' loaded for size
  [2]
 Rozdzia\l  2.
 
-LaTeX Warning: Citation `LOKI2' on page 3 undefined on input line 142.
-
-
 Overfull \hbox (3.85715pt too wide) in paragraph at lines 142--146
 []\T1/cmr/m/n/12 Przed roz-po-cz¦-ciem im-ple-men-ta-cji pro-jektu prze-pro-wa-
 dzona zo-staªa szcze-
@@ -940,7 +937,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 186--186
 ps : / / mobirank . pl / 2020 / 03 / 01 /
  []
 
-[6] [7]
+
+Underfull \vbox (badness 2600) has occurred while \output is active []
+
+ [6]
+[7]
 Rozdzia\l  3.
 [8
 
@@ -1416,21 +1417,18 @@ Package rerunfilecheck Info: File `praca_dyplomowa.out' has not changed.
 (rerunfilecheck)             Checksum: 31C8DFBA63E97E2A18A45EC4152C170E;5948.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1142.
  ) 
 Here is how much of TeX's memory you used:
- 9515 strings out of 494888
- 136931 string characters out of 6179866
+ 9514 strings out of 494888
+ 136924 string characters out of 6179866
  219454 words of memory out of 5000000
- 12265 multiletter control sequences out of 15000+600000
+ 12264 multiletter control sequences out of 15000+600000
  32262 words of font info for 67 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 28i,8n,32p,1370b,1048s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,8n,32p,1372b,1048s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.6
 00pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt100
 0.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
@@ -1445,9 +1443,9 @@ four/jknappen/ec/ecbx1728.600pk> </home/piotrus/.texlive2017/texmf-var/fonts/pk
 /ljfour/jknappen/ec/ecbx1440.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvi
 ps/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on praca_dyplomowa.pdf (66 pages, 1551332 bytes).
+Output written on praca_dyplomowa.pdf (66 pages, 1551706 bytes).
 PDF statistics:
- 1711 PDF objects out of 1728 (max. 8388607)
+ 1712 PDF objects out of 1728 (max. 8388607)
  1031 compressed objects within 11 object streams
  357 named destinations out of 1000 (max. 500000)
  743 words of extra memory for PDF output out of 10000 (max. 10000000)
