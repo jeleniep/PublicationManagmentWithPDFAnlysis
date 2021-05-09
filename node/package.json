@@ -83,7 +83,7 @@
     "shelljs": "^0.8.3",
     "sprintf-js": "^1.1.2",
     "typeorm": "^0.2.25",
-    "url-parse": "^1.4.7"
+    "url-parse": "^1.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
