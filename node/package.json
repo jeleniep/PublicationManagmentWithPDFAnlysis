@@ -63,7 +63,7 @@
     "express": "^4.17.1",
     "helmet": "^3.18.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "migrate": "^1.6.2",
     "mime-types": "^2.1.26",
     "mkdirp": "^0.5.1",
