@@ -80,7 +80,7 @@
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.12",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "sprintf-js": "^1.1.2",
     "typeorm": "^0.2.25",
     "url-parse": "^1.4.7"
