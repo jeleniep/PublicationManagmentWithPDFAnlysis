@@ -55,7 +55,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.10.0",
+    "class-validator": "^0.14.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "crypto-random-string": "^3.0.1",
